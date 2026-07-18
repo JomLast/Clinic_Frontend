@@ -183,6 +183,26 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .note-box .ic{ color:#C98A2B; flex:none; }
 .note-box .ic svg.ico{ width:26px; height:26px; }
 
+/* ===== PRODUCTS (สินค้าในร้าน — จาก CMS) ===== */
+.prod-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+.prod-card{ background:var(--surface); border:1px solid var(--grey-line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; transition:.3s ease; }
+.prod-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--red); }
+.prod-img{ aspect-ratio:1/1; background:var(--grey-bg); display:grid; place-items:center; overflow:hidden; }
+.prod-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+.prod-img .ph{ color:var(--red); opacity:.4; }
+.prod-img .ph svg.ico{ width:44px; height:44px; }
+.prod-body{ padding:15px 16px 18px; display:flex; flex-direction:column; gap:5px; flex:1; }
+.prod-cat{ font-size:.72rem; color:var(--red); font-weight:600; }
+.prod-body h4{ font-size:1rem; font-weight:600; line-height:1.4; }
+.prod-price{ font-weight:700; color:var(--ink); }
+.prod-note{ color:var(--grey-text); font-size:.86rem; }
+.prod-body .btn-line{ margin-top:auto; padding:9px 14px; font-size:.85rem; }
+#productEmpty .btn-line, .prod-body .btn-line{ background:#06C755; color:#fff; }
+#productEmpty .btn-line:hover, .prod-body .btn-line:hover{ background:#05a648; transform:translateY(-2px); box-shadow:0 8px 20px rgba(6,199,85,.35); }
+@media(max-width:900px){ .prod-grid{ grid-template-columns:1fr 1fr 1fr; } }
+@media(max-width:680px){ .prod-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:420px){ .prod-grid{ grid-template-columns:1fr; } }
+
 /* ===== ANIMALS ===== */
 .animals-row{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; }
 .animal-chip{ display:flex; flex-direction:column; align-items:center; gap:8px; width:122px; background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius); padding:22px 10px; transition:.25s; }

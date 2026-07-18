@@ -1,0 +1,41 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# ภาษาไทยในหน้า admin
+locale: th
+
+# โฟลเดอร์เก็บรูปที่อัปโหลด (commit เข้า repo) — ใช้ path แบบ relative ให้เว็บหาเจอทุกโฮสต์
+media_folder: "images/products"
+public_folder: "images/products"
+
+collections:
+  - name: "shop"
+    label: "สินค้าในร้าน (Pet Shop)"
+    description: "เพิ่ม / แก้ไข / ลบ สินค้าที่แสดงบนหน้าเพ็ทช็อป"
+    files:
+      - name: "products"
+        label: "รายการสินค้า"
+        file: "data/products.json"
+        fields:
+          - label: "สินค้า"
+            name: "products"
+            label_singular: "สินค้า"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.category}}"
+            fields:
+              - { label: "ชื่อสินค้า", name: "name", widget: "string" }
+              - label: "หมวดหมู่"
+                name: "category"
+                widget: "select"
+                options:
+                  - "อาหารสุนัข & แมว"
+                  - "อาหารสัตว์พิเศษ (Exotic)"
+                  - "อาหารประกอบการรักษา"
+                  - "ขนม วิตามิน & อาหารเสริม"
+                  - "ของใช้ & อุปกรณ์"
+                  - "ดูแลความสะอาด"
+                  - "อื่น ๆ"
+              - { label: "ราคา", name: "price", widget: "string", required: false, hint: "เช่น 350 บาท หรือ สอบถามราคา" }
+              - { label: "รูปสินค้า", name: "image", widget: "image", required: false, hint: "อัปโหลดรูปได้เลย (สี่เหลี่ยมจัตุรัสสวยสุด)" }
+              - { label: "รายละเอียด", name: "note", widget: "text", required: false }

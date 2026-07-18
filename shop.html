@@ -46,7 +46,23 @@
   </div>
 </section>
 
+<!-- ===== สินค้าในร้าน (จัดการผ่าน /admin) ===== -->
 <section class="bg-grey">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">สินค้าในร้าน</span>
+      <h2 class="title">สินค้าแนะนำ</h2>
+      <p>เลือกดูสินค้าที่มีในร้าน สอบถามสต๊อก/ราคา และสั่งได้ทาง LINE</p>
+    </div>
+    <div id="productList" class="prod-grid"></div>
+    <div id="productEmpty" style="display:none;text-align:center">
+      <p style="color:var(--grey-text);margin-bottom:18px">กำลังอัปเดตรายการสินค้า — สอบถามสินค้าที่ต้องการได้เลย</p>
+      <a class="btn btn-line" href="https://line.me/ti/p/tK01btn-wu" target="_blank" rel="noopener"><i data-lucide="message-circle" class="ico"></i> สอบถามสินค้าทาง LINE</a>
+    </div>
+  </div>
+</section>
+
+<section>
   <div class="container">
     <div class="care-grid">
       <div class="care-card">
@@ -79,5 +95,48 @@
 
 <div id="site-footer"></div>
 <script src="partials.js"></script>
+<script>
+/* ===== แสดงสินค้าจาก data/products.json (แก้ผ่านหน้า /admin) ===== */
+(function(){
+  var grid = document.getElementById('productList');
+  var empty = document.getElementById('productEmpty');
+  if(!grid) return;
+  var LINE = "https://line.me/ti/p/tK01btn-wu";
+  var esc = function(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); };
+
+  window.renderProducts = function(items){
+    grid.innerHTML = "";
+    if(!items || !items.length){
+      grid.style.display = "none";
+      if(empty) empty.style.display = "block";
+      return;
+    }
+    grid.style.display = "";
+    if(empty) empty.style.display = "none";
+    items.forEach(function(p){
+      var card = document.createElement('div');
+      card.className = 'prod-card';
+      var media = p.image
+        ? '<div class="prod-img"><img src="'+esc(p.image)+'" alt="'+esc(p.name)+' — เอเชียเพ็ท นครสวรรค์" loading="lazy"></div>'
+        : '<div class="prod-img"><span class="ph"><i data-lucide="package"></i></span></div>';
+      card.innerHTML = media +
+        '<div class="prod-body">'+
+          (p.category ? '<span class="prod-cat">'+esc(p.category)+'</span>' : '')+
+          '<h4>'+esc(p.name)+'</h4>'+
+          (p.price ? '<div class="prod-price">'+esc(p.price)+'</div>' : '')+
+          (p.note ? '<p class="prod-note">'+esc(p.note)+'</p>' : '')+
+          '<a class="btn btn-line" href="'+LINE+'" target="_blank" rel="noopener"><i data-lucide="message-circle"></i> สั่ง / สอบถาม LINE</a>'+
+        '</div>';
+      grid.appendChild(card);
+    });
+    if(window.lucide) window.lucide.createIcons();
+  };
+
+  fetch('data/products.json', { cache: 'no-store' })
+    .then(function(r){ return r.ok ? r.json() : { products: [] }; })
+    .then(function(d){ window.renderProducts((d && d.products) || []); })
+    .catch(function(){ window.renderProducts([]); });
+})();
+</script>
 </body>
 </html>
