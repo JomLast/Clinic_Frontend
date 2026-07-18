@@ -53,6 +53,7 @@ const NAV = [
       { label:"✂️ ผ่าตัด & ทำหมัน", href:"services.html" },
       { label:"🚨 รับปรึกษาฉุกเฉิน", href:"services.html" },
   ]},
+  { label:"เพ็ทช็อป", href:"shop.html", id:"shop" },
   { label:"เกี่ยวกับเรา", href:"about.html", id:"about", sub:[
       { label:"🏥 รู้จัก Asiapet", href:"about.html" },
       { label:"🚀 วิสัยทัศน์ & อนาคต", href:"about.html#future" },
@@ -125,6 +126,7 @@ function buildFooter(){
             <li><a href="services.html">บริการของเรา</a></li>
             <li><a href="centers.html">ศูนย์เฉพาะทาง</a></li>
             <li><a href="animals.html">สายพันธุ์ที่เรารักษา</a></li>
+            <li><a href="shop.html">เพ็ทช็อป</a></li>
             <li><a href="articles.html">สาระน่ารู้</a></li>
           </ul>
         </div>

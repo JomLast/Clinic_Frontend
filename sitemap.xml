@@ -26,6 +26,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://jomlast.github.io/Clinic_Frontend/shop.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://jomlast.github.io/Clinic_Frontend/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
