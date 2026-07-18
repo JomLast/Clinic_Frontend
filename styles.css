@@ -150,6 +150,39 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .care-tag{ font-size:.72rem; font-weight:600; letter-spacing:.4px; color:var(--red); background:rgba(232,51,75,.1); padding:3px 11px; border-radius:999px; white-space:nowrap; }
 @media(max-width:560px){ .care-grid{ grid-template-columns:1fr; } .care-card{ padding:24px 22px; } }
 
+/* ===== BEFORE / AFTER GALLERY (ผลงานอาบน้ำ-ตัดขน) ===== */
+.ba-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.ba-card{ background:var(--surface); border:1px solid var(--grey-line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); transition:.3s ease; }
+.ba-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--red); }
+.ba-pair{ display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--grey-line); }
+.ba-photo{ position:relative; aspect-ratio:1/1; overflow:hidden; background:var(--grey-bg); }
+.ba-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+.ba-photo .tag{ position:absolute; top:10px; left:10px; font-size:.72rem; font-weight:600; letter-spacing:.5px; color:#fff; padding:3px 10px; border-radius:999px; }
+.ba-photo.before .tag{ background:rgba(28,26,23,.72); }
+.ba-photo.after  .tag{ background:var(--red); }
+.ba-empty{ width:100%; height:100%; display:grid; place-items:center; color:var(--grey-text); opacity:.55; }
+.ba-empty svg.ico{ width:40px; height:40px; stroke-width:1.5; }
+.ba-cap{ padding:16px 18px; font-size:.95rem; font-weight:500; }
+.ba-cap span{ display:block; color:var(--grey-text); font-weight:400; font-size:.86rem; margin-top:3px; }
+@media(max-width:860px){ .ba-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:560px){ .ba-grid{ grid-template-columns:1fr; } }
+
+/* ===== VACCINE TABLE (ตารางวัคซีน) ===== */
+.vac-block{ margin-bottom:44px; }
+.vac-head{ display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+.vac-head .ic{ width:48px; height:48px; border-radius:14px; background:rgba(232,51,75,.1); color:var(--red); display:grid; place-items:center; flex:none; }
+.vac-head .ic svg.ico{ width:26px; height:26px; }
+.vac-head h3{ font-size:1.35rem; font-weight:700; }
+.vac-wrap{ overflow-x:auto; border-radius:var(--radius); box-shadow:var(--shadow); }
+.vac-table{ width:100%; border-collapse:collapse; background:var(--surface); min-width:520px; }
+.vac-table th{ background:var(--ink); color:#fff; text-align:left; padding:14px 18px; font-weight:600; font-size:.92rem; white-space:nowrap; }
+.vac-table td{ padding:13px 18px; border-top:1px solid var(--grey-line); font-size:.94rem; vertical-align:top; }
+.vac-table td:first-child{ font-weight:600; white-space:nowrap; color:var(--ink); }
+.vac-table tbody tr:nth-child(even){ background:var(--grey-bg); }
+.note-box{ display:flex; gap:14px; background:#FFF6E9; border:1px solid #F0D9AE; border-radius:var(--radius); padding:20px 22px; color:var(--ink-soft); font-size:.95rem; line-height:1.7; }
+.note-box .ic{ color:#C98A2B; flex:none; }
+.note-box .ic svg.ico{ width:26px; height:26px; }
+
 /* ===== ANIMALS ===== */
 .animals-row{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; }
 .animal-chip{ display:flex; flex-direction:column; align-items:center; gap:8px; width:122px; background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius); padding:22px 10px; transition:.25s; }

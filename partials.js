@@ -128,6 +128,7 @@ function buildFooter(){
             <li><a href="animals.html">สายพันธุ์ที่เรารักษา</a></li>
             <li><a href="shop.html">เพ็ทช็อป</a></li>
             <li><a href="articles.html">สาระน่ารู้</a></li>
+            <li><a href="vaccine.html">ตารางวัคซีน</a></li>
           </ul>
         </div>
         <div>
