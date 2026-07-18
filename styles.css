@@ -203,6 +203,17 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 @media(max-width:680px){ .prod-grid{ grid-template-columns:1fr 1fr; } }
 @media(max-width:420px){ .prod-grid{ grid-template-columns:1fr; } }
 
+/* ===== PROSE (เนื้อหาบทความ) ===== */
+.prose{ max-width:800px; margin:0 auto; color:var(--ink-soft); }
+.prose .lead{ font-size:1.1rem; color:var(--grey-text); line-height:1.8; margin-bottom:28px; }
+.prose p{ margin:0 0 16px; line-height:1.85; }
+.prose h3{ font-size:1.3rem; font-weight:700; color:var(--ink); margin:36px 0 14px; display:flex; align-items:center; gap:10px; }
+.prose h3 svg.ico{ width:26px; height:26px; color:var(--red); flex:none; }
+.prose ul{ list-style:none; padding:0; margin:0 0 18px; display:grid; gap:10px; }
+.prose ul li{ position:relative; padding-left:28px; line-height:1.7; }
+.prose ul li::before{ content:"✓"; position:absolute; left:0; top:0; color:var(--red); font-weight:700; }
+.prose strong{ color:var(--ink); font-weight:600; }
+
 /* ===== ANIMALS ===== */
 .animals-row{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; }
 .animal-chip{ display:flex; flex-direction:column; align-items:center; gap:8px; width:122px; background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius); padding:22px 10px; transition:.25s; }
