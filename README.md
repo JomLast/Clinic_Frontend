@@ -4,8 +4,8 @@ Static marketing website for Asiapet Animal Hospital (Thai). Plain HTML/CSS/JS �
 step. Shared header/footer and contact data live in `partials.js`; icons use a self-hosted
 [Lucide](https://lucide.dev) build (`lucide.min.js`).
 
-Booking requests are sent to the [Clinic_Backend](https://github.com/JomLast/Clinic_Backend)
-API (`POST /api/bookings`).
+Booking requests are sent straight to the clinic's email via [Web3Forms](https://web3forms.com)
+— no backend server. (The old `Clinic_Backend` API is no longer used by the live site.)
 
 ## Run locally
 
@@ -17,12 +17,10 @@ npx serve .            # or: python -m http.server 8080
 
 Then open <http://localhost:3000> (or whatever port the server prints).
 
-> The booking form on `contact.html` posts to the backend. It defaults to
-> `http://localhost:4000`. To point at a deployed backend, set the URL before the booking
-> script runs — e.g. add to `contact.html`:
-> ```html
-> <script>window.CLINIC_API_URL = "https://your-backend-host";</script>
-> ```
+> **Booking form setup:** the form on `contact.html` submits to Web3Forms, which emails the
+> clinic. Set the access key once: get a free key at <https://web3forms.com> (enter the clinic
+> email), then replace `YOUR_WEB3FORMS_KEY` in the `<script>` at the bottom of `contact.html`.
+> The key is public — safe to commit. No server, no database, no cost.
 
 ## Structure
 

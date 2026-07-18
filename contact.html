@@ -70,7 +70,7 @@
           </div>
           <div class="field"><label>บริการ / อาการเบื้องต้น</label><textarea name="note" placeholder="เช่น ฉีดวัคซีน, ตรวจสุขภาพ, ไม่กินอาหาร 2 วัน..."></textarea></div>
           <button type="submit" class="btn btn-red"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> ส่งคำขอนัดหมาย</button>
-          <div class="form-success" id="formSuccess"><i data-lucide="check-circle" class="ico"></i> ส่งคำขอเรียบร้อย! เรากำลังเปิด Facebook ให้คุณส่งข้อความยืนยัน — หรือทีมงานจะติดต่อกลับโดยเร็วที่สุด</div>
+          <div class="form-success" id="formSuccess"><i data-lucide="check-circle" class="ico"></i> ส่งคำขอจองนัดเรียบร้อย! ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด</div>
           <p class="form-note">หรือโทรนัดโดยตรงที่ <b>086 119 9349</b> · เปิดทุกวัน 09:00 – 20:00 น.</p>
         </form>
       </div>
@@ -134,10 +134,13 @@
 <div id="site-footer"></div>
 <script src="partials.js"></script>
 <script>
-/* ===== Booking → Clinic_Backend API =====
-   ตั้ง URL ของ backend ที่ deploy ไว้ (ดู repo Clinic_Backend).
-   Override ได้ด้วย window.CLINIC_API_URL ก่อนสคริปต์นี้ */
-const API_BASE = (window.CLINIC_API_URL || "http://localhost:4000").replace(/\/$/, "");
+/* ===== Booking → ส่งเข้าอีเมลคลินิกผ่าน Web3Forms (ไม่ต้องมี backend) =====
+   วิธีเปิดใช้งาน (ทำครั้งเดียว ~1 นาที):
+     1. เข้า https://web3forms.com → กรอกอีเมลคลินิก (pion456123@gmail.com) → กด Create Access Key
+     2. เปิดอีเมล จะได้ Access Key มา (คีย์นี้เปิดเผยในโค้ดได้ ปลอดภัย)
+     3. เอาคีย์มาวางแทน YOUR_WEB3FORMS_KEY ด้านล่าง
+   คำขอจองนัดทุกอันจะส่งเข้ากล่องอีเมลคลินิกทันที ไม่มีข้อมูลหาย ไม่มีค่าใช้จ่าย */
+const WEB3FORMS_KEY = "YOUR_WEB3FORMS_KEY";
 
 const form = document.getElementById("bookingForm");
 const successBox = document.getElementById("formSuccess");
@@ -149,27 +152,57 @@ if (form) {
     const btn = f.querySelector('button[type="submit"]');
     const oldText = btn ? btn.textContent : "";
     if (btn) { btn.disabled = true; btn.textContent = "กำลังส่ง..."; }
-    const booking = {
-      name: f.owner.value.trim(), phone: f.phone.value.trim(),
-      petName: f.pet.value.trim(), species: f.type.value,
-      date: f.date.value, time: f.time.value, reason: f.note.value.trim()
+
+    const payload = {
+      access_key: WEB3FORMS_KEY,
+      subject: "จองนัดใหม่จากเว็บไซต์ — " + (f.owner.value.trim() || "ไม่ระบุชื่อ"),
+      from_name: "เว็บไซต์ Asiapet",
+      "ชื่อเจ้าของ": f.owner.value.trim(),
+      "เบอร์โทร": f.phone.value.trim(),
+      "ชื่อสัตว์เลี้ยง": f.pet.value.trim() || "-",
+      "ชนิดสัตว์": f.type.value,
+      "วันที่ต้องการ": f.date.value,
+      "ช่วงเวลา": f.time.value,
+      "อาการ/บริการ": f.note.value.trim() || "-",
+      botcheck: ""
     };
+
+    const showError = () => {
+      if (successBox) {
+        successBox.style.display = "block";
+        successBox.style.background = "rgba(232,51,75,.1)";
+        successBox.style.borderColor = "var(--red)";
+        successBox.style.color = "var(--red-dark)";
+        successBox.textContent = "ส่งไม่สำเร็จ กรุณาโทร 086 119 9349 หรือทักแชท LINE/Facebook แทนครับ";
+      }
+    };
+
+    if (!WEB3FORMS_KEY || WEB3FORMS_KEY === "YOUR_WEB3FORMS_KEY") {
+      console.error("Web3Forms access key ยังไม่ได้ตั้งค่า");
+      showError();
+      if (btn) { btn.disabled = false; btn.textContent = oldText; }
+      return;
+    }
+
     try {
-      const res = await fetch(API_BASE + "/api/bookings", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(booking)
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(payload)
       });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      if (successBox) { successBox.style.display = "block";
-        successBox.textContent = "ส่งคำขอจองนัดเรียบร้อย! ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด"; }
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.message || "HTTP " + res.status);
+      if (successBox) {
+        successBox.style.display = "block";
+        successBox.textContent = "ส่งคำขอจองนัดเรียบร้อย! ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด";
+      }
       f.reset();
     } catch (err) {
       console.error("booking error:", err);
-      if (successBox) { successBox.style.display = "block";
-        successBox.style.background = "rgba(232,51,75,.1)"; successBox.style.borderColor = "var(--red)";
-        successBox.style.color = "var(--red-dark)";
-        successBox.textContent = "ส่งไม่สำเร็จ กรุณาโทร 086 119 9349 หรือทักแชท LINE/Facebook แทนครับ"; }
-    } finally { if (btn) { btn.disabled = false; btn.textContent = oldText; } }
+      showError();
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = oldText; }
+    }
   });
 }
 </script>

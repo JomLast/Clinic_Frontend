@@ -212,6 +212,6 @@ function initSite(){
     document.head.appendChild(s);
   }
 
-  // หมายเหตุ: ฟอร์มจองนัดส่งขึ้น Firebase จัดการในไฟล์ firebase-booking.js (โหลดเฉพาะหน้า contact)
+  // หมายเหตุ: ฟอร์มจองนัดส่งเข้าอีเมลคลินิกผ่าน Web3Forms — สคริปต์อยู่ท้าย contact.html (ไม่มี backend)
 }
 document.addEventListener("DOMContentLoaded", initSite);
