@@ -42,6 +42,8 @@
         <h3><i data-lucide="calendar-check" class="ico"></i> แบบฟอร์มจองนัด</h3>
         <p class="hint">ช่อง <span style="color:var(--red)">*</span> จำเป็นต้องกรอก</p>
         <form id="bookingForm">
+          <!-- honeypot กันบอท: ช่องล่องหน คนไข้จริงไม่เห็น/ไม่กรอก ถ้าถูกกรอก = สแปม -->
+          <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div class="form-row">
             <div class="field"><label>ชื่อเจ้าของ <span class="req">*</span></label><input type="text" name="owner" placeholder="ชื่อ-นามสกุล" required /></div>
             <div class="field"><label>เบอร์โทร <span class="req">*</span></label><input type="tel" name="phone" placeholder="08X-XXX-XXXX" required /></div>
@@ -164,8 +166,17 @@ if (form) {
       "วันที่ต้องการ": f.date.value,
       "ช่วงเวลา": f.time.value,
       "อาการ/บริการ": f.note.value.trim() || "-",
-      botcheck: ""
+      botcheck: f.botcheck.checked
     };
+
+    // ถ้า honeypot ถูกกรอก (บอท) → เงียบ ๆ ทำเป็นส่งสำเร็จ ไม่ยิงจริง ไม่รบกวนเมลคลินิก
+    if (f.botcheck.checked) {
+      if (successBox) { successBox.style.display = "block";
+        successBox.textContent = "ส่งคำขอจองนัดเรียบร้อย! ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด"; }
+      f.reset();
+      if (btn) { btn.disabled = false; btn.textContent = oldText; }
+      return;
+    }
 
     const showError = () => {
       if (successBox) {
