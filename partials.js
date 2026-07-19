@@ -13,7 +13,7 @@ const SITE = {
   line:     "https://line.me/ti/p/tK01btn-wu",
   lineId:   "asiapet310",
   lineQR:   "https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=https%3A%2F%2Fline.me%2Fti%2Fp%2FtK01btn-wu",
-  instagram:"#",
+  instagram:"https://www.instagram.com/asiapet01/",
   address:  "320/12 ข้างบิ๊กซีนครสวรรค์ ถ.สายเอเชีย ต.นครสวรรค์ตก อ.เมือง จ.นครสวรรค์ 60000",
   mapLink:  "https://maps.app.goo.gl/9gafEAtYKx8WSJxn7",
   mapEmbed: "https://www.google.com/maps?q=15.6959822,100.1217192&z=17&hl=th&output=embed",
@@ -83,7 +83,6 @@ function buildHeader(active){
         <span>${ICON.phone} ${SITE.phone}</span>
         <span>${ICON.clock} เปิดทุกวัน ${SITE.hoursWeekday}</span>
       </div>
-      <div class="lang"><i data-lucide="globe" class="ico"></i> ไทย <i data-lucide="chevron-down" class="ico caret"></i></div>
     </div>
   </div>
   <header>
@@ -93,7 +92,6 @@ function buildHeader(active){
       </a>
       <div class="nav-links" id="navLinks">${links}</div>
       <div class="nav-right">
-        <button class="search-btn" aria-label="ค้นหา"><i data-lucide="search" class="ico"></i></button>
         <a href="contact.html" class="emergency">${ICON.alert} <span class="full">แจ้งสัตว์ป่วยอาการฉุกเฉิน</span></a>
         <button class="menu-toggle" id="menuToggle" aria-label="เมนู"><i data-lucide="menu" class="ico"></i></button>
       </div>
