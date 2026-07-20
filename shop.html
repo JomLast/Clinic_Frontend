@@ -103,6 +103,7 @@
   if(!grid) return;
   var LINE = "https://line.me/ti/p/tK01btn-wu";
   var esc = function(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); };
+  var CAT_ICON = {"อาหารสุนัข & แมว":"bone","อาหารสัตว์พิเศษ (Exotic)":"carrot","อาหารประกอบการรักษา":"heart-pulse","ขนม วิตามิน & อาหารเสริม":"pill","ของใช้ & อุปกรณ์":"shopping-bag","ดูแลความสะอาด":"shield-check"};
 
   window.renderProducts = function(items){
     grid.innerHTML = "";
@@ -116,9 +117,10 @@
     items.forEach(function(p){
       var card = document.createElement('div');
       card.className = 'prod-card';
+      var phIcon = CAT_ICON[p.category] || 'package';
       var media = p.image
         ? '<div class="prod-img"><img src="'+esc(p.image)+'" alt="'+esc(p.name)+' — เอเชียเพ็ท นครสวรรค์" loading="lazy"></div>'
-        : '<div class="prod-img"><span class="ph"><i data-lucide="package"></i></span></div>';
+        : '<div class="prod-img"><span class="ph"><i data-lucide="'+phIcon+'"></i></span></div>';
       card.innerHTML = media +
         '<div class="prod-body">'+
           (p.category ? '<span class="prod-cat">'+esc(p.category)+'</span>' : '')+
