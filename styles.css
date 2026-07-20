@@ -48,7 +48,7 @@ h2.title{ font-size:clamp(1.8rem,4vw,2.5rem); font-weight:700; line-height:1.25;
 .topbar{ background:var(--black); color:#fff; font-size:.85rem; }
 .topbar .container{ display:flex; justify-content:space-between; align-items:center; height:38px; }
 .topbar .left{ display:flex; gap:20px; opacity:.85; }
-.topbar .left span{ display:inline-flex; align-items:center; gap:6px; }
+.topbar .left a, .topbar .left span{ display:inline-flex; align-items:center; gap:6px; color:inherit; }
 .lang{ display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.12); padding:4px 12px; border-radius:50px; cursor:pointer; }
 
 /* ===== NAVBAR ===== */
@@ -381,7 +381,8 @@ footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
   .form-row{ grid-template-columns:1fr; }
   .cards,.roadmap,.article-grid{ grid-template-columns:1fr 1fr; }
   .feature-bar .container{ grid-template-columns:1fr 1fr; gap:18px; }
-  .topbar .left{ display:none; }
+  .topbar .left{ gap:0; }
+  .topbar .left .tb-hours{ display:none; }
   .foot-grid{ grid-template-columns:1fr 1fr; }
 }
 @media (max-width:560px){

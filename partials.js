@@ -85,8 +85,8 @@ function buildHeader(active){
   <div class="topbar">
     <div class="container">
       <div class="left">
-        <span>${ICON.phone} ${SITE.phone}</span>
-        <span>${ICON.clock} เปิดทุกวัน ${SITE.hoursWeekday}</span>
+        <a href="tel:${SITE.phoneTel}" class="tb-phone">${ICON.phone} ${SITE.phone}</a>
+        <span class="tb-hours">${ICON.clock} เปิดทุกวัน ${SITE.hoursWeekday}</span>
       </div>
     </div>
   </div>
@@ -112,7 +112,7 @@ function buildFooter(){
       <div class="foot-grid">
         <div>
           <a href="index.html" class="footer-logo" aria-label="Asiapet Animal Hospital">
-            <span class="footer-logo-img" role="img" aria-label="Asiapet Animal Hospital"></span>
+            <img class="footer-logo-img" src="logo-full.png" alt="Asiapet Animal Hospital" />
           </a>
           <p>โรงพยาบาลสัตว์ครบวงจร ดูแลสัตว์เลี้ยงของคุณด้วยหัวใจ มุ่งสู่การเป็นโรงพยาบาลสัตว์เต็มรูปแบบ</p>
           <p style="display:flex;gap:8px;align-items:flex-start"><span>${ICON.pin}</span> ${SITE.address}</p>
