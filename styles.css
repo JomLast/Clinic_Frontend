@@ -214,6 +214,17 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .prose ul li::before{ content:"✓"; position:absolute; left:0; top:0; color:var(--red); font-weight:700; }
 .prose strong{ color:var(--ink); font-weight:600; }
 
+/* ===== PRICE BOX (ราคาบริการ) ===== */
+.price-box{ max-width:800px; margin:30px auto 0; background:var(--surface); border:1px solid var(--grey-line); border-left:4px solid var(--red); border-radius:var(--radius); padding:24px 28px; box-shadow:var(--shadow); }
+.price-box h3{ font-size:1.18rem; font-weight:700; margin-bottom:14px; display:flex; align-items:center; gap:9px; }
+.price-box h3 svg.ico{ color:var(--red); width:24px; height:24px; }
+.price-list{ list-style:none; padding:0; margin:0; display:grid; gap:0; }
+.price-list li{ display:flex; justify-content:space-between; gap:16px; align-items:baseline; padding:12px 2px; border-top:1px dashed var(--grey-line); }
+.price-list li:first-child{ border-top:none; }
+.price-list .p-name{ color:var(--ink-soft); }
+.price-list .p-val{ font-weight:700; color:var(--red); white-space:nowrap; }
+.price-hint{ color:var(--grey-text); font-size:.86rem; margin-top:14px; line-height:1.6; }
+
 /* ===== ANIMALS ===== */
 .animals-row{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; }
 .animal-chip{ display:flex; flex-direction:column; align-items:center; gap:8px; width:122px; background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius); padding:22px 10px; transition:.25s; }
