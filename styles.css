@@ -225,6 +225,12 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .price-list .p-val{ font-weight:700; color:var(--red); white-space:nowrap; }
 .price-hint{ color:var(--grey-text); font-size:.86rem; margin-top:14px; line-height:1.6; }
 
+/* ===== BACK BUTTON (ปุ่มย้อนกลับ) ===== */
+.back-bar{ padding:26px 0 0; }
+.back-link{ display:inline-flex; align-items:center; gap:7px; color:var(--grey-text); font-weight:600; font-size:.92rem; padding:8px 16px 8px 13px; border:1px solid var(--grey-line); border-radius:999px; background:var(--surface); transition:.2s ease; }
+.back-link:hover{ color:var(--red); border-color:var(--red); transform:translateX(-2px); }
+.back-link svg.ico{ width:18px; height:18px; }
+
 /* ===== ANIMALS ===== */
 .animals-row{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; }
 .animal-chip{ display:flex; flex-direction:column; align-items:center; gap:8px; width:122px; background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius); padding:22px 10px; transition:.25s; }

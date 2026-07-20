@@ -159,6 +159,18 @@ function initSite(){
   if(h) h.innerHTML = buildHeader(active);
   if(f) f.innerHTML = buildFooter();
 
+  // ===== ปุ่มย้อนกลับ (เฉพาะหน้าที่ตั้ง data-back บน <body>) =====
+  const backTo = document.body.getAttribute("data-back");
+  if(backTo){
+    const firstSection = document.querySelector("section");
+    if(firstSection){
+      const bar = document.createElement("div");
+      bar.className = "back-bar";
+      bar.innerHTML = `<div class="container"><a href="${backTo}" class="back-link" onclick="if(document.referrer.indexOf(location.host)>-1){history.back();return false;}"><i data-lucide="arrow-left" class="ico"></i> ย้อนกลับ</a></div>`;
+      firstSection.parentNode.insertBefore(bar, firstSection);
+    }
+  }
+
   // เมนูมือถือ
   const toggle = document.getElementById("menuToggle");
   const links  = document.getElementById("navLinks");
