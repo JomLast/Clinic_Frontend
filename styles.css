@@ -118,12 +118,6 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .page-banner .crumb a:hover{ color:var(--red); }
 
 /* ===== FEATURE BAR ===== */
-.feature-bar{ background:var(--black); color:#fff; }
-.feature-bar .container{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; padding:26px 0; }
-.fb-item{ display:flex; align-items:center; gap:14px; justify-content:center; }
-.fb-item .ic{ font-size:1.7rem; }
-.fb-item b{ display:block; font-size:1rem; }
-.fb-item span{ font-size:.82rem; opacity:.7; }
 
 /* ===== ABOUT ===== */
 .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
@@ -284,8 +278,6 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
 
 /* Lucide content icons — ขนาด/สีตามบริบท */
 .card .ic svg.ico{ width:30px; height:30px; stroke-width:1.8; }
-.fb-item .ic{ color:var(--red); display:inline-flex; }
-.fb-item .ic svg.ico{ width:26px; height:26px; }
 .animal-chip .emoji{ color:var(--red); display:inline-flex; }
 .animal-chip .emoji svg.ico{ width:28px; height:28px; }
 .article-card .thumb{ color:var(--red); }
@@ -359,7 +351,7 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
 footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
 .footer-logo{ display:inline-block; background:#fff; padding:14px 18px; border-radius:14px; }
 .footer-logo .footer-logo-img{ display:block; height:64px; width:auto; }
-.foot-grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1.3fr; gap:40px; margin-bottom:40px; }
+.foot-grid{ display:grid; grid-template-columns:2fr 1fr 1.5fr; gap:40px; margin-bottom:40px; }
 .foot-grid p{ opacity:.7; font-size:.95rem; margin-top:14px; max-width:330px; }
 .foot-grid h5{ font-size:1rem; margin-bottom:16px; }
 .foot-grid ul{ list-style:none; display:grid; gap:10px; }
@@ -392,7 +384,6 @@ footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
   .about-grid,.info-grid,.booking-grid{ grid-template-columns:1fr; }
   .form-row{ grid-template-columns:1fr; }
   .cards,.roadmap,.article-grid{ grid-template-columns:1fr 1fr; }
-  .feature-bar .container{ grid-template-columns:1fr 1fr; gap:18px; }
   .topbar .left{ gap:0; }
   .topbar .left .tb-hours{ display:none; }
   .foot-grid{ grid-template-columns:1fr 1fr; }

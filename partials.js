@@ -96,7 +96,7 @@ function buildFooter(){
           <a href="index.html" class="footer-logo" aria-label="Asiapet Animal Hospital">
             <img class="footer-logo-img" src="logo-full.png" alt="Asiapet Animal Hospital" />
           </a>
-          <p>โรงพยาบาลสัตว์ครบวงจร ดูแลสัตว์เลี้ยงของคุณด้วยหัวใจ มุ่งสู่การเป็นโรงพยาบาลสัตว์เต็มรูปแบบ</p>
+          <p>โรงพยาบาลสัตว์ครบวงจร ดูแลสัตว์เลี้ยงด้วยหัวใจ</p>
           <p style="display:flex;gap:8px;align-items:flex-start"><span>${ICON.pin}</span> ${SITE.address}</p>
           <div class="socials">
             <a href="${SITE.facebook}" target="_blank" rel="noopener" title="Facebook">f</a>
@@ -107,29 +107,22 @@ function buildFooter(){
         <div>
           <h5>เมนู</h5>
           <ul>
-            <li><a href="about.html">เกี่ยวกับเรา</a></li>
             <li><a href="services.html">บริการของเรา</a></li>
-            <li><a href="centers.html">ศูนย์เฉพาะทาง</a></li>
-            <li><a href="animals.html">สายพันธุ์ที่เรารักษา</a></li>
+            <li><a href="animals.html">สัตว์ที่เรารักษา</a></li>
             <li><a href="shop.html">เพ็ทช็อป</a></li>
             <li><a href="articles.html">สาระน่ารู้</a></li>
-            <li><a href="vaccine.html">ตารางวัคซีน</a></li>
+            <li><a href="about.html">เกี่ยวกับเรา</a></li>
           </ul>
         </div>
         <div>
-          <h5>เวลาทำการ</h5>
-          <ul>
-            <li>เปิดทุกวัน<br>${SITE.hoursWeekday}</li>
-            <li style="color:var(--red);display:flex;align-items:center;gap:7px">${ICON.alert} ฉุกเฉิน: โทรปรึกษาได้</li>
-          </ul>
-        </div>
-        <div>
-          <h5>ติดต่อเรา</h5>
+          <h5>ติดต่อ &amp; เวลาทำการ</h5>
           <ul>
             <li><a href="tel:${SITE.phoneTel}">${ICON.phone} ${SITE.phone}</a></li>
-            <li><a href="${SITE.facebook}" target="_blank" rel="noopener">${ICON.facebook} Facebook: asiapetclinic</a></li>
             <li><a href="${SITE.line}" target="_blank" rel="noopener">${ICON.chat} LINE: ${SITE.lineId}</a></li>
+            <li><a href="${SITE.facebook}" target="_blank" rel="noopener">${ICON.facebook} Facebook: asiapetclinic</a></li>
             <li><a href="${SITE.mapLink}" target="_blank" rel="noopener">${ICON.pin} ดูแผนที่ / นำทาง</a></li>
+            <li style="margin-top:6px">เปิดทุกวัน ${SITE.hoursWeekday}</li>
+            <li style="color:var(--red);display:flex;align-items:center;gap:7px">${ICON.alert} ฉุกเฉิน: โทรปรึกษาได้</li>
           </ul>
         </div>
       </div>
@@ -177,13 +170,13 @@ function initSite(){
   const revealSel = [
     ".section-head", ".card", ".step", ".animal-chip", ".article-card",
     ".about-grid > div", ".info-box", ".booking-form", ".map-wrap",
-    ".qr-card", ".cta-band", ".fb-item", ".hero-inner > *", ".page-banner > .container > *"
+    ".qr-card", ".cta-band", ".hero-inner > *", ".page-banner > .container > *"
   ];
   const revealEls = document.querySelectorAll(revealSel.join(","));
   revealEls.forEach(el => el.classList.add("reveal"));
 
   // หน่วงเวลาแบบไล่ลำดับให้การ์ดในแถวเดียวกันทยอยขึ้น
-  document.querySelectorAll(".cards, .animals-row, .article-grid, .roadmap, .feature-bar .container").forEach(group => {
+  document.querySelectorAll(".cards, .animals-row, .article-grid, .roadmap").forEach(group => {
     Array.from(group.children).forEach((child, i) => {
       if (child.classList.contains("reveal")) child.style.transitionDelay = (i * 0.09) + "s";
     });
