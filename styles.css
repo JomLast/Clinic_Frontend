@@ -143,6 +143,13 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .card h3{ font-size:1.2rem; margin-bottom:8px; font-weight:600; }
 .card p{ color:var(--grey-text); font-size:.95rem; }
 
+/* ===== SERVICE GROUPS (จัดหมวดบริการ) ===== */
+.svc-group{ margin-bottom:54px; }
+.svc-group:last-child{ margin-bottom:0; }
+.svc-group-title{ display:flex; align-items:center; gap:10px; font-size:1.25rem; font-weight:700; color:var(--ink); margin-bottom:24px; padding-bottom:12px; border-bottom:2px solid var(--grey-line); }
+.svc-group-title svg.ico{ width:24px; height:24px; color:var(--red); flex:none; }
+.svc-group-title .count{ margin-left:auto; font-size:.85rem; font-weight:500; color:var(--grey-text); }
+
 /* ===== SPECIAL CARE (บริการดูแลพิเศษ) ===== */
 .care-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:26px; }
 .care-card{ display:flex; gap:22px; background:var(--surface); border:1px solid var(--grey-line); border-left:4px solid var(--red); border-radius:var(--radius); padding:30px; box-shadow:var(--shadow); transition:.3s ease; }
