@@ -34,36 +34,18 @@ const ICON = {
 /* ----- เมนูหลัก (มี dropdown) ----- */
 const NAV = [
   { label:"หน้าหลัก", href:"index.html", id:"home" },
-  { label:"สายพันธุ์ที่เรารักษา", href:"animals.html", id:"animals", sub:[
-      { label:"🐶 สุนัข", href:"animals.html" },
-      { label:"🐱 แมว", href:"animals.html" },
-      { label:"🐰 กระต่าย", href:"animals.html" },
-      { label:"🦜 นก", href:"animals.html" },
-      { label:"🦎 สัตว์พิเศษ (Exotic)", href:"animals.html" },
-  ]},
-  { label:"ศูนย์ และคลินิกเฉพาะทาง", href:"centers.html", id:"centers", sub:[
-      { label:"🩺 อายุรกรรม", href:"centers.html" },
-      { label:"✂️ ศัลยกรรม", href:"centers.html" },
-      { label:"🦷 ทันตกรรม", href:"centers.html" },
-      { label:"🔬 ห้องปฏิบัติการ", href:"centers.html" },
-  ]},
   { label:"บริการของเรา", href:"services.html", id:"services", sub:[
-      { label:"🩺 ตรวจสุขภาพทั่วไป", href:"service-checkup.html" },
-      { label:"💉 ฉีดวัคซีน", href:"vaccine.html" },
-      { label:"🔬 ตรวจแล็บ & วินิจฉัย", href:"service-lab.html" },
-      { label:"🦷 ทันตกรรม", href:"service-dental.html" },
-      { label:"✂️ ผ่าตัด & ทำหมัน", href:"service-surgery.html" },
-      { label:"🚨 รับปรึกษาฉุกเฉิน", href:"service-emergency.html" },
-      { label:"🛏️ ฝากเลี้ยง / พักฟื้น", href:"service-boarding.html" },
-      { label:"🛁 อาบน้ำ & ตัดขน", href:"service-grooming.html" },
-      { label:"🧪 ตรวจโรคเฉพาะทาง", href:"service-special.html" },
+      { label:"ตรวจสุขภาพ", href:"service-checkup.html" },
+      { label:"ฉีดวัคซีน", href:"vaccine.html" },
+      { label:"ผ่าตัด & ทำหมัน", href:"service-surgery.html" },
+      { label:"อาบน้ำ & ตัดขน", href:"service-grooming.html" },
+      { label:"ศูนย์เฉพาะทาง", href:"centers.html" },
+      { label:"ดูบริการทั้งหมด →", href:"services.html" },
   ]},
+  { label:"สัตว์ที่เรารักษา", href:"animals.html", id:"animals" },
   { label:"เพ็ทช็อป", href:"shop.html", id:"shop" },
-  { label:"เกี่ยวกับเรา", href:"about.html", id:"about", sub:[
-      { label:"🏥 รู้จัก Asiapet", href:"about.html" },
-      { label:"🚀 วิสัยทัศน์ & อนาคต", href:"about.html#future" },
-  ]},
   { label:"สาระน่ารู้", href:"articles.html", id:"articles" },
+  { label:"เกี่ยวกับเรา", href:"about.html", id:"about" },
   { label:"ติดต่อเรา", href:"contact.html", id:"contact" },
 ];
 
