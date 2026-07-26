@@ -15,6 +15,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-dog.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-cat.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-rabbit.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-bird.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-rodent.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-poultry.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-exotic.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://jomlast.github.io/Clinic_Frontend/service-checkup.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://jomlast.github.io/Clinic_Frontend/service-lab.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://jomlast.github.io/Clinic_Frontend/service-dental.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
