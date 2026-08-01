@@ -239,7 +239,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 
 /* ===== ANIMALS ===== */
 .animals-row{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; }
-.animal-chip{ display:flex; flex-direction:column; align-items:center; gap:8px; width:122px; background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius); padding:22px 10px; transition:.25s; color:inherit; text-decoration:none; }
+.animal-chip{ display:flex; flex-direction:column; align-items:center; gap:10px; width:134px; background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius); padding:18px 12px 20px; transition:.25s; color:inherit; text-decoration:none; }
 .animal-chip:hover{ border-color:var(--red); transform:translateY(-4px); box-shadow:var(--shadow); }
 .animal-chip .emoji{ font-size:2.4rem; }
 .animal-chip span{ font-weight:500; font-size:.9rem; text-align:center; }
@@ -280,7 +280,8 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
 .card .ic svg.ico{ width:30px; height:30px; stroke-width:1.8; }
 .animal-chip .emoji{ color:var(--red); display:inline-flex; }
 .animal-chip .emoji svg.ico{ width:28px; height:28px; }
-.animal-chip .emoji img{ width:46px; height:46px; object-fit:contain; display:block; }
+.animal-chip .emoji img{ width:100%; max-width:104px; height:auto; aspect-ratio:1; object-fit:contain; display:block; }
+.animal-chip .emoji{ width:100%; display:grid; place-items:center; }
 .article-card .thumb{ color:var(--red); }
 .article-card .thumb svg.ico{ width:46px; height:46px; stroke-width:1.6; }
 .about-img .big-paw{ color:var(--red); }
