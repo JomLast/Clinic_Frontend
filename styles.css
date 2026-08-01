@@ -350,18 +350,23 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
 
 /* ===== FOOTER ===== */
 footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
-.footer-logo{ display:inline-block; background:#fff; padding:14px 18px; border-radius:14px; }
-.footer-logo .footer-logo-img{ display:block; height:64px; width:auto; }
+.footer-brand{ display:inline-block; line-height:1; color:inherit; }
+.footer-brand .fb-name{ display:block; font-family:'Poppins',sans-serif; font-weight:800; font-size:1.95rem; letter-spacing:-.5px; color:var(--red); }
+.footer-brand .fb-sub{ display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:.76rem; letter-spacing:2.6px; text-transform:uppercase; opacity:.7; margin-top:6px; }
 .foot-grid{ display:grid; grid-template-columns:2fr 1fr 1.5fr; gap:40px; margin-bottom:40px; }
 .foot-grid p{ opacity:.7; font-size:.95rem; margin-top:14px; max-width:330px; }
+.foot-tag{ margin-top:18px !important; }
+.foot-addr{ display:flex; gap:4px; align-items:flex-start; line-height:1.75; }
+.foot-addr svg.ico{ flex:none; margin-top:.35em; color:var(--red); opacity:.9; }
 .foot-grid h5{ font-size:1rem; margin-bottom:16px; }
 .foot-grid ul{ list-style:none; display:grid; gap:10px; }
 .foot-grid ul li{ opacity:.78; font-size:.93rem; display:flex; gap:8px; align-items:flex-start; }
 .foot-grid ul a{ opacity:.78; font-size:.93rem; }
 .foot-grid ul a:hover{ opacity:1; color:var(--red); }
-.socials{ display:flex; gap:12px; margin-top:18px; }
-.socials a{ width:42px; height:42px; border-radius:12px; background:rgba(255,255,255,.1); display:grid; place-items:center; font-weight:600; transition:.2s; }
-.socials a:hover{ background:var(--red); }
+.socials{ display:flex; gap:11px; margin-top:22px; }
+.socials a{ width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); display:grid; place-items:center; transition:.22s ease; }
+.socials a:hover{ background:var(--red); border-color:var(--red); transform:translateY(-3px); box-shadow:0 8px 18px rgba(232,51,75,.35); }
+.socials svg.ico{ width:19px; height:19px; margin:0; vertical-align:0; }
 .foot-bottom{ border-top:1px solid rgba(255,255,255,.12); padding-top:22px; text-align:center; opacity:.6; font-size:.88rem; }
 
 /* ===== SCROLL REVEAL (text/การ์ดค่อย ๆ ลอยขึ้นตอนเลื่อน) ===== */

@@ -28,6 +28,7 @@ const ICON = {
   pin:      `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
   facebook: `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
   chat:     `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>`,
+  instagram:`<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>`,
   alert:    `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
 };
 
@@ -102,15 +103,16 @@ function buildFooter(){
     <div class="container">
       <div class="foot-grid">
         <div>
-          <a href="index.html" class="footer-logo" aria-label="Asiapet Animal Hospital">
-            <img class="footer-logo-img" src="logo-full.png" alt="Asiapet Animal Hospital" />
+          <a href="index.html" class="footer-brand" aria-label="Asiapet Animal Hospital">
+            <span class="fb-name">Asiapet</span>
+            <span class="fb-sub">Animal Hospital</span>
           </a>
-          <p>โรงพยาบาลสัตว์ครบวงจร ดูแลสัตว์เลี้ยงด้วยหัวใจ</p>
-          <p style="display:flex;gap:8px;align-items:flex-start"><span>${ICON.pin}</span> ${SITE.address}</p>
+          <p class="foot-tag">โรงพยาบาลสัตว์ครบวงจร ดูแลสัตว์เลี้ยงด้วยหัวใจ</p>
+          <p class="foot-addr">${ICON.pin} <span>${SITE.address}</span></p>
           <div class="socials">
-            <a href="${SITE.facebook}" target="_blank" rel="noopener" title="Facebook">f</a>
-            <a href="${SITE.line}" target="_blank" rel="noopener" title="LINE">L</a>
-            <a href="${SITE.instagram}" target="_blank" rel="noopener" title="Instagram">IG</a>
+            <a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">${ICON.facebook}</a>
+            <a href="${SITE.line}" target="_blank" rel="noopener" aria-label="LINE" title="LINE">${ICON.chat}</a>
+            <a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">${ICON.instagram}</a>
           </div>
         </div>
         <div>
