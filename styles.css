@@ -387,6 +387,13 @@ footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
   .menu-toggle{ display:block; }
   .emergency span.full{ display:none; }
 }
+/* แท็บเล็ต / จอสัมผัส — iOS ซูมหน้าจอเองถ้าตัวอักษรในช่องกรอกเล็กกว่า 16px */
+@media (max-width:1024px){
+  .field input,.field select,.field textarea{ font-size:16px; }
+}
+@media (max-width:900px){
+  .cta-band{ padding:48px 30px; }
+}
 @media (max-width:860px){
   .about-grid,.info-grid,.booking-grid{ grid-template-columns:1fr; }
   .form-row{ grid-template-columns:1fr; }
@@ -394,6 +401,7 @@ footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
   .topbar .left{ gap:0; }
   .topbar .left .tb-hours{ display:none; }
   .foot-grid{ grid-template-columns:1fr 1fr; }
+  .booking-form{ padding:28px 22px; }
 }
 @media (max-width:560px){
   .cards,.roadmap,.article-grid{ grid-template-columns:1fr; }
@@ -401,4 +409,23 @@ footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
   .brand-logo{ height:46px; }
   .brand .logo-mark{ width:42px; height:42px; font-size:1.4rem; }
   .foot-grid{ grid-template-columns:1fr; }
+  /* ลดขอบในให้เนื้อหาได้พื้นที่คืนบนจอแคบ */
+  .cta-band{ padding:36px 20px; border-radius:22px; }
+  .booking-form{ padding:24px 18px; }
+  .care-card{ padding:22px 18px; }
+  .price-box{ padding:20px 18px; }
+  .note-box{ padding:18px 16px; gap:11px; }
+  .vac-head h3{ font-size:1.15rem; }
+  .prose h3{ font-size:1.18rem; }
+}
+/* มือถือแนวนอน (จอเตี้ย) — ขอบเปล่ากินพื้นที่ 38% ทำให้ปุ่มจองนัดตกจอ */
+@media (max-height:520px) and (orientation:landscape){
+  .hero{ min-height:auto; padding:0; }
+  .hero-inner{ padding:26px 20px; }
+  .hero-th{ font-size:clamp(1.5rem,3.6vw,1.95rem); }
+  .hero-badge{ margin-bottom:12px; }
+  .hero-en{ margin-bottom:4px; }
+  .hero .lead{ font-size:1rem; margin:10px auto 18px; }
+  .hero-trust{ margin-top:18px; gap:8px 18px; }
+  section{ padding:48px 0; }
 }
