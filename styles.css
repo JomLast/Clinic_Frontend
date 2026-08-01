@@ -280,6 +280,7 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
 .card .ic svg.ico{ width:30px; height:30px; stroke-width:1.8; }
 .animal-chip .emoji{ color:var(--red); display:inline-flex; }
 .animal-chip .emoji svg.ico{ width:28px; height:28px; }
+.animal-chip .emoji img{ width:46px; height:46px; object-fit:contain; display:block; }
 .article-card .thumb{ color:var(--red); }
 .article-card .thumb svg.ico{ width:46px; height:46px; stroke-width:1.6; }
 .about-img .big-paw{ color:var(--red); }
