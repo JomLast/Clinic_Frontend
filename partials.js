@@ -17,8 +17,7 @@ const SITE = {
   address:  "320/12 ข้างบิ๊กซีนครสวรรค์ ถ.สายเอเชีย ต.นครสวรรค์ตก อ.เมือง จ.นครสวรรค์ 60000",
   mapLink:  "https://maps.app.goo.gl/9gafEAtYKx8WSJxn7",
   mapEmbed: "https://www.google.com/maps?q=15.6959822,100.1217192&z=17&hl=th&output=embed",
-  hoursWeekday: "09:00 – 20:00 น.",
-  hoursWeekend: "09:00 – 18:00 น.",
+  hours: "09:00 – 20:00 น.",          // เปิดทุกวัน เวลาเดียวกันหมด
 };
 
 /* ----- ไอคอนเส้น (SVG, Lucide-style) — ใช้ currentColor เข้าธีมอัตโนมัติ ----- */
@@ -78,7 +77,7 @@ function buildHeader(active){
     <div class="container">
       <div class="left">
         <a href="tel:${SITE.phoneTel}" class="tb-phone">${ICON.phone} ${SITE.phone}</a>
-        <span class="tb-hours">${ICON.clock} เปิดทุกวัน ${SITE.hoursWeekday}</span>
+        <span class="tb-hours">${ICON.clock} เปิดทุกวัน ${SITE.hours}</span>
       </div>
     </div>
   </div>
@@ -132,7 +131,7 @@ function buildFooter(){
             <li><a href="${SITE.line}" target="_blank" rel="noopener">${ICON.chat} LINE: ${SITE.lineId}</a></li>
             <li><a href="${SITE.facebook}" target="_blank" rel="noopener">${ICON.facebook} Facebook: asiapetclinic</a></li>
             <li><a href="${SITE.mapLink}" target="_blank" rel="noopener">${ICON.pin} ดูแผนที่ / นำทาง</a></li>
-            <li style="margin-top:6px">เปิดทุกวัน ${SITE.hoursWeekday}</li>
+            <li style="margin-top:6px">เปิดทุกวัน ${SITE.hours}</li>
             <li style="color:var(--red);display:flex;align-items:center;gap:7px">${ICON.alert} ฉุกเฉิน: โทรปรึกษาได้</li>
           </ul>
         </div>
