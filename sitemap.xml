@@ -85,4 +85,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/article-neuter.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/article-parasite.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/article-heat.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/article-senior.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://jomlast.github.io/Clinic_Frontend/article-firstvisit.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
