@@ -230,6 +230,10 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .price-list .p-name{ color:var(--ink-soft); }
 .price-list .p-val{ font-weight:700; color:var(--red); white-space:nowrap; }
 .price-hint{ color:var(--grey-text); font-size:.86rem; margin-top:14px; line-height:1.6; }
+/* จอแคบ: ราคายาวจะบีบชื่อบริการจนตัดบรรทัด — เรียงลงล่างแทน */
+@media(max-width:480px){
+  .price-list li{ flex-direction:column; align-items:flex-start; gap:3px; }
+}
 
 /* ===== BACK BUTTON (ปุ่มย้อนกลับ) ===== */
 .back-bar{ padding:26px 0 0; }
