@@ -46,4 +46,22 @@ logo*.png, line-qr.png   รูปแบรนด์
 ## Deploy (static host)
 
 Upload the folder to any static host (Netlify / Vercel / Cloudflare Pages / GitHub Pages).
-Set `window.CLINIC_API_URL` to your deployed backend so the booking form reaches it.
+Currently live on GitHub Pages at <https://jomlast.github.io/Clinic_Frontend/>.
+
+No backend is needed — the booking form emails the clinic via Web3Forms (see the
+booking-form note above for the one-time key setup).
+
+## Icons
+
+Icons are Lucide, but the site ships `lucide-subset.js` (~13KB) instead of the
+full `lucide.min.js` (399KB) — only the ~55 icons actually used are included.
+
+After adding a new `data-lucide="..."` anywhere, regenerate the subset:
+
+```bash
+node tools/make-icon-subset.js
+```
+
+It scans every `.html` and `partials.js` for `data-lucide` names, pulls those
+icons out of `lucide.min.js` and rewrites `lucide-subset.js`. Keep
+`lucide.min.js` in the repo as the source — it is never sent to the browser.

@@ -210,7 +210,7 @@ function initSite(){
   } else if (!document.getElementById("lucide-lib")) {
     const s = document.createElement("script");
     s.id = "lucide-lib";
-    s.src = "lucide.min.js";
+    s.src = "lucide-subset.js";   // ชุดย่อ 55 ไอคอนที่ใช้จริง (13KB) แทนไลบรารีเต็ม 399KB
     s.onload = renderIcons;
     document.head.appendChild(s);
   }
