@@ -88,6 +88,7 @@ function buildHeader(active){
       </a>
       <div class="nav-links" id="navLinks">${links}</div>
       <div class="nav-right">
+        <button class="search-btn" id="searchBtn" aria-label="ค้นหาในเว็บไซต์" title="ค้นหา"><i data-lucide="search" class="ico"></i></button>
         <a href="contact.html" class="emergency">${ICON.alert} <span class="full">แจ้งสัตว์ป่วยอาการฉุกเฉิน</span></a>
         <button class="menu-toggle" id="menuToggle" aria-label="เมนู"><i data-lucide="menu" class="ico"></i></button>
       </div>
@@ -215,6 +216,115 @@ function initSite(){
     document.head.appendChild(s);
   }
 
+  initSearch();
+
   // หมายเหตุ: ฟอร์มจองนัดส่งเข้าอีเมลคลินิกผ่าน Web3Forms — สคริปต์อยู่ท้าย contact.html (ไม่มี backend)
 }
+
+/* ===== ค้นหาในเว็บ =====
+   ดัชนีอยู่ใน search-index.json (สร้างด้วย node tools/make-search-index.js)
+   โหลดตอนเปิดกล่องค้นหาครั้งแรกเท่านั้น — ไม่ถ่วงการโหลดหน้า          */
+function initSearch(){
+  const btn = document.getElementById("searchBtn");
+  if(!btn) return;
+
+  const box = document.createElement("div");
+  box.className = "search-overlay";
+  box.innerHTML = `
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="ค้นหาในเว็บไซต์">
+      <div class="search-bar">
+        <i data-lucide="search" class="ico"></i>
+        <input type="search" id="searchInput" placeholder="ค้นหา เช่น ทำหมันกระต่าย, วัคซีน, อาบน้ำ" autocomplete="off" />
+        <button class="search-close" aria-label="ปิด">&times;</button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>`;
+  document.body.appendChild(box);
+
+  const input = box.querySelector("#searchInput");
+  const list  = box.querySelector("#searchResults");
+  let docs = null, loading = false;
+
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+  const mark = (s, q) => {
+    const i = s.toLowerCase().indexOf(q);
+    if(i < 0) return esc(s);
+    return esc(s.slice(0,i)) + "<mark>" + esc(s.slice(i, i+q.length)) + "</mark>" + esc(s.slice(i+q.length));
+  };
+
+  function snippet(text, q){
+    const i = text.indexOf(q);
+    if(i < 0) return text.slice(0, 90);
+    const from = Math.max(0, i - 35);
+    return (from ? "…" : "") + text.slice(from, from + 110);
+  }
+
+  function render(q){
+    if(!q){ list.innerHTML = `<p class="search-hint">พิมพ์เพื่อค้นหาบริการ สัตว์ที่รักษา ราคา หรือบทความ</p>`; return; }
+    if(!docs){ list.innerHTML = `<p class="search-hint">กำลังโหลด…</p>`; return; }
+
+    const hits = docs
+      .map(d => {
+        let score = 0;
+        if(d.t.toLowerCase().includes(q)) score += 10;
+        if(d.d.toLowerCase().includes(q)) score += 4;
+        if(d.x.includes(q)) score += 1;
+        return { d, score };
+      })
+      .filter(h => h.score > 0)
+      .sort((a,b) => b.score - a.score)
+      .slice(0, 12);
+
+    if(!hits.length){
+      list.innerHTML = `<p class="search-hint">ไม่พบ “${esc(q)}” — ลองคำอื่น หรือ
+        <a href="contact.html">สอบถามทีมงานโดยตรง</a></p>`;
+      return;
+    }
+    list.innerHTML = hits.map(h => `
+      <a class="search-hit" href="${h.d.u}">
+        <span class="sec">${esc(h.d.s)}</span>
+        <strong>${mark(h.d.t, q)}</strong>
+        <span class="snip">${mark(snippet(h.d.x, q), q)}</span>
+      </a>`).join("");
+  }
+
+  function load(){
+    if(docs || loading) return;
+    loading = true;
+    fetch("search-index.json")
+      .then(r => r.ok ? r.json() : [])
+      .then(d => { docs = d; render(input.value.trim().toLowerCase()); })
+      .catch(() => { docs = []; list.innerHTML = `<p class="search-hint">ค้นหาไม่ได้ในขณะนี้ —
+        <a href="contact.html">ติดต่อทีมงาน</a></p>`; });
+  }
+
+  function open(){
+    box.classList.add("open");
+    document.body.style.overflow = "hidden";
+    load();
+    render("");
+    setTimeout(() => input.focus(), 30);
+    if(window.lucide) window.lucide.createIcons();
+  }
+  function close(){
+    box.classList.remove("open");
+    document.body.style.overflow = "";
+    input.value = "";
+  }
+
+  btn.addEventListener("click", open);
+  box.querySelector(".search-close").addEventListener("click", close);
+  box.addEventListener("click", e => { if(e.target === box) close(); });
+  input.addEventListener("input", () => render(input.value.trim().toLowerCase()));
+  input.addEventListener("keydown", e => {
+    if(e.key === "Enter"){
+      const first = list.querySelector(".search-hit");
+      if(first) location.href = first.getAttribute("href");
+    }
+  });
+  document.addEventListener("keydown", e => {
+    if(e.key === "Escape" && box.classList.contains("open")) close();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", initSite);

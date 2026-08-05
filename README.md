@@ -18,8 +18,10 @@ npx serve .            # or: python -m http.server 8080
 Then open <http://localhost:3000> (or whatever port the server prints).
 
 > **Booking form setup:** the form on `contact.html` submits to Web3Forms, which emails the
-> clinic. Set the access key once: get a free key at <https://web3forms.com> (enter the clinic
-> email), then replace `YOUR_WEB3FORMS_KEY` in the `<script>` at the bottom of `contact.html`.
+> clinic. Set the access key once: get a free key at <https://web3forms.com> registered to
+> **phoebanlang2@gmail.com**, then replace `YOUR_WEB3FORMS_KEY` in the `<script>` at the bottom
+> of `contact.html`. The destination address is bound to the key at signup, not set in this
+> code — changing it means updating it at web3forms.com or requesting a new key.
 > The key is public — safe to commit. No server, no database, no cost.
 
 ## Structure
@@ -65,3 +67,16 @@ node tools/make-icon-subset.js
 It scans every `.html` and `partials.js` for `data-lucide` names, pulls those
 icons out of `lucide.min.js` and rewrites `lucide-subset.js`. Keep
 `lucide.min.js` in the repo as the source — it is never sent to the browser.
+
+## Search
+
+The header search reads `search-index.json`, fetched only when the box is first
+opened so it costs nothing on page load (~10KB gzipped). Regenerate it whenever
+pages are added or their text changes:
+
+```bash
+node tools/make-search-index.js
+```
+
+It indexes each page's h1, meta description, headings and body text. Matching is
+plain substring, which suits Thai — there are no word boundaries to tokenise on.
