@@ -172,14 +172,11 @@
 <script src="assets/js/partials.js"></script>
 <script>
 /* ===== Booking → ส่งเข้าอีเมลคลินิกผ่าน Web3Forms (ไม่ต้องมี backend) =====
-   วิธีเปิดใช้งาน (ทำครั้งเดียว ~1 นาที):
-     1. เข้า https://web3forms.com → กรอกอีเมล  phoebanlang2@gmail.com  → กด Create Access Key
-     2. เปิดอีเมลนั้น จะได้ Access Key มา (คีย์นี้เปิดเผยในโค้ดได้ ปลอดภัย)
-     3. เอาคีย์มาวางแทน YOUR_WEB3FORMS_KEY ด้านล่าง
-   ปลายทางอีเมลถูกผูกไว้กับคีย์ตั้งแต่ตอนสมัคร — ไม่ได้กำหนดในโค้ดนี้
-   จะเปลี่ยนปลายทางต้องไปแก้ที่ web3forms.com หรือขอคีย์ใหม่
-   คำขอจองนัดทุกอันจะส่งเข้ากล่องอีเมลทันที ไม่มีข้อมูลหาย ไม่มีค่าใช้จ่าย */
-const WEB3FORMS_KEY = "YOUR_WEB3FORMS_KEY";
+   ตั้งค่าแล้ว: คำขอจองนัดทุกอันส่งเข้า phoebanlang2@gmail.com ทันที
+   ปลายทางอีเมลผูกอยู่กับคีย์ตั้งแต่ตอนสมัคร ไม่ได้กำหนดในโค้ดนี้ —
+   จะเปลี่ยนปลายทางต้องไปแก้ที่ web3forms.com (ฟอร์มชื่อ "Asiapet Booking")
+   คีย์นี้เปิดเผยในโค้ดได้ ปลอดภัย ใครเห็นก็ทำได้แค่ส่งข้อความหาคลินิก */
+const WEB3FORMS_KEY = "d3b04c4b-a4fb-4cc1-a1b1-6433e157358e";
 
 const form = document.getElementById("bookingForm");
 const successBox = document.getElementById("formSuccess");
