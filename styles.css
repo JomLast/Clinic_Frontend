@@ -58,7 +58,6 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 /* โลโก้แบบครอปแถบสามเหลี่ยมล่างออกอัตโนมัติ (ใช้ภาพต้นฉบับได้เลย) */
 .brand-logo{ display:block; height:58px; width:auto; }
 /* fallback (กรณียังไม่มีไฟล์โลโก้) */
-.brand .logo-mark{ width:48px; height:48px; border-radius:14px; background:var(--red); color:#fff; display:grid; place-items:center; font-size:1.6rem; box-shadow:0 6px 16px rgba(232,51,75,.4); font-family:'Poppins',sans-serif; }
 .brand .red{ color:var(--red); }
 .brand small{ display:block; font-size:.62rem; font-weight:500; letter-spacing:1px; color:var(--grey-text); font-family:'Kanit',sans-serif; margin-top:-4px; }
 
@@ -411,7 +410,6 @@ footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
   .cards,.roadmap,.article-grid{ grid-template-columns:1fr; }
   section{ padding:60px 0; }
   .brand-logo{ height:46px; }
-  .brand .logo-mark{ width:42px; height:42px; font-size:1.4rem; }
   .foot-grid{ grid-template-columns:1fr; }
   /* ลดขอบในให้เนื้อหาได้พื้นที่คืนบนจอแคบ */
   .cta-band{ padding:36px 20px; border-radius:22px; }
