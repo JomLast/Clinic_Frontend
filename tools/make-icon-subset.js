@@ -1,15 +1,18 @@
 const fs = require('fs');
-const path = 'C:/Claude/Clinic_Frontend/lucide.min.js';
+const p  = require('path');
+const ROOT = p.join(__dirname, '..');            // รากเว็บ (โฟลเดอร์ Clinic_Frontend)
+
 // โหลด UMD bundle แบบ CommonJS
-const mod = {}; const exp = {};
-const code = fs.readFileSync(path, 'utf8');
+const exp = {};
+const code = fs.readFileSync(p.join(__dirname, 'lucide-full.js'), 'utf8');
 new Function('exports','module','globalThis', code)(exp, {exports: exp}, {});
 const icons = exp.icons || exp;
 
 // อ่านไอคอนที่ใช้จริงจากไฟล์เว็บ (ไม่ต้องแก้ลิสต์เอง)
-const src = fs.readdirSync('C:/Claude/Clinic_Frontend')
-  .filter(f => f.endsWith('.html') || f === 'partials.js')
-  .map(f => fs.readFileSync('C:/Claude/Clinic_Frontend/' + f, 'utf8')).join('');
+const src = [
+  ...fs.readdirSync(ROOT).filter(f => f.endsWith('.html')).map(f => p.join(ROOT, f)),
+  p.join(ROOT, 'assets/js/partials.js'),
+].map(f => fs.readFileSync(f, 'utf8')).join('');
 const used = [...new Set([...src.matchAll(/data-lucide="([a-z0-9-]+)"/g)].map(m => m[1]))].sort();
 const pascal = k => k.split('-').map(w => w[0].toUpperCase()+w.slice(1)).join('');
 
@@ -44,5 +47,5 @@ document.querySelectorAll("[data-lucide]").forEach(function(n){
   n.parentNode.replaceChild(s,n);
 });}};
 })();`;
-fs.writeFileSync('C:/Claude/Clinic_Frontend/lucide-subset.js', js, 'utf8');
+fs.writeFileSync(p.join(ROOT, 'assets/js/lucide-subset.js'), js, 'utf8');
 console.log('icons:', Object.keys(out).length, '| bytes:', js.length);

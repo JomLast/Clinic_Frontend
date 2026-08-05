@@ -84,7 +84,7 @@ function buildHeader(active){
   <header>
     <nav class="container">
       <a href="index.html" class="brand" aria-label="Asiapet Animal Hospital">
-        <img class="brand-logo" src="logo.png" alt="Asiapet Animal Hospital" />
+        <img class="brand-logo" src="assets/img/logo.png" alt="Asiapet Animal Hospital" />
       </a>
       <div class="nav-links" id="navLinks">${links}</div>
       <div class="nav-right">
@@ -211,7 +211,7 @@ function initSite(){
   } else if (!document.getElementById("lucide-lib")) {
     const s = document.createElement("script");
     s.id = "lucide-lib";
-    s.src = "lucide-subset.js";   // ชุดย่อ 55 ไอคอนที่ใช้จริง (13KB) แทนไลบรารีเต็ม 399KB
+    s.src = "assets/js/lucide-subset.js";   // ชุดย่อ 55 ไอคอนที่ใช้จริง (13KB) แทนไลบรารีเต็ม 399KB
     s.onload = renderIcons;
     document.head.appendChild(s);
   }
@@ -291,7 +291,7 @@ function initSearch(){
   function load(){
     if(docs || loading) return;
     loading = true;
-    fetch("search-index.json")
+    fetch("data/search-index.json")
       .then(r => r.ok ? r.json() : [])
       .then(d => { docs = d; render(input.value.trim().toLowerCase()); })
       .catch(() => { docs = []; list.innerHTML = `<p class="search-hint">ค้นหาไม่ได้ในขณะนี้ —

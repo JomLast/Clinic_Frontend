@@ -1,8 +1,8 @@
 # Clinic Frontend — Asiapet Animal Hospital website
 
 Static marketing website for Asiapet Animal Hospital (Thai). Plain HTML/CSS/JS — no build
-step. Shared header/footer and contact data live in `partials.js`; icons use a self-hosted
-[Lucide](https://lucide.dev) build (`lucide.min.js`).
+step. Shared header/footer and contact data live in `assets/js/partials.js`; icons use a
+self-hosted [Lucide](https://lucide.dev) subset.
 
 Booking requests are sent straight to the clinic's email via [Web3Forms](https://web3forms.com)
 — no backend server. (The old `Clinic_Backend` API is no longer used by the live site.)
@@ -26,15 +26,24 @@ Then open <http://localhost:3000> (or whatever port the server prints).
 
 ## Structure
 
+หน้าเว็บ (`.html`) ต้องอยู่ที่ราก เพราะ GitHub Pages เสิร์ฟจากรากและ URL ทุกหน้า
+ถูกอ้างไว้ใน `sitemap.xml` / canonical / schema แล้ว — ย้ายเมื่อไหร่ SEO พังทันที
+ส่วนไฟล์ที่เหลือแยกเป็นโฟลเดอร์:
+
 ```
-index / about / services / animals / centers / articles / contact  (.html pages)
-styles.css        ชุดสไตล์รวม (ธีม: แดง #E8334B / ดำอุ่น #1C1A17 / ครีม #FAF7F0)
-partials.js       header + footer + เมนู + ข้อมูลติดต่อกลาง (แก้ที่เดียว เปลี่ยนทุกหน้า) + โหลด Lucide
-lucide.min.js     ไอคอนเส้น (self-hosted) — ใช้ผ่าน <i data-lucide="name">
-logo*.png, line-qr.png   รูปแบรนด์
+*.html                    34 หน้าเว็บ (index, about, services, animals, centers, articles, contact, …)
+assets/css/styles.css     ชุดสไตล์รวม (ธีม: แดง #E8334B / ดำอุ่น #1C1A17 / ครีม #FAF7F0)
+assets/js/partials.js     header + footer + เมนู + ข้อมูลติดต่อกลาง (แก้ที่เดียว เปลี่ยนทุกหน้า) + ช่องค้นหา
+assets/js/lucide-subset.js  ไอคอนเส้นเฉพาะที่ใช้จริง (~13KB) — ใช้ผ่าน <i data-lucide="name">
+assets/img/               รูปแบรนด์ (logo*, line-qr) + animals/ + products/ (CMS อัปโหลดลงที่นี่)
+data/products.json        รายการสินค้าเพ็ทช็อป (แก้ผ่านหน้า /admin ได้)
+data/search-index.json    ดัชนีค้นหา (สร้างจากสคริปต์ ไม่ต้องแก้มือ)
+admin/                    Decap CMS — หน้าจัดการสินค้าสำหรับคุณหมอ
+tools/                    สคริปต์ build (รันตอน dev เท่านั้น ไม่ถูกส่งให้เบราว์เซอร์)
+robots.txt, sitemap.xml   SEO
 ```
 
-แก้ข้อมูลติดต่อ/เมนู: `partials.js` (object `SITE` + array `NAV`) ที่เดียว.
+แก้ข้อมูลติดต่อ/เมนู: `assets/js/partials.js` (object `SITE` + array `NAV`) ที่เดียว.
 
 ## Theme tokens
 
@@ -55,8 +64,8 @@ booking-form note above for the one-time key setup).
 
 ## Icons
 
-Icons are Lucide, but the site ships `lucide-subset.js` (~13KB) instead of the
-full `lucide.min.js` (399KB) — only the ~55 icons actually used are included.
+Icons are Lucide, but the site ships `assets/js/lucide-subset.js` (~13KB) instead
+of the full 399KB library — only the ~55 icons actually used are included.
 
 After adding a new `data-lucide="..."` anywhere, regenerate the subset:
 
@@ -64,13 +73,13 @@ After adding a new `data-lucide="..."` anywhere, regenerate the subset:
 node tools/make-icon-subset.js
 ```
 
-It scans every `.html` and `partials.js` for `data-lucide` names, pulls those
-icons out of `lucide.min.js` and rewrites `lucide-subset.js`. Keep
-`lucide.min.js` in the repo as the source — it is never sent to the browser.
+It scans every `.html` and `assets/js/partials.js` for `data-lucide` names, pulls
+those icons out of `tools/lucide-full.js` and rewrites `assets/js/lucide-subset.js`.
+Keep `tools/lucide-full.js` in the repo as the source — it is never sent to the browser.
 
 ## Search
 
-The header search reads `search-index.json`, fetched only when the box is first
+The header search reads `data/search-index.json`, fetched only when the box is first
 opened so it costs nothing on page load (~10KB gzipped). Regenerate it whenever
 pages are added or their text changes:
 

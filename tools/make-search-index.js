@@ -43,6 +43,6 @@ for (const f of fs.readdirSync(DIR).filter(x => x.endsWith('.html') && !SKIP.has
   docs.push({ u: f, t: title, s: section(f), d: desc.slice(0, 150), x: text.toLowerCase() });
 }
 
-const out = path.join(DIR, 'search-index.json');
+const out = path.join(DIR, 'data/search-index.json');
 fs.writeFileSync(out, JSON.stringify(docs), 'utf8');
 console.log(`indexed ${docs.length} pages | ${Math.round(fs.statSync(out).size / 1024)} KB`);

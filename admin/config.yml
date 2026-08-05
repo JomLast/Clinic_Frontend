@@ -6,8 +6,8 @@ backend:
 locale: th
 
 # โฟลเดอร์เก็บรูปที่อัปโหลด (commit เข้า repo) — ใช้ path แบบ relative ให้เว็บหาเจอทุกโฮสต์
-media_folder: "images/products"
-public_folder: "images/products"
+media_folder: "assets/img/products"
+public_folder: "assets/img/products"
 
 collections:
   - name: "shop"
