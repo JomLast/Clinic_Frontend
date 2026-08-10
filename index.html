@@ -54,18 +54,19 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-inner">
-    <span class="hero-badge"><i data-lucide="map-pin" class="ico"></i> นครสวรรค์ · เปิดทุกวัน 09:00–20:00 น.</span>
+    <!-- สถานะเปิด/ปิดคำนวณจากเวลาจริงของผู้ใช้ (ดู initOpenStatus ใน partials.js) -->
+    <span class="hero-badge status" id="openNow"><i data-lucide="map-pin" class="ico"></i> ข้างบิ๊กซีนครสวรรค์ · เปิดทุกวัน 09:00–20:00 น.</span>
     <div class="hero-en">Asiapet Animal Hospital</div>
     <h1 class="hero-th">โรงพยาบาลสัตว์<span class="red">เอเชียเพ็ท</span> นครสวรรค์</h1>
-    <p class="lead">ดูแลสัตว์เลี้ยงด้วยหัวใจ · รักษาสุนัข แมว กระต่าย นก และสัตว์พิเศษ (Exotic) ครบวงจร โดยทีมสัตวแพทย์ผู้เชี่ยวชาญ</p>
+    <p class="lead">ตรวจรักษาสุนัข แมว กระต่าย นก และสัตว์พิเศษ (Exotic) — มีเอกซเรย์ อัลตราซาวด์ กล้องส่องตรวจ และตู้ออกซิเจนอยู่ในที่เดียว ไม่ต้องส่งต่อ</p>
     <div class="hero-actions">
       <a href="contact.html" class="btn btn-red"><i data-lucide="calendar-check" class="ico"></i> จองนัดออนไลน์</a>
-      <a href="services.html" class="btn btn-outline">ดูบริการทั้งหมด</a>
+      <a href="tel:0861199349" class="btn btn-outline"><i data-lucide="phone" class="ico"></i> โทร 086 119 9349</a>
     </div>
     <div class="hero-trust">
-      <span><i data-lucide="stethoscope" class="ico"></i> รักษาสัตว์ Exotic</span>
-      <span><i data-lucide="car" class="ico"></i> รับ-ส่งถึงบ้าน</span>
-      <span><i data-lucide="siren" class="ico"></i> ฉุกเฉินโทรปรึกษาได้</span>
+      <span><i data-lucide="rabbit" class="ico"></i> รับกระต่าย · หนู · นก · Exotic</span>
+      <span><i data-lucide="scan-line" class="ico"></i> X-ray · Ultrasound · Endoscope</span>
+      <span><i data-lucide="car" class="ico"></i> รับ-ส่งบริเวณใกล้เคียง</span>
     </div>
   </div>
 </section>
@@ -73,18 +74,21 @@
 <!-- ===== ABOUT (สรุป) ===== -->
 <section>
   <div class="container about-grid">
-    <div class="about-img"><div class="big-paw"><i data-lucide="paw-print" class="ico"></i></div></div>
+    <div class="about-map">
+      <iframe src="https://www.google.com/maps?q=15.6959822,100.1217192&amp;z=16&amp;hl=th&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่โรงพยาบาลสัตว์เอเชียเพ็ท นครสวรรค์"></iframe>
+      <a href="https://maps.app.goo.gl/9gafEAtYKx8WSJxn7" target="_blank" rel="noopener" class="map-btn"><i data-lucide="navigation" class="ico"></i> นำทาง</a>
+    </div>
     <div>
       <span class="eyebrow">เกี่ยวกับเรา</span>
-      <h2 class="title">โรงพยาบาลสัตว์ที่คุณวางใจได้</h2>
-      <p style="color:var(--grey-text)">เราเชื่อว่าสัตว์เลี้ยงคือสมาชิกในครอบครัว ทีมสัตวแพทย์ของ Asiapet จึงตั้งใจดูแลทุกชีวิตอย่างใกล้ชิด ด้วยเครื่องมือที่ทันสมัยและบรรยากาศที่เป็นมิตร</p>
+      <h2 class="title">อยู่ข้างบิ๊กซีนครสวรรค์ เปิดทุกวัน</h2>
+      <p style="color:var(--grey-text)">320/12 ถ.สายเอเชีย ต.นครสวรรค์ตก อ.เมือง — เปิดทุกวันไม่มีวันหยุด 09:00–20:00 น. เดินเข้ามาได้เลยหรือโทรนัดคิวไว้ก่อนก็ได้</p>
       <ul class="check-list">
-        <li><span class="tick">✓</span> ทีมสัตวแพทย์ผู้เชี่ยวชาญและใจรักสัตว์</li>
-        <li><span class="tick">✓</span> มีเอกซเรย์ อัลตราซาวด์ และกล้องส่องตรวจ (Endoscope)</li>
-        <li><span class="tick">✓</span> มีตู้ออกซิเจนและเครื่องพ่นยา ดูแลเคสวิกฤตได้ทันที</li>
-        <li><span class="tick">✓</span> บรรยากาศสะอาด ปลอดภัย เป็นมิตรกับสัตว์เลี้ยง</li>
-        <li><span class="tick">✓</span> มีบริการรับ-ส่งบริเวณใกล้เคียง (ตามคิวว่าง) กรณีพาน้องมาเองไม่ได้</li>
-        <li><span class="tick">✓</span> ถ่ายรูปอัปเดตอาการให้เจ้าของ ระหว่างน้องแอดมิดพักรักษา</li>
+        <li><span class="tick">✓</span> รับตรวจกระต่าย หนู นก และสัตว์พิเศษ (Exotic) ไม่ใช่แค่หมาแมว</li>
+        <li><span class="tick">✓</span> เอกซเรย์ อัลตราซาวด์ และกล้องส่องตรวจ (Endoscope) อยู่ในคลินิก</li>
+        <li><span class="tick">✓</span> ตู้ออกซิเจนและเครื่องพ่นยา สำหรับเคสหอบหรือหายใจลำบาก</li>
+        <li><span class="tick">✓</span> ตรวจแล็บเลือด-ปัสสาวะ รู้ผลในวันเดียวกัน</li>
+        <li><span class="tick">✓</span> รับ-ส่งบริเวณใกล้เคียงตามคิวว่าง กรณีพาน้องมาเองไม่ได้</li>
+        <li><span class="tick">✓</span> ถ่ายรูปอัปเดตอาการให้เจ้าของ ระหว่างน้องนอนพักรักษา</li>
       </ul>
       <a href="about.html" class="btn btn-red" style="margin-top:24px">อ่านเพิ่มเติม →</a>
     </div>
@@ -96,13 +100,13 @@
   <div class="container">
     <div class="section-head">
       <span class="eyebrow">บริการของเรา</span>
-      <h2 class="title">ดูแลครบทุกความต้องการ</h2>
-      <p>บริการทางการแพทย์สำหรับสัตว์เลี้ยงอย่างครบวงจร</p>
+      <h2 class="title">มาด้วยเรื่องอะไร</h2>
+      <p>กดที่การ์ดเพื่อดูรายละเอียดและค่าบริการของแต่ละอย่าง</p>
     </div>
     <div class="cards">
-      <a class="card" href="service-checkup.html" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="stethoscope" class="ico"></i></div><h3>ตรวจสุขภาพทั่วไป</h3><p>ตรวจร่างกาย วินิจฉัยอาการ และให้คำแนะนำการดูแล</p></a>
-      <a class="card" href="vaccine.html" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="syringe" class="ico"></i></div><h3>ฉีดวัคซีน</h3><p>วัคซีนป้องกันโรคตามโปรแกรม พร้อมแจ้งเตือนรอบถัดไป</p></a>
-      <a class="card" href="service-surgery.html" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="scissors" class="ico"></i></div><h3>ผ่าตัด & ทำหมัน</h3><p>ผ่าตัดทำหมันและศัลยกรรมโดยทีมผู้เชี่ยวชาญ</p></a>
+      <a class="card" href="service-checkup.html" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="stethoscope" class="ico"></i></div><h3>ตรวจสุขภาพทั่วไป</h3><p>ตรวจร่างกาย ฟังหัวใจ-ปอด ตรวจช่องปากและผิวหนัง พร้อมคำแนะนำการดูแล</p></a>
+      <a class="card" href="vaccine.html" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="syringe" class="ico"></i></div><h3>ฉีดวัคซีน</h3><p>โปรแกรมวัคซีนลูกสุนัข-ลูกแมว ตามแนวทาง VPAT 2024 พร้อมสมุดบันทึกและวันนัดครั้งถัดไป</p></a>
+      <a class="card" href="service-surgery.html" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="scissors" class="ico"></i></div><h3>ผ่าตัด &amp; ทำหมัน</h3><p>ทำหมันสุนัข แมว กระต่าย และผ่าตัดทั่วไป ตรวจคัดกรองก่อนวางยาสลบทุกเคส</p></a>
     </div>
     <div style="text-align:center;margin-top:40px"><a href="services.html" class="btn btn-outline">ดูบริการทั้งหมด →</a></div>
   </div>
@@ -112,8 +116,8 @@
 <section>
   <div class="container">
     <div class="cta-band">
-      <h2>พร้อมดูแลเพื่อนตัวน้อยของคุณแล้ววันนี้</h2>
-      <p>นัดหมายเข้าตรวจหรือสอบถามข้อมูลเพิ่มเติมได้เลย ทีมเรายินดีให้บริการ</p>
+      <h2>จองคิวไว้ก่อน ไม่ต้องมานั่งรอ</h2>
+      <p>โทร <b>086 119 9349</b> · LINE <b>asiapet310</b> · หรือกรอกฟอร์มจองนัดได้ตลอด ทีมงานจะโทรกลับยืนยันคิวในเวลาทำการ</p>
       <a href="contact.html" class="btn btn-white"><i data-lucide="calendar-check" class="ico"></i> จองนัด / ติดต่อเรา</a>
     </div>
   </div>

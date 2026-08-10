@@ -217,8 +217,43 @@ function initSite(){
   }
 
   initSearch();
+  initOpenStatus();
 
   // หมายเหตุ: ฟอร์มจองนัดส่งเข้าอีเมลคลินิกผ่าน Web3Forms — สคริปต์อยู่ท้าย contact.html (ไม่มี backend)
+}
+
+/* ===== ป้ายสถานะ "เปิดอยู่ตอนนี้" =====
+   คำนวณจากนาฬิกาเครื่องผู้ใช้เทียบเวลาทำการ (เปิดทุกวัน 09:00–20:00 น.)
+   ถ้าเปลี่ยนเวลาทำการ แก้ที่ SITE.hours + OPEN/CLOSE ตรงนี้           */
+const OPEN_HOUR = 9, CLOSE_HOUR = 20;
+
+function initOpenStatus(){
+  const el = document.getElementById("openNow");
+  if(!el) return;
+
+  const render = () => {
+    const now  = new Date();
+    const h    = now.getHours() + now.getMinutes() / 60;
+    const open = h >= OPEN_HOUR && h < CLOSE_HOUR;
+
+    let text;
+    if(open){
+      text = (CLOSE_HOUR - h <= 1)
+        ? "ใกล้ปิดแล้ว · ปิด 20:00 น."
+        : "เปิดอยู่ตอนนี้ · ถึง 20:00 น.";
+    } else {
+      text = (h < OPEN_HOUR)
+        ? "ยังไม่เปิด · เปิด 09:00 น. วันนี้"
+        : "ปิดแล้ววันนี้ · เปิดพรุ่งนี้ 09:00 น.";
+    }
+
+    el.className = "hero-badge status " + (open ? "is-open" : "is-closed");
+    el.innerHTML = '<span class="dot"></span>' + text +
+                   '<span class="bar"></span>ข้างบิ๊กซีนครสวรรค์';
+  };
+
+  render();
+  setInterval(render, 60000);   // อัปเดตทุกนาที เผื่อเปิดค้างไว้ข้ามเวลาปิด
 }
 
 /* ===== ค้นหาในเว็บ =====

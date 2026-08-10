@@ -119,6 +119,15 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 /* Hero ใหม่ (ไม่มีโลโก้) */
 .hero-badge{ display:inline-flex; align-items:center; gap:7px; background:rgba(232,51,75,.1); color:var(--red); font-weight:600; font-size:.9rem; padding:7px 16px; border-radius:999px; margin-bottom:22px; }
 .hero-badge svg.ico{ width:16px; height:16px; }
+/* ป้ายสถานะเปิด/ปิด — สีและข้อความมาจาก initOpenStatus() ใน partials.js */
+.hero-badge.status{ gap:9px; }
+.hero-badge.status .dot{ flex:none; width:9px; height:9px; border-radius:50%; background:currentColor; }
+.hero-badge.status .bar{ width:1px; height:13px; background:currentColor; opacity:.35; margin:0 5px; }
+.hero-badge.is-open{ background:rgba(21,128,61,.1); color:#15803d; }
+.hero-badge.is-open .dot{ animation:live-dot 2.4s ease-out infinite; }
+.hero-badge.is-closed{ background:rgba(28,26,23,.07); color:var(--ink-soft); }
+@keyframes live-dot{ 0%{ box-shadow:0 0 0 0 rgba(21,128,61,.45) } 70%,100%{ box-shadow:0 0 0 7px rgba(21,128,61,0) } }
+@media (prefers-reduced-motion:reduce){ .hero-badge.is-open .dot{ animation:none } }
 .hero-en{ font-family:'Poppins',sans-serif; font-weight:700; font-size:clamp(1rem,2.4vw,1.35rem); letter-spacing:2px; text-transform:uppercase; color:var(--grey-text); margin-bottom:8px; }
 .hero-th{ font-family:'Kanit',sans-serif; font-size:clamp(2.1rem,6.5vw,3.6rem); font-weight:800; line-height:1.12; color:var(--ink); letter-spacing:-.5px; }
 .hero-th .red{ color:var(--red); }
@@ -141,9 +150,14 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 
 /* ===== ABOUT ===== */
 .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
-.about-img{ background:var(--black); border-radius:var(--radius); aspect-ratio:4/3; display:grid; place-items:center; box-shadow:var(--shadow); color:#fff; position:relative; overflow:hidden; }
-.about-img .big-paw{ font-size:9rem; }
-.about-img::before{ content:""; position:absolute; width:200px; height:200px; border-radius:50%; background:var(--red); top:-60px; left:-60px; opacity:.85; }
+/* แผนที่จริงของคลินิก — แทนที่รูปประกอบ ทำให้เห็นว่าเป็นสถานที่จริง */
+.about-map{ position:relative; border-radius:var(--radius); overflow:hidden; aspect-ratio:4/3; box-shadow:var(--shadow); background:var(--grey-bg); }
+.about-map iframe{ width:100%; height:100%; border:0; display:block; }
+.about-map .map-btn{ position:absolute; right:14px; bottom:14px; display:inline-flex; align-items:center; gap:7px;
+  background:var(--red); color:#fff; font-weight:600; font-size:.88rem; padding:10px 18px; border-radius:999px;
+  text-decoration:none; box-shadow:var(--shadow); }
+.about-map .map-btn:hover{ background:var(--red-dark); }
+.about-map .map-btn svg.ico{ width:16px; height:16px; }
 .check-list{ list-style:none; margin-top:22px; display:grid; gap:14px; }
 .check-list li{ display:flex; gap:12px; align-items:flex-start; }
 .check-list .tick{ flex:none; width:24px; height:24px; border-radius:50%; background:var(--red); color:#fff; display:grid; place-items:center; font-size:.8rem; margin-top:3px; }
