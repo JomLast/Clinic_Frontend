@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ตรวจสุขภาพสัตว์เลี้ยง ราคา | โรงพยาบาลสัตว์เอเชียเพ็ท นครสวรรค์</title>
-<meta name="description" content="บริการตรวจสุขภาพสุนัข แมว และสัตว์เลี้ยง ตรวจร่างกาย ฟังหัวใจ-ปอด ตรวจช่องปาก ผิวหนัง และให้คำแนะนำ โดยโรงพยาบาลสัตว์เอเชียเพ็ท นครสวรรค์" />
+<title>ตรวจสุขภาพสัตว์เลี้ยง เริ่มต้น 100 บาท ถ่ายพยาธิ 60 | เอเชียเพ็ท นครสวรรค์</title>
+<meta name="description" content="ตรวจสุขภาพสุนัข แมว และสัตว์เลี้ยง เริ่มต้น 100 บาท ตรวจเลือดเบื้องต้น เริ่มต้น 350 บาท ถ่ายพยาธิ เริ่มต้น 60 บาท โรงพยาบาลสัตว์เอเชียเพ็ท ข้างบิ๊กซีนครสวรรค์ เปิดทุกวัน" />
 <link rel="canonical" href="https://jomlast.github.io/Clinic_Frontend/service-checkup.html" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="th_TH" />
 <meta property="og:url" content="https://jomlast.github.io/Clinic_Frontend/service-checkup.html" />
 <meta property="og:site_name" content="Asiapet Animal Hospital" />
-<meta property="og:title" content="ตรวจสุขภาพสัตว์เลี้ยง | เอเชียเพ็ท นครสวรรค์" />
-<meta property="og:description" content="ตรวจร่างกาย ฟังหัวใจ-ปอด ตรวจช่องปาก ผิวหนัง พร้อมคำแนะนำการดูแล" />
+<meta property="og:title" content="ตรวจสุขภาพ เริ่มต้น 100฿ · ถ่ายพยาธิ 60฿ | เอเชียเพ็ท นครสวรรค์" />
+<meta property="og:description" content="ตรวจสุขภาพ 100฿ · ตรวจเลือด 350฿ · ถ่ายพยาธิ 60฿ (ราคาเริ่มต้น)" />
 <meta property="og:image" content="https://jomlast.github.io/Clinic_Frontend/assets/img/logo-full.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,7 +23,7 @@
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "ตรวจสุขภาพทั่วไป",
-  "description": "บริการตรวจสุขภาพสุนัข แมว และสัตว์เลี้ยง ตรวจร่างกาย ฟังหัวใจ-ปอด ตรวจช่องปาก ผิวหนัง และให้คำแนะนำ โดยโรงพยาบาลสัตว์เอเชียเพ็ท นครสวรรค์",
+  "description": "ตรวจสุขภาพสุนัข แมว และสัตว์เลี้ยง เริ่มต้น 100 บาท ตรวจเลือดเบื้องต้น เริ่มต้น 350 บาท ถ่ายพยาธิ เริ่มต้น 60 บาท โรงพยาบาลสัตว์เอเชียเพ็ท ข้างบิ๊กซีนครสวรรค์ เปิดทุกวัน",
   "url": "https://jomlast.github.io/Clinic_Frontend/service-checkup.html",
   "provider": {
    "@type": "VeterinaryCare",
@@ -43,7 +43,33 @@
    "@type": "City",
    "name": "นครสวรรค์"
   },
-  "serviceType": "ตรวจสุขภาพทั่วไป"
+  "serviceType": "ตรวจสุขภาพทั่วไป",
+  "offers": [
+   {
+    "@type": "Offer",
+    "name": "ตรวจสุขภาพ (ตรวจร่างกาย)",
+    "price": "100",
+    "priceCurrency": "THB",
+    "url": "https://jomlast.github.io/Clinic_Frontend/service-checkup.html",
+    "availability": "https://schema.org/InStock"
+   },
+   {
+    "@type": "Offer",
+    "name": "ตรวจเลือดเบื้องต้น",
+    "price": "350",
+    "priceCurrency": "THB",
+    "url": "https://jomlast.github.io/Clinic_Frontend/service-checkup.html",
+    "availability": "https://schema.org/InStock"
+   },
+   {
+    "@type": "Offer",
+    "name": "ถ่ายพยาธิ",
+    "price": "60",
+    "priceCurrency": "THB",
+    "url": "https://jomlast.github.io/Clinic_Frontend/service-checkup.html",
+    "availability": "https://schema.org/InStock"
+   }
+  ]
  },
  {
   "@context": "https://schema.org",
@@ -98,10 +124,11 @@
     <div class="price-box">
       <h3><i data-lucide="tag" class="ico"></i> ค่าบริการ</h3>
       <ul class="price-list">
-        <li><span class="p-name">ตรวจสุขภาพเบื้องต้น</span><span class="p-val">สอบถามราคา</span></li>
-        <li><span class="p-name">ตรวจสุขภาพ + ตรวจเลือดเบื้องต้น</span><span class="p-val">ค่าตรวจเลือด 350 บาท</span></li>
+        <li><span class="p-name">ตรวจสุขภาพ (ตรวจร่างกาย)</span><span class="p-val">เริ่มต้น 100 บาท</span></li>
+        <li><span class="p-name">ตรวจเลือดเบื้องต้น</span><span class="p-val">เริ่มต้น 350 บาท</span></li>
+        <li><span class="p-name">ถ่ายพยาธิ</span><span class="p-val">เริ่มต้น 60 บาท</span></li>
       </ul>
-      <p class="price-hint">ราคาขึ้นอยู่กับรายการตรวจเพิ่มเติม สอบถามได้ทาง LINE: asiapet310 หรือโทร 086-119-9349 · <a href="article-checkup.html" style="color:var(--red)">อ่านเพิ่ม: ทำไมต้องตรวจสุขภาพประจำปี</a></p>
+      <p class="price-hint">ราคาเริ่มต้น อาจปรับตามขนาดตัวและรายการตรวจเพิ่มเติม สอบถามได้ทาง LINE: asiapet310 หรือโทร 086-119-9349 · <a href="article-checkup.html" style="color:var(--red)">อ่านเพิ่ม: ทำไมต้องตรวจสุขภาพประจำปี</a></p>
     </div>
   </div>
 </section>
