@@ -1,3 +1,6 @@
 .DS_Store
 Thumbs.db
 *.log
+
+# รูปต้นฉบับก่อนบีบ (เก็บไว้ในเครื่องเผื่อต้องครอปใหม่)
+assets/img/shop/_orig/
