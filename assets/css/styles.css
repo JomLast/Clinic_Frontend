@@ -164,6 +164,16 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .clinic-photo .map-btn svg.ico{ width:16px; height:16px; color:#fff; margin:0; }
 .clinic-photo.wide{ margin:26px 0 6px; }              /* ใช้ในหน้าบริการ คั่นระหว่างรายการ */
 
+/* รูปคู่ในหน้าบริการ — รูปสูงเท่ากันเสมอ ไม่ว่าไฟล์จะเป็นแนวตั้งหรือแนวนอน */
+.photo-duo{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:26px 0 6px; }
+.photo-duo .clinic-photo{ display:flex; flex-direction:column; }
+.photo-duo .clinic-photo img{ height:230px; object-fit:cover; object-position:center 45%; }
+.photo-duo figcaption{ flex:1; }
+@media(max-width:640px){
+  .photo-duo{ grid-template-columns:1fr; }
+  .photo-duo .clinic-photo img{ height:200px; }
+}
+
 /* แผนที่แบบเต็มความกว้าง (ใต้ส่วนเกี่ยวกับเรา) */
 .about-map.wide{ aspect-ratio:16/6; }
 @media(max-width:820px){ .about-map.wide{ aspect-ratio:4/3; } }
