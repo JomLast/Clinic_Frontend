@@ -217,6 +217,14 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .ba-photo .tag{ position:absolute; top:10px; left:10px; font-size:.72rem; font-weight:600; letter-spacing:.5px; color:#fff; padding:3px 10px; border-radius:999px; }
 .ba-photo.before .tag{ background:rgba(28,26,23,.72); }
 .ba-photo.after  .tag{ background:var(--red); }
+/* บังคับให้แถบรูปของทุกการ์ดสูงเท่ากัน ไม่ว่าจะเป็นรูปคู่หรือรูปเดี่ยว
+   ไม่งั้นการ์ดรูปคู่ (รูปเล็กกว่าครึ่งหนึ่ง) จะเหลือช่องว่างท้ายการ์ดเยอะ */
+.ba-pair,
+.ba-card.single .ba-photo{ height:300px; }
+.ba-pair .ba-photo,
+.ba-card.single .ba-photo{ aspect-ratio:auto; height:300px; }
+.ba-photo img{ object-position:center 35%; }   /* เก็บหัวน้องไว้ เวลาครอปรูปแนวตั้ง */
+@media(max-width:560px){ .ba-pair, .ba-pair .ba-photo, .ba-card.single .ba-photo{ height:340px; } }
 .ba-empty{ width:100%; height:100%; display:grid; place-items:center; color:var(--grey-text); opacity:.55; }
 .ba-empty svg.ico{ width:40px; height:40px; stroke-width:1.5; }
 .ba-cap{ padding:16px 18px; font-size:.95rem; font-weight:500; }
