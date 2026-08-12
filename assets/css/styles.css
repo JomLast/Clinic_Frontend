@@ -150,6 +150,24 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 
 /* ===== ABOUT ===== */
 .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+/* รูปถ่ายจริงของคลินิก (หน้าร้าน / ห้องเอกซเรย์ ฯลฯ) */
+.clinic-photo{ margin:0; position:relative; border-radius:var(--radius); overflow:hidden;
+  box-shadow:var(--shadow); background:var(--grey-bg); }
+.clinic-photo img{ display:block; width:100%; height:auto; }
+.clinic-photo figcaption{ display:flex; gap:9px; align-items:flex-start; padding:14px 18px;
+  font-size:.9rem; line-height:1.6; color:var(--grey-text); background:#fff; }
+.clinic-photo figcaption svg.ico{ flex:none; width:17px; height:17px; margin-top:.25em; color:var(--red); }
+.clinic-photo .map-btn{ position:absolute; right:14px; top:14px; display:inline-flex; align-items:center; gap:7px;
+  background:var(--red); color:#fff; font-weight:600; font-size:.88rem; padding:10px 18px; border-radius:999px;
+  text-decoration:none; box-shadow:var(--shadow); }
+.clinic-photo .map-btn:hover{ background:var(--red-dark); }
+.clinic-photo .map-btn svg.ico{ width:16px; height:16px; color:#fff; margin:0; }
+.clinic-photo.wide{ margin:26px 0 6px; }              /* ใช้ในหน้าบริการ คั่นระหว่างรายการ */
+
+/* แผนที่แบบเต็มความกว้าง (ใต้ส่วนเกี่ยวกับเรา) */
+.about-map.wide{ aspect-ratio:16/6; }
+@media(max-width:820px){ .about-map.wide{ aspect-ratio:4/3; } }
+
 /* แผนที่จริงของคลินิก — แทนที่รูปประกอบ ทำให้เห็นว่าเป็นสถานที่จริง */
 .about-map{ position:relative; border-radius:var(--radius); overflow:hidden; aspect-ratio:4/3; box-shadow:var(--shadow); background:var(--grey-bg); }
 .about-map iframe{ width:100%; height:100%; border:0; display:block; }
