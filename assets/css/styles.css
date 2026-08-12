@@ -224,6 +224,15 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .note-box .ic svg.ico{ width:26px; height:26px; }
 
 /* ===== PRODUCTS (สินค้าในร้าน — จาก CMS) ===== */
+/* กลุ่มสินค้าแยกตามหมวด — เป้าหมายของลิงก์จากการ์ดหมวดด้านบน */
+.prod-group{ scroll-margin-top:96px; }        /* กันหัวเว็บแบบ sticky บังหัวข้อตอนเลื่อนมา */
+.prod-group + .prod-group{ margin-top:52px; }
+.prod-group-title{ display:flex; align-items:center; gap:11px; font-size:1.25rem; font-weight:700;
+  padding-bottom:14px; margin-bottom:24px; border-bottom:2px solid var(--grey-line); }
+.prod-group-title svg.ico{ width:24px; height:24px; color:var(--red); flex:none; }
+.prod-group-title .count{ margin-left:auto; font-size:.85rem; font-weight:500; color:var(--grey-text); white-space:nowrap; }
+.prod-group.is-target .prod-group-title{ border-bottom-color:var(--red); transition:border-color .3s ease; }
+
 .prod-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
 .prod-card{ background:var(--surface); border:1px solid var(--grey-line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; transition:.3s ease; }
 .prod-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--red); }
