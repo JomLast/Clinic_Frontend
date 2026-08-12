@@ -35,10 +35,14 @@ for (const f of fs.readdirSync(DIR).filter(x => x.endsWith('.html') && !SKIP.has
   const title = pick(html, /<h1[^>]*>([\s\S]*?)<\/h1>/) || pick(html, /<title>([\s\S]*?)<\/title>/);
   const desc  = pick(html, /<meta name="description" content="([^"]*)"/);
   const heads = [...body.matchAll(/<h[23][^>]*>([\s\S]*?)<\/h[23]>/g)].map(m => strip(m[1])).filter(Boolean);
+  // <summary> = คำถามในหน้า FAQ — ต้องเก็บด้วย ไม่งั้นคำถามค้นไม่เจอ
+  const asks  = [...body.matchAll(/<summary[^>]*>([\s\S]*?)<\/summary>/g)].map(m => strip(m[1])).filter(Boolean);
   const paras = [...body.matchAll(/<(?:p|li)[^>]*>([\s\S]*?)<\/(?:p|li)>/g)].map(m => strip(m[1])).filter(Boolean);
 
-  // เนื้อหาที่ใช้ค้น — จำกัดความยาวไม่ให้ไฟล์ดัชนีบวม
-  const text = [desc, ...heads, ...paras].join(' ').slice(0, 600);
+  // เนื้อหาที่ใช้ค้น — คำถามมาก่อนย่อหน้า เพราะเป็นคำที่คนพิมพ์ค้นจริง
+  // หน้า FAQ ยาวกว่าหน้าอื่นมาก จึงให้โควตาตัวอักษรมากกว่า
+  const limit = asks.length ? 1800 : 600;
+  const text = [desc, ...heads, ...asks, ...paras].join(' ').slice(0, limit);
 
   docs.push({ u: f, t: title, s: section(f), d: desc.slice(0, 150), x: text.toLowerCase() });
 }

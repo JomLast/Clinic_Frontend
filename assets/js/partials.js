@@ -53,7 +53,10 @@ const NAV = [
       { label:"ดูทั้งหมด →", href:"animals.html" },
   ]},
   { label:"เพ็ทช็อป", href:"shop.html", id:"shop" },
-  { label:"สาระน่ารู้", href:"articles.html", id:"articles" },
+  { label:"สาระน่ารู้", href:"articles.html", id:"articles", sub:[
+      { label:"คำถามที่พบบ่อย", href:"faq.html" },
+      { label:"บทความทั้งหมด →", href:"articles.html" },
+  ]},
   { label:"เกี่ยวกับเรา", href:"about.html", id:"about" },
   { label:"ติดต่อเรา", href:"contact.html", id:"contact" },
 ];
@@ -122,6 +125,7 @@ function buildFooter(){
             <li><a href="animals.html">สัตว์ที่เรารักษา</a></li>
             <li><a href="shop.html">เพ็ทช็อป</a></li>
             <li><a href="articles.html">สาระน่ารู้</a></li>
+            <li><a href="faq.html">คำถามที่พบบ่อย</a></li>
             <li><a href="about.html">เกี่ยวกับเรา</a></li>
           </ul>
         </div>
