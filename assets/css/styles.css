@@ -471,14 +471,34 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
 
 /* ===== ARTICLES ===== */
 .article-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
-.article-card{ background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius); overflow:hidden; transition:.3s; }
+.article-card{ background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius); overflow:hidden;
+  transition:.3s; display:flex; flex-direction:column; }
 .article-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lg); border-color:transparent; }
-.article-card .thumb{ aspect-ratio:16/10; background:var(--grey-bg); display:grid; place-items:center; font-size:3rem; }
-.article-card .body{ padding:22px; }
-.article-card .cat{ font-size:.78rem; font-weight:600; color:var(--red); }
-.article-card h3{ font-size:1.12rem; margin:6px 0 8px; font-weight:600; }
-.article-card p{ color:var(--grey-text); font-size:.92rem; }
+/* แถบไอคอนเตี้ยลง ไม่ให้เหลือที่ว่างเยอะ + พื้นโทนแบรนด์แทนเทาเรียบ */
+.article-card .thumb{ aspect-ratio:16/6; background:linear-gradient(180deg,#FDF3F4 0%,#FAF7F0 100%);
+  display:grid; place-items:center; border-bottom:1px solid var(--grey-line); }
+.article-card .body{ padding:20px 22px 22px; display:flex; flex-direction:column; flex:1; }
+.article-card .cat{ font-size:.76rem; font-weight:600; color:var(--grey-text); letter-spacing:.3px; }
+.article-card .cat.urgent{ color:var(--red); }          /* ใช้สีแดงเฉพาะหมวดฉุกเฉิน ให้สีมีความหมาย */
+.article-card h3{ font-size:1.1rem; margin:6px 0 8px; font-weight:600; line-height:1.5; }
+.article-card p{ color:var(--grey-text); font-size:.92rem; flex:1; }
 .article-card .read{ display:inline-block; margin-top:14px; font-weight:600; color:var(--red); font-size:.9rem; }
+
+/* บทความเด่น — กินสองคอลัมน์ วางไอคอนซ้าย เนื้อหาขวา สร้างลำดับสายตา */
+.article-card.featured{ grid-column:span 2; flex-direction:row; align-items:stretch; }
+.article-card.featured .thumb{ aspect-ratio:auto; width:44%; flex:none; border-bottom:none;
+  border-right:1px solid var(--grey-line); background:linear-gradient(160deg,#FDF3F4 0%,#FAF7F0 100%); }
+.article-card.featured .thumb svg.ico{ width:76px; height:76px; }
+.article-card.featured .body{ justify-content:center; padding:30px 32px; }
+.article-card.featured h3{ font-size:1.42rem; margin:8px 0 10px; }
+.article-card.featured p{ font-size:1rem; flex:none; }
+@media(max-width:860px){
+  .article-card.featured{ grid-column:span 2; flex-direction:column; }
+  .article-card.featured .thumb{ width:100%; aspect-ratio:16/6; border-right:none; border-bottom:1px solid var(--grey-line); }
+  .article-card.featured .body{ padding:20px 22px 22px; }
+  .article-card.featured h3{ font-size:1.15rem; }
+}
+@media(max-width:560px){ .article-card.featured{ grid-column:span 1; } }
 
 /* ===== CTA ===== */
 .cta-band{ background:var(--red); color:#fff; border-radius:28px; padding:60px 40px; text-align:center; box-shadow:var(--shadow-lg); }
