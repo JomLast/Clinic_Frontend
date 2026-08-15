@@ -166,6 +166,33 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .clinic-photo .map-btn svg.ico{ width:16px; height:16px; color:#fff; margin:0; }
 .clinic-photo.wide{ margin:26px 0 6px; }              /* ใช้ในหน้าบริการ คั่นระหว่างรายการ */
 
+/* ===== รีวิวจากลูกค้า ===== */
+.rv-head{ display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:38px; }
+.rv-score{ display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--grey-line);
+  border-radius:999px; padding:10px 20px; box-shadow:var(--shadow); }
+.rv-score b{ font-size:1.35rem; line-height:1; }
+.rv-score .stars{ color:#F5A623; letter-spacing:1px; font-size:1rem; }
+.rv-score span{ color:var(--grey-text); font-size:.9rem; }
+.rv-score a{ color:var(--red); font-weight:600; font-size:.9rem; white-space:nowrap; }
+
+.rv-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.rv-card{ background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius);
+  padding:30px 28px 24px; box-shadow:var(--shadow); position:relative;
+  display:flex; flex-direction:column; transition:.3s ease; }
+.rv-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--red); }
+/* เครื่องหมายคำพูดจาง ๆ เป็นพื้นหลัง */
+.rv-card::before{ content:"\201C"; position:absolute; top:2px; right:20px;
+  font-family:Georgia,serif; font-size:5rem; line-height:1; color:var(--red); opacity:.10; }
+.rv-stars{ color:#F5A623; font-size:1.05rem; letter-spacing:2px; margin-bottom:14px; }
+.rv-text{ font-size:1rem; line-height:1.9; color:var(--ink-soft); flex:1; }
+.rv-by{ display:flex; align-items:center; gap:9px; margin-top:20px; padding-top:16px;
+  border-top:1px solid var(--grey-bg); font-size:.88rem; color:var(--grey-text); }
+.rv-by .who{ font-weight:600; color:var(--ink); }
+.rv-by .src{ margin-left:auto; display:inline-flex; align-items:center; gap:5px; white-space:nowrap; }
+.rv-by .src svg{ width:14px; height:14px; }
+@media(max-width:900px){ .rv-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:620px){ .rv-grid{ grid-template-columns:1fr; } }
+
 /* ===== หน้าคำถามที่พบบ่อย ===== */
 .faq-wrap{ max-width:820px; }
 .faq-cat{ display:flex; align-items:center; gap:11px; font-size:1.2rem; font-weight:700;
