@@ -101,7 +101,9 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .emergency{ background:var(--red); color:#fff; font-weight:600; font-size:.9rem; padding:12px 20px; border-radius:50px; display:inline-flex; align-items:center; gap:8px; transition:.2s; white-space:nowrap; }
 .emergency:hover{ background:var(--red-dark); transform:translateY(-2px); box-shadow:0 8px 20px rgba(232,51,75,.4); }
 .emergency span.full{ display:none; } /* ปุ่มฉุกเฉินเป็นไอคอนอย่างเดียว — ข้อความเต็มยาวเกินจนเมนูล้นจอ */
-.menu-toggle{ display:none; background:none; border:none; font-size:1.7rem; cursor:pointer; color:var(--black); }
+/* พื้นที่กดอย่างน้อย 44x44 ตามมาตรฐาน — ไอคอนยังเท่าเดิม แค่ขยายพื้นที่นิ้วแตะ */
+.menu-toggle{ display:none; background:none; border:none; font-size:1.7rem; cursor:pointer; color:var(--black);
+  width:44px; height:44px; place-items:center; padding:0; }
 
 /* ===== HERO (หน้าหลัก) ===== */
 .hero{
@@ -497,7 +499,7 @@ footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
   .nav-item > a{ justify-content:space-between; padding:14px 8px; border-bottom:1px solid var(--grey-bg); border-radius:0; }
   .dropdown{ position:static; opacity:1; visibility:visible; transform:none; box-shadow:none; border:none; padding:0 0 8px 16px; min-width:auto; display:none; }
   .nav-item.has-drop.open-sub .dropdown{ display:block; }
-  .menu-toggle{ display:block; }
+  .menu-toggle{ display:grid; }   /* grid เพื่อให้ place-items จัดไอคอนกลางพื้นที่แตะ 44px */
   .emergency span.full{ display:none; }
 }
 /* แท็บเล็ต / จอสัมผัส — iOS ซูมหน้าจอเองถ้าตัวอักษรในช่องกรอกเล็กกว่า 16px */
