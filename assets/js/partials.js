@@ -14,7 +14,7 @@ const SITE = {
   lineId:   "asiapet310",
   lineQR:   "https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=https%3A%2F%2Fline.me%2Fti%2Fp%2FtK01btn-wu",
   instagram:"https://www.instagram.com/asiapet01/",
-  address:  "320/12 ข้างบิ๊กซีนครสวรรค์ ถ.สายเอเชีย ต.นครสวรรค์ตก อ.เมือง จ.นครสวรรค์ 60000",
+  address:  "320/12 ข้างบิ๊กซีนครสวรรค์ ถ.สายเอเชีย ต.ปากน้ำโพ อ.เมือง จ.นครสวรรค์ 60000",
   mapLink:  "https://maps.app.goo.gl/9gafEAtYKx8WSJxn7",
   mapEmbed: "https://www.google.com/maps?q=15.6959822,100.1217192&z=17&hl=th&output=embed",
   hours: "09:00 – 20:00 น.",          // เปิดทุกวัน เวลาเดียวกันหมด
@@ -86,8 +86,8 @@ function buildHeader(active){
   </div>
   <header>
     <nav class="container">
-      <a href="index.html" class="brand" aria-label="Asiapet Animal Hospital">
-        <img class="brand-logo" src="assets/img/logo.png" alt="Asiapet Animal Hospital" />
+      <a href="index.html" class="brand" aria-label="Asiapet เอเชียเพ็ท">
+        <img class="brand-logo" src="assets/img/logo.png" alt="เอเชียเพ็ท (Asiapet) นครสวรรค์" />
       </a>
       <div class="nav-links" id="navLinks">${links}</div>
       <div class="nav-right">
@@ -106,11 +106,11 @@ function buildFooter(){
     <div class="container">
       <div class="foot-grid">
         <div>
-          <a href="index.html" class="footer-brand" aria-label="Asiapet Animal Hospital">
+          <a href="index.html" class="footer-brand" aria-label="Asiapet เอเชียเพ็ท">
             <span class="fb-name">Asiapet</span>
-            <span class="fb-sub">Animal Hospital</span>
+            <span class="fb-sub">เอเชียเพ็ท · นครสวรรค์</span>
           </a>
-          <p class="foot-tag">โรงพยาบาลสัตว์ครบวงจร ดูแลสัตว์เลี้ยงด้วยหัวใจ</p>
+          <p class="foot-tag">รักษาสุนัข แมว กระต่าย นก และสัตว์พิเศษ (Exotic) เปิดทุกวัน</p>
           <p class="foot-addr">${ICON.pin} <span>${SITE.address}</span></p>
           <div class="socials">
             <a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">${ICON.facebook}</a>
@@ -141,7 +141,7 @@ function buildFooter(){
           </ul>
         </div>
       </div>
-      <div class="foot-bottom">© 2026 Asiapet Animal Hospital — สงวนลิขสิทธิ์ทุกประการ</div>
+      <div class="foot-bottom">© 2026 เอเชียเพ็ท (Asiapet) — สงวนลิขสิทธิ์ทุกประการ</div>
     </div>
   </footer>`;
 }
