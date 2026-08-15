@@ -57,7 +57,7 @@ robots.txt, sitemap.xml   SEO
 ## Deploy (static host)
 
 Upload the folder to any static host (Netlify / Vercel / Cloudflare Pages / GitHub Pages).
-Currently live on GitHub Pages at <https://jomlast.github.io/Clinic_Frontend/>.
+Currently live on GitHub Pages at <https://asiapethospital.com/>.
 
 No backend is needed — the booking form emails the clinic via Web3Forms (see the
 booking-form note above for the one-time key setup).

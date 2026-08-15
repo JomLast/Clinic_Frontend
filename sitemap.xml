@@ -1,98 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/</loc>
+    <loc>https://asiapethospital.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/services.html</loc>
+    <loc>https://asiapethospital.com/services.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/animals.html</loc>
+    <loc>https://asiapethospital.com/animals.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-dog.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-cat.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-rabbit.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-bird.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-rodent.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-poultry.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/animal-exotic.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/service-checkup.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/service-lab.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/service-dental.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/service-surgery.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/service-emergency.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/service-boarding.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/service-grooming.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/service-special.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/animal-dog.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/animal-cat.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/animal-rabbit.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/animal-bird.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/animal-rodent.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/animal-poultry.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/animal-exotic.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/service-checkup.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/service-lab.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/service-dental.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/service-surgery.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/service-emergency.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/service-boarding.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/service-grooming.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/service-special.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/centers.html</loc>
+    <loc>https://asiapethospital.com/centers.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/contact.html</loc>
+    <loc>https://asiapethospital.com/contact.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/shop.html</loc>
+    <loc>https://asiapethospital.com/shop.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/about.html</loc>
+    <loc>https://asiapethospital.com/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/articles.html</loc>
+    <loc>https://asiapethospital.com/articles.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/faq.html</loc>
+    <loc>https://asiapethospital.com/faq.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/vaccine.html</loc>
+    <loc>https://asiapethospital.com/vaccine.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/article-dental.html</loc>
+    <loc>https://asiapethospital.com/article-dental.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/article-rabbit-care.html</loc>
+    <loc>https://asiapethospital.com/article-rabbit-care.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/article-emergency.html</loc>
+    <loc>https://asiapethospital.com/article-emergency.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/article-nutrition.html</loc>
+    <loc>https://asiapethospital.com/article-nutrition.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://jomlast.github.io/Clinic_Frontend/article-checkup.html</loc>
+    <loc>https://asiapethospital.com/article-checkup.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/article-neuter.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/article-parasite.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/article-heat.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/article-senior.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://jomlast.github.io/Clinic_Frontend/article-firstvisit.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://asiapethospital.com/article-neuter.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/article-parasite.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/article-heat.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asiapethospital.com/article-senior.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://asiapethospital.com/article-firstvisit.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
