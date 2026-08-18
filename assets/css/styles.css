@@ -313,8 +313,23 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .note-box .ic svg.ico{ width:26px; height:26px; }
 
 /* ===== PRODUCTS (สินค้าในร้าน — จาก CMS) ===== */
+/* แถบค้นหา + เลือกหมวด — ติดขอบบนใต้หัวเว็บ (header สูง 84px) เพราะรายการสินค้ายาวมาก */
+.prod-toolbar{ position:sticky; top:84px; z-index:60; margin:0 -14px 28px; padding:13px 14px 9px;
+  background:var(--grey-bg); border-bottom:1px solid var(--grey-line); }
+.prod-count{ text-align:center; font-size:.8rem; color:var(--grey-text); margin:0; }
+
+/* ปุ่มเลือกหมวด — จอแคบเลื่อนแนวนอนได้ ไม่ตัดบรรทัดจนแถบสูงเกิน */
+.prod-chips{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:0 0 8px; }
+.chip{ display:inline-flex; align-items:center; gap:6px; font-family:inherit; font-size:.85rem; font-weight:500;
+  color:var(--ink); background:#fff; border:1.5px solid var(--grey-line); border-radius:999px;
+  padding:7px 14px; cursor:pointer; white-space:nowrap; transition:.16s; }
+.chip span{ font-size:.75rem; color:var(--grey-text); font-weight:600; }
+.chip:hover{ border-color:var(--red); color:var(--red); }
+.chip.is-on{ background:var(--red); border-color:var(--red); color:#fff; }
+.chip.is-on span{ color:rgba(255,255,255,.8); }
+
 /* ช่องค้นหาสินค้าในหน้า — สินค้ามีเป็นร้อยรายการ พิมพ์หาเร็วกว่าเลื่อน */
-.prod-filter{ position:relative; display:flex; align-items:center; max-width:560px; margin:0 auto 34px; }
+.prod-filter{ position:relative; display:flex; align-items:center; max-width:560px; margin:0 auto 10px; }
 .prod-filter svg.ico{ position:absolute; left:16px; width:19px; height:19px; color:var(--grey-text); pointer-events:none; }
 .prod-filter input{ width:100%; font-family:inherit; font-size:.98rem; color:var(--ink);
   padding:13px 44px 13px 45px; border:1.5px solid #E3DACB; border-radius:999px; background:#fff; transition:.18s; }
@@ -353,6 +368,19 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 @media(max-width:680px){ .prod-grid{ grid-template-columns:1fr 1fr; } }
 /* สินค้ามีเป็นร้อยรายการ — บนมือถือคงไว้ 2 คอลัมน์ ถ้าเหลือคอลัมน์เดียวหน้าจะยาวเกินไป
    จึงบีบตัวอักษรและตัดคำอธิบายเหลือ 3 บรรทัดแทน                                        */
+/* จอแคบ: หัวเว็บเตี้ยลง และปุ่มหมวดยาวเกินจะตัดบรรทัดจนแถบสูงบังสินค้า
+   จึงให้เลื่อนแนวนอนแทน                                                */
+@media(max-width:760px){
+  .prod-toolbar{ padding:10px 14px 7px; }   /* top ใช้ค่าเดิม 84px — หัวเว็บสูงเท่ากันทั้งเดสก์ท็อปและมือถือ */
+  .prod-chips{ flex-wrap:nowrap; overflow-x:auto; justify-content:flex-start;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch;
+    margin:0 -14px 9px; padding:2px 14px 4px; }
+  .prod-chips::-webkit-scrollbar{ display:none; }
+  .chip{ font-size:.8rem; padding:6px 12px; }
+  .prod-filter{ margin-bottom:8px; }
+  .prod-filter input{ padding:11px 42px 11px 42px; font-size:.92rem; }
+}
+
 @media(max-width:420px){
   .prod-grid{ grid-template-columns:1fr 1fr; gap:13px; }
   .prod-body{ padding:11px 12px 13px; gap:4px; }

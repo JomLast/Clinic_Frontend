@@ -103,10 +103,15 @@
       <h2 class="title">รายการสินค้า</h2>
       <p>ยังไม่ได้ลงราคาไว้ในเว็บ เพราะบางตัวราคาขึ้นลงตามรอบสั่งของ — <strong>ทัก LINE ถามราคาและสต๊อกได้เลย</strong> ตอบเร็วกว่าโทรในช่วงที่คลินิกคนเยอะ</p>
     </div>
-    <div class="prod-filter">
-      <i data-lucide="search" class="ico"></i>
-      <input type="search" id="prodQ" placeholder="พิมพ์ชื่อสินค้าหรือยี่ห้อ เช่น Royal Canin, กระต่าย, ทรายแมว" aria-label="ค้นหาสินค้าในร้าน" autocomplete="off">
-      <button type="button" id="prodClear" aria-label="ล้างคำค้น" hidden>&times;</button>
+    <!-- แถบค้นหา + เลือกหมวด — ติดขอบบนไว้ เพราะรายการสินค้ายาวหลายพันพิกเซล -->
+    <div class="prod-toolbar" id="prodBar">
+      <div class="prod-filter">
+        <i data-lucide="search" class="ico"></i>
+        <input type="search" id="prodQ" placeholder="พิมพ์ชื่อสินค้าหรือยี่ห้อ เช่น Royal Canin, กระต่าย, ทรายแมว" aria-label="ค้นหาสินค้าในร้าน" autocomplete="off">
+        <button type="button" id="prodClear" aria-label="ล้างคำค้น" hidden>&times;</button>
+      </div>
+      <div class="prod-chips" id="prodChips" role="group" aria-label="กรองตามหมวดสินค้า"></div>
+      <p class="prod-count" id="prodCount" role="status" aria-live="polite"></p>
     </div>
     <!-- สินค้าแยกเป็นหมวด ๆ (สร้างจาก data/products.json) — กดการ์ดด้านบนแล้วเลื่อนมาที่หมวดนั้น -->
     <div id="productList"></div>
@@ -214,6 +219,8 @@
   [].forEach.call(document.querySelectorAll('.cat-card'), function(c){
     c.addEventListener('click', function(e){
       var id = (c.getAttribute('href') || '').replace('#','');
+      // ถ้ากำลังกรองอยู่ หมวดอื่นจะไม่ถูกสร้าง เลื่อนไปหาไม่เจอ -> ล้างตัวกรองก่อน
+      if(typeof resetFilter === 'function') resetFilter();
       var t = id && document.getElementById(id);
       if(!t) return;                       // หา section ไม่เจอ -> ปล่อยให้ลิงก์ทำงานตามปกติ
       e.preventDefault();
@@ -231,41 +238,97 @@
     if(t) t.scrollIntoView({ block:'start' });
   }
 
-  /* ===== ช่องค้นหาในหน้า — สินค้าเยอะ ให้พิมพ์หาได้เร็วกว่าเลื่อนหา ===== */
+  /* ===== แถบค้นหา + ปุ่มเลือกหมวด =====
+     สินค้ามีเป็นร้อยรายการ ถ้าไม่มีตัวกรอง ต้องเลื่อนหาเองซึ่งนานมาก
+     คำค้นกับหมวดใช้ร่วมกันได้ เช่น เลือก "Exotic" แล้วพิมพ์ "กระต่าย"   */
   var ALL = [];
-  var q = document.getElementById('prodQ');
+  var curCat = "";                                   // "" = ทุกหมวด
+  var q      = document.getElementById('prodQ');
   var qClear = document.getElementById('prodClear');
-  var none = document.getElementById('prodNone');
+  var chips  = document.getElementById('prodChips');
+  var count  = document.getElementById('prodCount');
+  var none   = document.getElementById('prodNone');
+  var bar    = document.getElementById('prodBar');
 
-  function norm(s){ return String(s||"").toLowerCase(); }
+  function norm(s){ return String(s == null ? "" : s).toLowerCase(); }
+
+  /* ปุ่มหมวด — สร้างจากข้อมูลจริง เลขในปุ่มจะได้ตรงกับจำนวนสินค้าเสมอ */
+  function buildChips(){
+    if(!chips) return;
+    var order = [].map.call(document.querySelectorAll('.cat-card'), function(c){ return c.getAttribute('data-cat'); });
+    ALL.forEach(function(p){ if(order.indexOf(p.category) === -1) order.push(p.category); });
+
+    var html = '<button type="button" class="chip is-on" data-cat="">ทั้งหมด <span>' + ALL.length + '</span></button>';
+    order.forEach(function(cat){
+      var n = ALL.filter(function(p){ return p.category === cat; }).length;
+      if(!n) return;
+      html += '<button type="button" class="chip" data-cat="' + esc(cat) + '">' + esc(cat) + ' <span>' + n + '</span></button>';
+    });
+    chips.innerHTML = html;
+
+    [].forEach.call(chips.querySelectorAll('.chip'), function(b){
+      b.addEventListener('click', function(){
+        curCat = b.getAttribute('data-cat') || "";
+        [].forEach.call(chips.querySelectorAll('.chip'), function(x){ x.classList.toggle('is-on', x === b); });
+        applyFilter();
+        // กรองแล้วรายการสั้นลง ถ้ายืนอยู่ท้ายหน้าจะเห็นแต่ที่ว่าง — ดึงกลับมาที่แถบกรอง
+        if(bar && bar.getBoundingClientRect().top < 0) bar.scrollIntoView({ block:'start' });
+      });
+    });
+  }
 
   function applyFilter(){
     var term = norm(q && q.value).trim();
     if(qClear) qClear.hidden = !term;
-    if(!term){
-      window.renderProducts(ALL);
-      if(none) none.style.display = "none";
-      return;
-    }
-    var words = term.split(/\s+/);
+
+    var words = term ? term.split(/\s+/) : [];
     var hits = ALL.filter(function(p){
+      if(curCat && p.category !== curCat) return false;
+      if(!words.length) return true;
       var hay = norm(p.name) + " " + norm(p.category) + " " + norm(p.note);
       return words.every(function(w){ return hay.indexOf(w) !== -1; });
     });
+
     window.renderProducts(hits);
-    if(empty) empty.style.display = "none";           // ข้อความ "กำลังอัปเดต" ใช้เฉพาะตอนไม่มีข้อมูลจริง
-    if(none) none.style.display = hits.length ? "none" : "block";
+    if(empty) empty.style.display = "none";          // ข้อความ "กำลังอัปเดต" ใช้เฉพาะตอนไม่มีข้อมูลเลย
+    if(none)  none.style.display  = hits.length ? "none" : "block";
+
+    if(count){
+      count.textContent = (!curCat && !term)
+        ? "ทั้งหมด " + ALL.length + " รายการ"
+        : "แสดง " + hits.length + " จาก " + ALL.length + " รายการ";
+    }
   }
+
+  /* ใช้ตอนกดการ์ดหมวดด้านบน — การ์ดสั่ง "เลื่อนไปที่หมวด" ไม่ใช่ "กรอง"
+     ถ้าไม่ล้างตัวกรองก่อน หมวดปลายทางอาจไม่ได้ถูกสร้างไว้ในหน้า        */
+  function resetFilter(){
+    if(!curCat && !(q && q.value)) return;
+    curCat = "";
+    if(q) q.value = "";
+    if(chips) [].forEach.call(chips.querySelectorAll('.chip'), function(x){
+      x.classList.toggle('is-on', !x.getAttribute('data-cat'));
+    });
+    applyFilter();
+  }
+  window.resetFilter = resetFilter;
 
   if(q){
     var t;
     q.addEventListener('input', function(){ clearTimeout(t); t = setTimeout(applyFilter, 120); });
+    q.addEventListener('keydown', function(e){ if(e.key === 'Escape' && q.value){ q.value = ""; applyFilter(); } });
   }
   if(qClear) qClear.addEventListener('click', function(){ q.value = ""; q.focus(); applyFilter(); });
 
   fetch('data/products.json', { cache: 'no-store' })
     .then(function(r){ return r.ok ? r.json() : { products: [] }; })
-    .then(function(d){ ALL = (d && d.products) || []; window.renderProducts(ALL); jumpToHash(); })
+    .then(function(d){
+      ALL = (d && d.products) || [];
+      if(!ALL.length){ window.renderProducts([]); return; }
+      buildChips();
+      applyFilter();
+      jumpToHash();
+    })
     .catch(function(){ window.renderProducts([]); });
 })();
 </script>
