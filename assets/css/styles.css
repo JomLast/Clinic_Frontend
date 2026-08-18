@@ -597,7 +597,9 @@ footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
 .footer-brand .fb-name{ display:block; font-family:'Poppins',sans-serif; font-weight:800; font-size:1.95rem; letter-spacing:-.5px; color:var(--red); }
 .footer-brand .fb-sub{ display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:.76rem; letter-spacing:2.6px; text-transform:uppercase; opacity:.7; margin-top:6px; }
 /* ===== รูปถ่ายจริงในร้าน (แถบภาพหน้าเพ็ทช็อป) ===== */
-.shop-photos{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; margin-bottom:44px; }
+/* min(300px,100%) ไม่ใช่ 300px เฉย ๆ — ที่จอ 320px คอนเทนเนอร์กว้างแค่ ~294px
+   แทร็กขั้นต่ำ 300px จะดันจนรูปล้นออกนอกจอ ทำให้หน้าเลื่อนซ้ายขวาได้ */
+.shop-photos{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); gap:20px; margin-bottom:44px; }
 .shop-photos figure{ margin:0; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); background:var(--grey-bg); }
 .shop-photos img{ display:block; width:100%; height:100%; aspect-ratio:4/3; object-fit:cover; }
 .shop-photos figcaption{ padding:12px 16px; font-size:.9rem; color:var(--grey-text); background:#fff; }
@@ -664,6 +666,16 @@ footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
   .note-box{ padding:18px 16px; gap:11px; }
   .vac-head h3{ font-size:1.15rem; }
   .prose h3{ font-size:1.18rem; }
+}
+/* จอแคบมาก (iPhone SE รุ่นเก่า 320px และเครื่องที่ตั้งค่าขยายจอ)
+   ของในหัวเว็บรวมกันต้องการอย่างน้อย 296px แต่ .container กว้างแค่ 92%
+   ที่จอ 320px จึงเหลือ 294px -> หัวเว็บล้น ทำให้ "ทุกหน้า" เลื่อนซ้ายขวาได้
+   บีบระยะห่างและโลโก้ลง เพื่อให้พอดีตั้งแต่จอ ~290px ขึ้นไป              */
+@media (max-width:400px){
+  nav{ gap:10px; }
+  .nav-right{ gap:8px; }
+  .emergency{ padding:12px 13px; }
+  .brand-logo{ height:40px; }
 }
 /* มือถือแนวนอน (จอเตี้ย) — ขอบเปล่ากินพื้นที่ 38% ทำให้ปุ่มจองนัดตกจอ */
 @media (max-height:520px) and (orientation:landscape){
