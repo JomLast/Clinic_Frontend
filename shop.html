@@ -178,7 +178,13 @@
         '<h4>'+esc(p.name)+'</h4>'+
         (p.price ? '<div class="prod-price">'+esc(p.price)+'</div>' : '')+
         (p.note ? '<p class="prod-note">'+esc(p.note)+'</p>' : '')+
-        '<a class="btn btn-line" href="'+LINE+'" target="_blank" rel="noopener"><i data-lucide="message-circle"></i> สั่ง / สอบถาม LINE</a>'+
+        /* จอแคบการ์ดกว้างแค่ ~140px ข้อความเต็มจะตกบรรทัด ปุ่มสูงเป็นสองเท่า
+           จึงมีข้อความสองชุด แล้วให้ CSS เลือกแสดงตามความกว้างจอ           */
+        '<a class="btn btn-line" href="'+LINE+'" target="_blank" rel="noopener">'+
+          '<i data-lucide="message-circle"></i>'+
+          '<span class="t-full">สั่ง / สอบถาม LINE</span>'+
+          '<span class="t-mini">ทัก LINE</span>'+
+        '</a>'+
       '</div></div>';
   }
 
@@ -230,6 +236,17 @@
       setTimeout(function(){ t.classList.remove('is-target'); }, 1600);
     });
   });
+
+  /* ===== วัดความสูงของสิ่งที่ปักหมุดไว้ด้านบน แล้วเขียนลง CSS variable =====
+     หัวเว็บสูงไม่เท่ากันทุกจอ (จอ <=860px แถบบนซ่อนเวลาทำการ ความสูงเลยลดลง)
+     ถ้าฝังตัวเลขตายตัวใน CSS แถบกรองจะลอยหลุดหรือมุดใต้หัวเว็บ
+     และหัวข้อหมวดจะจมอยู่ใต้แถบตอนกดการ์ดหมวด                              */
+  function measureSticky(){
+    var h = document.querySelector('header');
+    var root = document.documentElement.style;
+    if(h)   root.setProperty('--hdr', Math.round(h.getBoundingClientRect().height) + 'px');
+    if(bar) root.setProperty('--bar', Math.round(bar.getBoundingClientRect().height) + 'px');
+  }
 
   /* เปิดหน้ามาพร้อม #hash (เช่นลิงก์ที่แชร์ไว้) -> เลื่อนให้หลังสินค้าถูกสร้างเสร็จ */
   function jumpToHash(){
@@ -320,6 +337,20 @@
   }
   if(qClear) qClear.addEventListener('click', function(){ q.value = ""; q.focus(); applyFilter(); });
 
+  /* ResizeObserver จับได้ทุกกรณีที่กล่องเปลี่ยนขนาด ทั้งหมุนจอ ย่อจอ ฟอนต์โหลดเสร็จ
+     หรือปุ่มหมวดเปลี่ยนจำนวนบรรทัด — event resize อย่างเดียวพลาดหลายกรณี */
+  if(window.ResizeObserver){
+    var ro = new ResizeObserver(function(){ requestAnimationFrame(measureSticky); });
+    if(bar) ro.observe(bar);
+    var hdrEl = document.querySelector('header');
+    if(hdrEl) ro.observe(hdrEl);
+  }
+  /* ผูก resize ไว้ด้วยเสมอ ไม่ใช่ทางเลือกสำรอง — บางเบราว์เซอร์หน่วง ResizeObserver
+     ตอนแท็บไม่ได้แสดงผล ทำให้ค่าที่วัดไว้ค้างของเก่า */
+  var rt;
+  window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(measureSticky, 150); });
+  window.addEventListener('orientationchange', function(){ setTimeout(measureSticky, 300); });
+
   fetch('data/products.json', { cache: 'no-store' })
     .then(function(r){ return r.ok ? r.json() : { products: [] }; })
     .then(function(d){
@@ -327,6 +358,7 @@
       if(!ALL.length){ window.renderProducts([]); return; }
       buildChips();
       applyFilter();
+      measureSticky();       // ต้องวัดหลังสร้างปุ่มหมวด ไม่งั้นได้ความสูงแถบก่อนมีปุ่ม
       jumpToHash();
     })
     .catch(function(){ window.renderProducts([]); });

@@ -313,13 +313,26 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .note-box .ic svg.ico{ width:26px; height:26px; }
 
 /* ===== PRODUCTS (สินค้าในร้าน — จาก CMS) ===== */
-/* แถบค้นหา + เลือกหมวด — ติดขอบบนใต้หัวเว็บ (header สูง 84px) เพราะรายการสินค้ายาวมาก */
-.prod-toolbar{ position:sticky; top:84px; z-index:60; margin:0 -14px 28px; padding:13px 14px 9px;
-  background:var(--grey-bg); border-bottom:1px solid var(--grey-line); }
+/* แถบค้นหา + เลือกหมวด — ติดขอบบนใต้หัวเว็บ เพราะรายการสินค้ายาวมาก
+   --hdr / --bar วัดจริงด้วย JS ใน shop.html แล้วเขียนลง :root
+   (หัวเว็บสูงไม่เท่ากันทุกจอ — ที่ <=860px แถบบนซ่อนเวลาทำการ ความสูงเลยลด)
+   เดิมใช้ margin ติดลบ -14px ให้แถบเต็มขอบ แต่ .container กว้าง 92%
+   ขอบข้างจึงเป็น 4% ของจอ ซึ่งเท่ากับ 13px ที่จอ 320px -> ล้นออกไป 1px
+   ทำให้ทั้งหน้าเลื่อนซ้ายขวาได้ จึงเปลี่ยนเป็นการ์ดอยู่ในคอนเทนเนอร์แทน */
+.prod-toolbar{ position:sticky; top:var(--hdr,84px); z-index:60; margin:0 0 26px; padding:12px 14px 9px;
+  background:var(--surface); border:1px solid var(--grey-line); border-radius:18px; box-shadow:var(--shadow); }
 .prod-count{ text-align:center; font-size:.8rem; color:var(--grey-text); margin:0; }
 
-/* ปุ่มเลือกหมวด — จอแคบเลื่อนแนวนอนได้ ไม่ตัดบรรทัดจนแถบสูงเกิน */
-.prod-chips{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:0 0 8px; }
+/* ปุ่มเลือกหมวด — เรียงเป็นแถวเดียวเสมอ ถ้าไม่พอให้เลื่อนแนวนอน
+   ปล่อยให้ตัดบรรทัดไม่ได้ เพราะแถบนี้ปักหมุดอยู่บนสุด พอสูงสองบรรทัด
+   (วัดได้ 181px ที่จอ 785px) จะกินพื้นที่จอจนเหลือที่ดูสินค้าน้อยมาก      */
+.prod-chips{ display:flex; gap:8px; justify-content:center; margin:0 0 8px; }
+@media(max-width:1240px){
+  .prod-chips{ flex-wrap:nowrap; overflow-x:auto; justify-content:flex-start;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch;
+    margin:0 -14px 8px; padding:2px 14px 4px; }
+  .prod-chips::-webkit-scrollbar{ display:none; }
+}
 .chip{ display:inline-flex; align-items:center; gap:6px; font-family:inherit; font-size:.85rem; font-weight:500;
   color:var(--ink); background:#fff; border:1.5px solid var(--grey-line); border-radius:999px;
   padding:7px 14px; cursor:pointer; white-space:nowrap; transition:.16s; }
@@ -341,7 +354,9 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .prod-filter button:hover{ background:var(--red); color:#fff; }
 
 /* กลุ่มสินค้าแยกตามหมวด — เป้าหมายของลิงก์จากการ์ดหมวดด้านบน */
-.prod-group{ scroll-margin-top:96px; }        /* กันหัวเว็บแบบ sticky บังหัวข้อตอนเลื่อนมา */
+/* กันหัวเว็บ + แถบกรอง (ทั้งคู่ sticky) บังหัวข้อหมวดตอนเลื่อนมา
+   ค่าเดิม 96px เผื่อไว้แค่หัวเว็บ พอมีแถบกรองมาซ้อนหัวข้อเลยจมหายไปใต้แถบ */
+.prod-group{ scroll-margin-top:calc(var(--hdr,84px) + var(--bar,140px) + 14px); }
 .prod-group + .prod-group{ margin-top:52px; }
 .prod-group-title{ display:flex; align-items:center; gap:11px; font-size:1.25rem; font-weight:700;
   padding-bottom:14px; margin-bottom:24px; border-bottom:2px solid var(--grey-line); }
@@ -361,7 +376,8 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .prod-body h4{ font-size:1rem; font-weight:600; line-height:1.4; }
 .prod-price{ font-weight:700; color:var(--ink); }
 .prod-note{ color:var(--grey-text); font-size:.86rem; }
-.prod-body .btn-line{ margin-top:auto; padding:9px 14px; font-size:.85rem; }
+.prod-body .btn-line{ margin-top:auto; padding:9px 14px; font-size:.85rem; white-space:nowrap; }
+.prod-body .btn-line .t-mini{ display:none; }
 #productEmpty .btn-line, .prod-body .btn-line{ background:#06C755; color:#fff; }
 #productEmpty .btn-line:hover, .prod-body .btn-line:hover{ background:#05a648; transform:translateY(-2px); box-shadow:0 8px 20px rgba(6,199,85,.35); }
 @media(max-width:900px){ .prod-grid{ grid-template-columns:1fr 1fr 1fr; } }
@@ -371,11 +387,8 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 /* จอแคบ: หัวเว็บเตี้ยลง และปุ่มหมวดยาวเกินจะตัดบรรทัดจนแถบสูงบังสินค้า
    จึงให้เลื่อนแนวนอนแทน                                                */
 @media(max-width:760px){
-  .prod-toolbar{ padding:10px 14px 7px; }   /* top ใช้ค่าเดิม 84px — หัวเว็บสูงเท่ากันทั้งเดสก์ท็อปและมือถือ */
-  .prod-chips{ flex-wrap:nowrap; overflow-x:auto; justify-content:flex-start;
-    scrollbar-width:none; -webkit-overflow-scrolling:touch;
-    margin:0 -14px 9px; padding:2px 14px 4px; }
-  .prod-chips::-webkit-scrollbar{ display:none; }
+  .prod-toolbar{ padding:10px 11px 7px; border-radius:15px; }
+  .prod-chips{ margin:0 -11px 8px; padding:2px 11px 4px; }
   .chip{ font-size:.8rem; padding:6px 12px; }
   .prod-filter{ margin-bottom:8px; }
   .prod-filter input{ padding:11px 42px 11px 42px; font-size:.92rem; }
@@ -386,8 +399,10 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
   .prod-body{ padding:11px 12px 13px; gap:4px; }
   .prod-body h4{ font-size:.88rem; line-height:1.35; }
   .prod-note{ font-size:.76rem; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-  .prod-body .btn-line{ padding:8px 10px; font-size:.76rem; gap:5px; }
+  .prod-body .btn-line{ padding:8px 10px; font-size:.78rem; gap:5px; }
   .prod-body .btn-line svg{ width:14px; height:14px; }
+  .prod-body .btn-line .t-full{ display:none; }
+  .prod-body .btn-line .t-mini{ display:inline; }
 }
 
 /* ===== PROSE (เนื้อหาบทความ) ===== */
