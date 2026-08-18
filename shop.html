@@ -89,7 +89,7 @@
       <a class="card cat-card" href="#cat-exotic" data-cat="อาหารสัตว์พิเศษ (Exotic)" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="carrot" class="ico"></i></div><h3>อาหารสัตว์พิเศษ (Exotic)</h3><p>อาหารกระต่าย นก สัตว์ฟันแทะ และหญ้าแห้ง คัดสำหรับสัตว์เลี้ยงชนิดพิเศษ</p></a>
       <a class="card cat-card" href="#cat-vet" data-cat="อาหารประกอบการรักษา" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="heart-pulse" class="ico"></i></div><h3>อาหารประกอบการรักษา</h3><p>อาหารสูตรเฉพาะโรค (ไต ตับ ทางเดินปัสสาวะ ควบคุมน้ำหนัก) ตามคำแนะนำสัตวแพทย์</p></a>
       <a class="card cat-card" href="#cat-treat" data-cat="ขนม วิตามิน & อาหารเสริม" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="pill" class="ico"></i></div><h3>ขนม วิตามิน &amp; อาหารเสริม</h3><p>ขนมขบเคี้ยว วิตามิน บำรุงขน ข้อ และเสริมภูมิคุ้มกัน</p></a>
-      <a class="card cat-card" href="#cat-gear" data-cat="ของใช้ & อุปกรณ์" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="shopping-bag" class="ico"></i></div><h3>ของใช้ &amp; อุปกรณ์</h3><p>กรง ที่นอน ชามอาหาร สายจูง กระบะทราย ของเล่น และอุปกรณ์จำเป็น</p></a>
+      <a class="card cat-card" href="#cat-gear" data-cat="ของใช้ & อุปกรณ์" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="shopping-bag" class="ico"></i></div><h3>ของใช้ &amp; อุปกรณ์</h3><p>กรง ชามอาหาร กระบะทราย แผ่นรองซับ กรรไกรตัดเล็บ แปรงหวีขน และของใช้ประจำวัน</p></a>
       <a class="card cat-card" href="#cat-clean" data-cat="ดูแลความสะอาด" style="color:inherit;text-decoration:none"><div class="ic"><i data-lucide="droplets" class="ico"></i></div><h3>ดูแลความสะอาด</h3><p>ทรายแมว แชมพู ผลิตภัณฑ์กำจัดเห็บหมัด และของใช้ทำความสะอาด</p></a>
     </div>
   </div>
@@ -103,8 +103,14 @@
       <h2 class="title">รายการสินค้า</h2>
       <p>ยังไม่ได้ลงราคาไว้ในเว็บ เพราะบางตัวราคาขึ้นลงตามรอบสั่งของ — <strong>ทัก LINE ถามราคาและสต๊อกได้เลย</strong> ตอบเร็วกว่าโทรในช่วงที่คลินิกคนเยอะ</p>
     </div>
+    <div class="prod-filter">
+      <i data-lucide="search" class="ico"></i>
+      <input type="search" id="prodQ" placeholder="พิมพ์ชื่อสินค้าหรือยี่ห้อ เช่น Royal Canin, กระต่าย, ทรายแมว" aria-label="ค้นหาสินค้าในร้าน" autocomplete="off">
+      <button type="button" id="prodClear" aria-label="ล้างคำค้น" hidden>&times;</button>
+    </div>
     <!-- สินค้าแยกเป็นหมวด ๆ (สร้างจาก data/products.json) — กดการ์ดด้านบนแล้วเลื่อนมาที่หมวดนั้น -->
     <div id="productList"></div>
+    <p id="prodNone" style="display:none;text-align:center;color:var(--grey-text);padding:30px 0">ไม่พบสินค้าที่ตรงกับคำค้น — ทัก LINE ถามได้เลย เผื่อมีของแต่ยังไม่ได้ลงในเว็บ</p>
     <div id="productEmpty" style="display:none;text-align:center">
       <p style="color:var(--grey-text);margin-bottom:18px">กำลังอัปเดตรายการสินค้า — สอบถามสินค้าที่ต้องการได้เลย</p>
       <a class="btn btn-line" href="https://line.me/ti/p/tK01btn-wu" target="_blank" rel="noopener"><i data-lucide="message-circle" class="ico"></i> สอบถามสินค้าทาง LINE</a>
@@ -225,9 +231,41 @@
     if(t) t.scrollIntoView({ block:'start' });
   }
 
+  /* ===== ช่องค้นหาในหน้า — สินค้าเยอะ ให้พิมพ์หาได้เร็วกว่าเลื่อนหา ===== */
+  var ALL = [];
+  var q = document.getElementById('prodQ');
+  var qClear = document.getElementById('prodClear');
+  var none = document.getElementById('prodNone');
+
+  function norm(s){ return String(s||"").toLowerCase(); }
+
+  function applyFilter(){
+    var term = norm(q && q.value).trim();
+    if(qClear) qClear.hidden = !term;
+    if(!term){
+      window.renderProducts(ALL);
+      if(none) none.style.display = "none";
+      return;
+    }
+    var words = term.split(/\s+/);
+    var hits = ALL.filter(function(p){
+      var hay = norm(p.name) + " " + norm(p.category) + " " + norm(p.note);
+      return words.every(function(w){ return hay.indexOf(w) !== -1; });
+    });
+    window.renderProducts(hits);
+    if(empty) empty.style.display = "none";           // ข้อความ "กำลังอัปเดต" ใช้เฉพาะตอนไม่มีข้อมูลจริง
+    if(none) none.style.display = hits.length ? "none" : "block";
+  }
+
+  if(q){
+    var t;
+    q.addEventListener('input', function(){ clearTimeout(t); t = setTimeout(applyFilter, 120); });
+  }
+  if(qClear) qClear.addEventListener('click', function(){ q.value = ""; q.focus(); applyFilter(); });
+
   fetch('data/products.json', { cache: 'no-store' })
     .then(function(r){ return r.ok ? r.json() : { products: [] }; })
-    .then(function(d){ window.renderProducts((d && d.products) || []); jumpToHash(); })
+    .then(function(d){ ALL = (d && d.products) || []; window.renderProducts(ALL); jumpToHash(); })
     .catch(function(){ window.renderProducts([]); });
 })();
 </script>

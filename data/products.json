@@ -1,466 +1,788 @@
 {
   "products": [
     {
-      "name": "สายรัดอกสุนัข (Harness) แบบเสื้อ",
-      "category": "ของใช้ & อุปกรณ์",
-      "price": "",
-      "image": "",
-      "note": "ปรับขนาดได้ นุ่ม กระจายแรง ไม่บาดคอ มีหลายไซส์และหลายสี"
-    },
-    {
-      "name": "สายรัดอกสุนัข (Harness) แบบสาย H",
-      "category": "ของใช้ & อุปกรณ์",
-      "price": "",
-      "image": "",
-      "note": "โครงเบา ระบายอากาศดี เหมาะสุนัขตัวเล็ก–กลาง"
-    },
-    {
-      "name": "สายรัดอกกันดึง (No-pull Harness)",
-      "category": "ของใช้ & อุปกรณ์",
-      "price": "",
-      "image": "",
-      "note": "มีห่วงคล้องด้านหน้า ช่วยลดการดึงเวลาพาเดิน"
-    },
-    {
-      "name": "สายรัดอกแมว + สายจูง (เซ็ต)",
-      "category": "ของใช้ & อุปกรณ์",
-      "price": "",
-      "image": "",
-      "note": "ดีไซน์กันหลุด พร้อมสายจูง เหมาะสำหรับแมว"
-    },
-    {
-      "name": "Royal Canin อาหารลูกสุนัข (Puppy)",
-      "category": "อาหารสุนัข & แมว",
-      "price": "",
-      "image": "",
-      "note": "สูตรลูกสุนัข เสริมภูมิคุ้มกันและการเจริญเติบโต มีตามขนาดสายพันธุ์"
-    },
-    {
-      "name": "Royal Canin อาหารสุนัขโต (Adult)",
-      "category": "อาหารสุนัข & แมว",
-      "price": "",
-      "image": "",
-      "note": "สูตรสุนัขโตเต็มวัย มีให้เลือกตามขนาดสายพันธุ์ (เล็ก/กลาง/ใหญ่)"
-    },
-    {
-      "name": "Royal Canin อาหารลูกแมว (Kitten)",
-      "category": "อาหารสุนัข & แมว",
-      "price": "",
-      "image": "",
-      "note": "สูตรลูกแมว ช่วงหย่านม–12 เดือน"
-    },
-    {
-      "name": "Royal Canin อาหารแมวโต (Adult)",
-      "category": "อาหารสุนัข & แมว",
-      "price": "",
-      "image": "",
-      "note": "สูตรแมวโต บำรุงขนและระบบขับถ่าย มีทั้งเม็ดและเปียก"
-    },
-    {
-      "name": "Royal Canin สูตรเฉพาะโรค (Veterinary Diet)",
-      "category": "อาหารประกอบการรักษา",
-      "price": "",
-      "image": "",
-      "note": "สูตรดูแลไต / ทางเดินปัสสาวะ / ผิวหนัง / ควบคุมน้ำหนัก — ตามคำแนะนำสัตวแพทย์"
-    },
-    {
-      "name": "Bravecto ยาหยดกำจัดเห็บหมัด (สุนัข)",
-      "category": "ดูแลความสะอาด",
-      "price": "",
-      "image": "",
-      "note": "แบบหยดหลัง ป้องกันเห็บหมัดยาวนาน แบ่งขนาดตามน้ำหนัก"
-    },
-    {
-      "name": "Bravecto ชนิดเม็ดเคี้ยว (สุนัข)",
-      "category": "ดูแลความสะอาด",
-      "price": "",
-      "image": "",
-      "note": "แบบเม็ดเคี้ยว คุมเห็บหมัดได้นาน แบ่งขนาดตามน้ำหนัก"
-    },
-    {
-      "name": "Bravecto Plus (แมว)",
-      "category": "ดูแลความสะอาด",
-      "price": "",
-      "image": "",
-      "note": "ยาหยดสำหรับแมว ป้องกันเห็บ หมัด และพยาธิ"
-    },
-    {
       "name": "Royal Canin Urinary S/O (แมว)",
       "category": "อาหารประกอบการรักษา",
       "price": "",
-      "image": "",
-      "note": "สูตรละลายนิ่วสตรูไวท์และดูแลทางเดินปัสสาวะ มีทั้งถุงและกระป๋อง"
+      "image": "assets/img/products/rc-urinary-cat.jpg",
+      "note": "ช่วยละลายนิ่วสตรูไวท์และลดการเกิดซ้ำ มีขนาด 400 ก. และ 1.5 กก."
     },
     {
-      "name": "Royal Canin Renal / Early Renal (แมว)",
+      "name": "Royal Canin Urinary S/O Small Dogs",
       "category": "อาหารประกอบการรักษา",
       "price": "",
-      "image": "",
-      "note": "สูตรโรคไต ลดฟอสฟอรัส สำหรับแมวไตเสื่อมระยะต้นถึงระยะรักษา"
+      "image": "assets/img/products/rc-urinary-dog.jpg",
+      "note": "สูตรสุนัขพันธุ์เล็กที่มีปัญหานิ่วในกระเพาะปัสสาวะ"
     },
     {
-      "name": "Royal Canin Gastrointestinal",
+      "name": "Royal Canin Gastrointestinal (แมว)",
       "category": "อาหารประกอบการรักษา",
       "price": "",
-      "image": "",
-      "note": "สูตรทางเดินอาหาร ย่อยง่าย สำหรับช่วงท้องเสียหรือลำไส้อักเสบ"
+      "image": "assets/img/products/rc-gi-cat.jpg",
+      "note": "ย่อยง่าย สำหรับแมวท้องเสีย อาเจียน หรือลำไส้อักเสบ"
     },
     {
-      "name": "Royal Canin Neutered",
+      "name": "Royal Canin Gastrointestinal Fibre Response (แมว)",
       "category": "อาหารประกอบการรักษา",
       "price": "",
-      "image": "",
-      "note": "สูตรควบคุมน้ำหนักหลังทำหมัน"
+      "image": "assets/img/products/rc-gi-fibre.jpg",
+      "note": "เสริมใยอาหาร สำหรับแมวท้องผูก ถ่ายยาก หรือลำไส้ใหญ่อักเสบ"
+    },
+    {
+      "name": "Royal Canin Gastrointestinal Low Fat (สุนัข)",
+      "category": "อาหารประกอบการรักษา",
+      "price": "",
+      "image": "assets/img/products/rc-gi-lowfat.jpg",
+      "note": "ไขมันต่ำ สำหรับสุนัขตับอ่อนอักเสบหรือมีปัญหาการย่อยไขมัน"
+    },
+    {
+      "name": "Royal Canin Renal (แมว)",
+      "category": "อาหารประกอบการรักษา",
+      "price": "",
+      "image": "assets/img/products/rc-renal-cat.jpg",
+      "note": "สูตรโรคไตเรื้อรัง ลดฟอสฟอรัสและโปรตีน ช่วยชะลอการเสื่อมของไต"
+    },
+    {
+      "name": "Royal Canin Early Renal (แมว)",
+      "category": "อาหารประกอบการรักษา",
+      "price": "",
+      "image": "assets/img/products/rc-early-renal.jpg",
+      "note": "สำหรับแมวที่เริ่มมีค่าไตผิดปกติในระยะแรก"
+    },
+    {
+      "name": "Royal Canin Renal Select (แมว)",
+      "category": "อาหารประกอบการรักษา",
+      "price": "",
+      "image": "assets/img/products/rc-renal-select.jpg",
+      "note": "สูตรโรคไตที่ปรับกลิ่นและรสให้แมวเบื่ออาหารยอมกินง่ายขึ้น"
+    },
+    {
+      "name": "Royal Canin Diabetic (แมว)",
+      "category": "อาหารประกอบการรักษา",
+      "price": "",
+      "image": "assets/img/products/rc-diabetic-cat.jpg",
+      "note": "คาร์โบไฮเดรตต่ำ ช่วยคุมระดับน้ำตาลในแมวเบาหวาน"
+    },
+    {
+      "name": "Royal Canin Diabetic (สุนัข)",
+      "category": "อาหารประกอบการรักษา",
+      "price": "",
+      "image": "assets/img/products/rc-diabetic-dog.jpg",
+      "note": "ควบคุมน้ำตาลในเลือดสำหรับสุนัขเบาหวาน"
+    },
+    {
+      "name": "Royal Canin Hepatic (สุนัข)",
+      "category": "อาหารประกอบการรักษา",
+      "price": "",
+      "image": "assets/img/products/rc-hepatic.jpg",
+      "note": "สูตรโรคตับ ลดภาระการทำงานของตับ"
+    },
+    {
+      "name": "DeliSci Veterinary Lowfat 450 ก. (สุนัข)",
+      "category": "อาหารประกอบการรักษา",
+      "price": "",
+      "image": "assets/img/products/delisci-lowfat.jpg",
+      "note": "โปรตีนปลาชนิดเดียว ไขมันต่ำ โซเดียมต่ำ สำหรับสุนัขที่ต้องคุมไขมัน"
+    },
+    {
+      "name": "Oxbow Critical Care Carnivore",
+      "category": "อาหารประกอบการรักษา",
+      "price": "",
+      "image": "assets/img/products/critical-care.jpg",
+      "note": "อาหารป้อนสำหรับสัตว์กินเนื้อที่ไม่ยอมกินเอง เช่น เฟอร์เร็ต แมว งู สัตว์เลื้อยคลาน"
     },
     {
       "name": "Royal Canin Veterinary Diet แบบเปียก (กระป๋อง)",
       "category": "อาหารประกอบการรักษา",
       "price": "",
       "image": "",
-      "note": "สูตรเฉพาะโรคแบบเปียก สำหรับน้องที่กินอาหารเม็ดยาก"
+      "note": "สูตรรักษาแบบเปียก เหมาะกับสัตว์ป่วยที่เบื่ออาหารหรือต้องการน้ำเพิ่ม"
     },
     {
-      "name": "Royal Canin Fit (แมวโต)",
-      "category": "อาหารสุนัข & แมว",
+      "name": "Royal Canin Neutered",
+      "category": "อาหารประกอบการรักษา",
       "price": "",
       "image": "",
-      "note": "สูตรแมวโตสุขภาพดี เลี้ยงในบ้านและออกนอกบ้าน"
+      "note": "สูตรหลังทำหมัน ควบคุมน้ำหนักและดูแลระบบทางเดินปัสสาวะ"
     },
     {
-      "name": "Whiskas อาหารแมวแบบซอง (แพ็ค 12 ซอง)",
+      "name": "Royal Canin Mini Puppy",
       "category": "อาหารสุนัข & แมว",
       "price": "",
-      "image": "",
-      "note": "หลายรสในแพ็คเดียว มีทั้งเจลลี่และเกรวี"
+      "image": "assets/img/products/rc-mini-puppy.jpg",
+      "note": "ลูกสุนัขพันธุ์เล็ก อายุ 2–10 เดือน น้ำหนักโตเต็มวัยไม่เกิน 10 กก."
+    },
+    {
+      "name": "Royal Canin Mini Indoor Puppy",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/rc-mini-indoor-puppy.jpg",
+      "note": "ลูกสุนัขพันธุ์เล็กที่เลี้ยงในบ้าน ช่วยลดกลิ่นอุจจาระ"
+    },
+    {
+      "name": "Royal Canin Starter Mother & Babydog Mini",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/rc-starter-mini.jpg",
+      "note": "แม่สุนัขตั้งท้อง–ให้นม และลูกสุนัขหย่านม 1–2 เดือน"
+    },
+    {
+      "name": "Royal Canin Mini Adult",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/rc-mini-adult.jpg",
+      "note": "สุนัขพันธุ์เล็กโตเต็มวัย อายุ 10 เดือนขึ้นไป"
+    },
+    {
+      "name": "Royal Canin Mini Indoor Adult",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/rc-mini-indoor-adult.jpg",
+      "note": "สุนัขพันธุ์เล็กที่เลี้ยงในบ้าน คุมน้ำหนักและลดกลิ่น"
+    },
+    {
+      "name": "Royal Canin Kitten",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/rc-kitten.jpg",
+      "note": "ลูกแมวถึงอายุ 12 เดือน เสริมภูมิคุ้มกันและการเจริญเติบโต"
+    },
+    {
+      "name": "Royal Canin Mother & Babycat",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/rc-babycat.jpg",
+      "note": "แม่แมวและลูกแมว 1–4 เดือน เม็ดเล็กพิเศษ ละลายง่าย"
+    },
+    {
+      "name": "Royal Canin Regular Fit 32 (แมวโต)",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/rc-fit32.jpg",
+      "note": "แมวโตที่ออกกำลังกายปกติ ช่วยคุมน้ำหนักและบำรุงขน"
+    },
+    {
+      "name": "JOMO Lamb & Rice 2 กก. (สุนัขโต)",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/jomo-lamb.jpg",
+      "note": "เนื้อแกะออสเตรเลีย ไม่ใส่ไก่และผลพลอยได้ เหมาะกับสุนัขแพ้ง่าย"
+    },
+    {
+      "name": "อาหารสุนัข เอฟวัน (F1) 15 กก.",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/f1-dog.jpg",
+      "note": "ถุงใหญ่คุ้มค่า มีสูตรโปรตีน 29% และ 22% สำหรับสุนัขโตทุกสายพันธุ์"
+    },
+    {
+      "name": "Catty Cat อาหารแมวเม็ด รสปลาทะเล",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/cattycat-ocean.jpg",
+      "note": "เสริมโอเมก้า 3 และ 6 ถุงใหญ่ราคาประหยัด"
+    },
+    {
+      "name": "Ostech อาหารแมวกระป๋อง (หลายรส)",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/ostech-can.jpg",
+      "note": "เนื้อปลาแท้ มีทั้งรสทูน่า ทูน่าหน้าปลาโอ ปลาแอนโชวี่ และรสไก่"
     },
     {
       "name": "Whiskas อาหารแมวกระป๋อง",
       "category": "อาหารสุนัข & แมว",
       "price": "",
-      "image": "",
-      "note": "หลายรส ปลาทู ทูน่า แซลมอน"
+      "image": "assets/img/products/whiskas-can.jpg",
+      "note": "เนื้อบดเนียน รสปลาซาร์ดีนและรสอื่น ๆ สำหรับแมวโต 1 ปีขึ้นไป"
+    },
+    {
+      "name": "Whiskas อาหารแมวแบบซอง 80 ก. (หลายรส)",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/whiskas-pouch.jpg",
+      "note": "รสปลาทู ปลาทะเล ทูน่า และทูน่า-แซลมอน ในเยลลี่"
+    },
+    {
+      "name": "Whiskas Junior ลูกแมว 2–12 เดือน (ซอง)",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/whiskas-junior.jpg",
+      "note": "รสทูน่าและรสปลาทู เนื้อนุ่ม เคี้ยวง่ายสำหรับลูกแมว"
+    },
+    {
+      "name": "Whiskas แพ็คสุดคุ้ม 12 ซอง",
+      "category": "อาหารสุนัข & แมว",
+      "price": "",
+      "image": "assets/img/products/whiskas-pack12.jpg",
+      "note": "คละรสปลาทู ปลาทะเล และปลาทู-แซลมอน ในเยลลี่"
     },
     {
       "name": "Purina Felix ในเยลลี่ (กล่อง 12 ซอง)",
       "category": "อาหารสุนัข & แมว",
       "price": "",
       "image": "",
-      "note": "ทูน่า แซลมอน ปลาทู ซาร์ดีน และแซลมอนมะเขือเทศ"
-    },
-    {
-      "name": "Purina Felix Gravy Lover",
-      "category": "อาหารสุนัข & แมว",
-      "price": "",
-      "image": "",
-      "note": "สูตรเกรวีเข้มข้น สำหรับแมวที่ชอบน้ำเกรวี"
+      "note": "ชิ้นเนื้อในเยลลี่ กลิ่นหอม เหมาะกับแมวเลือกกิน"
     },
     {
       "name": "Purina Friskies Gravy-licious",
       "category": "อาหารสุนัข & แมว",
       "price": "",
       "image": "",
-      "note": "อาหารแมวแบบซอง รสทูน่าในเกรวี"
+      "note": "อาหารแมวเปียกในน้ำเกรวี่ หลายรสให้เลือก"
     },
     {
       "name": "Purina ONE (Healthy Adult / Indoor Advantage)",
       "category": "อาหารสุนัข & แมว",
       "price": "",
       "image": "",
-      "note": "อาหารแมวเม็ด สูตรแมวโตและสูตรแมวเลี้ยงในบ้าน"
+      "note": "อาหารแมวเม็ดโปรตีนสูง สูตรแมวโตและแมวเลี้ยงในบ้าน"
     },
     {
       "name": "Me-O Delite ทูน่าเนื้อขาว",
       "category": "อาหารสุนัข & แมว",
       "price": "",
       "image": "",
-      "note": "อาหารแมวเปียก ถุงใหญ่ 840 กรัม"
-    },
-    {
-      "name": "Regalos ทูน่าในเยลลี่ (ซอง)",
-      "category": "อาหารสุนัข & แมว",
-      "price": "",
-      "image": "",
-      "note": "หลายสูตร ทูน่า คัตสึโอบุชิ ชิราสุ แซลมอน และปลาทู มีสูตรลูกแมวด้วย"
-    },
-    {
-      "name": "Ostech อาหารแมวกระป๋อง",
-      "category": "อาหารสุนัข & แมว",
-      "price": "",
-      "image": "",
-      "note": "หลายรส ราคาย่อมเยา"
+      "note": "อาหารแมวเปียก เนื้อทูน่าขาวชิ้นใหญ่"
     },
     {
       "name": "Pedigree อาหารสุนัข (ซอง / กระป๋อง)",
       "category": "อาหารสุนัข & แมว",
       "price": "",
       "image": "",
-      "note": "สูตรสุนัขโต หลายรส"
+      "note": "อาหารสุนัขเปียก มีทั้งสูตรลูกสุนัขและสุนัขโต"
     },
     {
-      "name": "Meat & Meals สูตรแซลมอน",
+      "name": "SmartHeart อาหารสุนัขเม็ด",
       "category": "อาหารสุนัข & แมว",
       "price": "",
       "image": "",
-      "note": "อาหารเม็ดสูตรแซลมอน"
+      "note": "มีหลายสูตรและหลายขนาดถุง สำหรับลูกสุนัขและสุนัขโต"
     },
     {
-      "name": "LuvCare Puppy Small Breed (Triple Omega)",
-      "category": "อาหารสุนัข & แมว",
-      "price": "",
-      "image": "",
-      "note": "อาหารลูกสุนัขพันธุ์เล็ก ถุง 3 กก. และ 9 กก."
-    },
-    {
-      "name": "Fit & Firm อาหารสุนัข",
-      "category": "อาหารสุนัข & แมว",
-      "price": "",
-      "image": "",
-      "note": "อาหารเม็ดถุงใหญ่ สำหรับเลี้ยงหลายตัว"
-    },
-    {
-      "name": "SmartHeart อาหารสุนัข",
-      "category": "อาหารสุนัข & แมว",
-      "price": "",
-      "image": "",
-      "note": "อาหารเม็ดถุงใหญ่ หลายสูตร"
-    },
-    {
-      "name": "Holistic สูตรแซลมอน",
-      "category": "อาหารสุนัข & แมว",
-      "price": "",
-      "image": "",
-      "note": "อาหารโฮลิสติกสูตรแซลมอน"
-    },
-    {
-      "name": "Oxbow Alfalfa Hay (15 oz)",
+      "name": "Oxbow Essentials Adult Rabbit Food",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "หญ้าอัลฟัลฟ่า โปรตีนและแคลเซียมสูง เหมาะกับกระต่ายเด็กและแม่ให้นม"
+      "image": "assets/img/products/oxbow-rabbit.jpg",
+      "note": "เม็ดอัลฟัลฟาสูตรกระต่ายโต ใยอาหารสูง สัตวแพทย์แนะนำ"
     },
     {
-      "name": "Oxbow Botanical Hay (15 oz)",
+      "name": "Oxbow หญ้าแห้ง (Alfalfa / Botanical Hay)",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "หญ้าผสมสมุนไพร เพิ่มความน่ากินและกากใย ดีต่อฟันและลำไส้"
+      "image": "assets/img/products/oxbow-hay.jpg",
+      "note": "หญ้าแห้งคุณภาพสูงจากอเมริกา ช่วยเรื่องระบบย่อยและการสึกของฟัน"
     },
     {
-      "name": "หญ้าแห้งทิโมธี แบ่งขาย (700 กรัม)",
+      "name": "หญ้าแห้งแบ่งขาย (ทิโมธี / อัลฟัลฟา)",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "หญ้าหลักที่กระต่ายและหนูตะเภาควรได้กินไม่จำกัดทุกวัน"
+      "image": "assets/img/products/hay-bulk.jpg",
+      "note": "แบ่งขายเป็นถุง ราคาประหยัด เหมาะให้กินประจำวัน"
     },
     {
-      "name": "หญ้าแห้งอัดก้อน (ถุงใหญ่)",
+      "name": "SmartHeart อาหารกระต่าย 1–3 กก.",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "สำหรับบ้านที่เลี้ยงหลายตัว คุ้มกว่าซื้อถุงเล็ก"
+      "image": "assets/img/products/smartheart-rabbit.jpg",
+      "note": "มีกลิ่นราสเบอร์รี่ กลิ่นแอปเปิล และสูตรผักและธัญพืช"
     },
     {
-      "name": "Versele-Laga Complete Cuni Adult",
+      "name": "NatureBest Bunny Best เม็ดอัดพรีเมียม",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "อาหารเม็ดกระต่ายโต สูตรเม็ดเดียวครบ ป้องกันการเลือกกิน"
+      "image": "assets/img/products/naturebest-bunny.jpg",
+      "note": "สูตรแอปเปิลแดง ส่วนผสมพรีเมียม เหมาะกับกระต่ายทุกสายพันธุ์"
     },
     {
-      "name": "SmartHeart อาหารกระต่าย (แอปเปิล / ราสเบอร์รี)",
+      "name": "Versele-Laga Nature Cuni (กระต่าย)",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "อาหารเม็ดกระต่าย ถุง 1 กก."
+      "image": "assets/img/products/vl-cuni.jpg",
+      "note": "สูตรธรรมชาติ ใยอาหารสูง ไม่มีเม็ดสีสังเคราะห์"
     },
     {
-      "name": "NatureBest Extruded Pellets",
+      "name": "Versele-Laga Nature Chip (กระรอก / ชิพมังก์)",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "อาหารเม็ดอัดพองสำหรับกระต่ายและสัตว์ฟันแทะ"
+      "image": "assets/img/products/vl-chip.jpg",
+      "note": "ธัญพืชและถั่วรวม สำหรับกระรอกและชิพมังก์"
     },
     {
-      "name": "SmartHeart Budgies (นกหงส์หยก)",
+      "name": "Versele-Laga Complete Crock ขนมหนู",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "อาหารเมล็ดรวมสำหรับนกหงส์หยก ถุง 1 กก."
+      "image": "assets/img/products/vl-crock.jpg",
+      "note": "ขนมสอดไส้เบอร์รี่ ไม่เติมน้ำตาล สำหรับหนูแฮมสเตอร์และหนูตะเภา"
     },
     {
-      "name": "SmartHeart Cockatiels & Lovebirds",
+      "name": "SmartHeart อาหารหนูแฮมสเตอร์ 300 ก.",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "อาหารเมล็ดรวมสำหรับนกค็อกคาเทลและเลิฟเบิร์ด"
+      "image": "assets/img/products/smartheart-hamster.jpg",
+      "note": "ธัญพืชรวมครบถ้วน เสริมวิตามินและแร่ธาตุ"
     },
     {
-      "name": "SmartHeart Forpus",
+      "name": "Hamster & Gerbil Food",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "อาหารเมล็ดรวมสำหรับนกฟอพัส"
+      "image": "assets/img/products/hamster-gerbil.jpg",
+      "note": "ธัญพืชรวมสำหรับหนูแฮมสเตอร์และเจอร์บิล เสริมวิตามิน"
     },
     {
-      "name": "SmartHeart Conures & Parrots",
+      "name": "Mazuri Insectivore Diet",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "อาหารเมล็ดรวมสำหรับนกคอนัวร์และนกแก้ว"
+      "image": "assets/img/products/mazuri-insect.jpg",
+      "note": "อาหารสำหรับเม่นแคระ ชูการ์ไกลเดอร์ มังกรเครา และสัตว์กินแมลง"
+    },
+    {
+      "name": "Versele-Laga NutriBird A21 (ลูกป้อนนก)",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "price": "",
+      "image": "assets/img/products/nutribird-a21.jpg",
+      "note": "อาหารลูกป้อนสำหรับลูกนกแก้ว นกคอกคาทู และนกปากขอ"
+    },
+    {
+      "name": "SmartHeart อาหารนกแก้ว & นกคอนัวร์",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "price": "",
+      "image": "assets/img/products/sh-parrot.jpg",
+      "note": "มีทั้งสูตรมูสลี่ธัญพืชรวมและสูตร Optimum Nutrition ขนาด 1 กก."
+    },
+    {
+      "name": "SmartHeart อาหารนกหงส์หยก & ฟอพัส",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "price": "",
+      "image": "assets/img/products/sh-budgie.jpg",
+      "note": "ธัญพืชรวม บำรุงขนและสีสัน ขนาด 800 ก. – 1 กก."
+    },
+    {
+      "name": "SmartHeart อาหารนกคอกาเทล & เลิฟเบิร์ด",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "price": "",
+      "image": "assets/img/products/sh-cockatiel.jpg",
+      "note": "สูตรบำรุงขน เสริมวิตามินและแร่ธาตุ ขนาด 1 กก."
+    },
+    {
+      "name": "SmartHeart อาหารนกขุนทอง & นกเอี้ยง",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "price": "",
+      "image": "assets/img/products/sh-mynah.jpg",
+      "note": "เม็ดอัด เสริมภูมิคุ้มกันและบำรุงขนให้เงางาม"
+    },
+    {
+      "name": "APro I.Q. Formula อาหารนกเขา",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "price": "",
+      "image": "assets/img/products/apro-dove.jpg",
+      "note": "สำหรับนกเขาชวาและนกเขาใหญ่ เสริมโอเมก้า 3"
+    },
+    {
+      "name": "Versele-Laga Prestige Loro Parque",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "price": "",
+      "image": "assets/img/products/vl-prestige.jpg",
+      "note": "สูตร African Parakeet Mix เมล็ดธัญพืชคุณภาพสูงจากเบลเยียม"
+    },
+    {
+      "name": "Deli Nature Birdelicious (Serengeti / Down Under)",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "price": "",
+      "image": "assets/img/products/birdelicious.jpg",
+      "note": "ธัญพืชพรีเมียมสำหรับนกปากขอขนาดกลาง–ใหญ่"
+    },
+    {
+      "name": "Higgins inTune Duets ขนมนก",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "price": "",
+      "image": "assets/img/products/intune-duets.jpg",
+      "note": "ขนมสอดไส้ มีสูตรถั่วลูกไก่-แครนเบอร์รี่ และถั่วลูกไก่-แอปเปิล"
     },
     {
       "name": "กระดองปลาหมึก (Cuttlebone)",
       "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "แหล่งแคลเซียมสำหรับนก ช่วยลับจะงอยปาก"
+      "image": "assets/img/products/cuttlebone.jpg",
+      "note": "แหล่งแคลเซียมธรรมชาติ ช่วยลับจะงอยปากนกและเสริมกระดูก"
     },
     {
-      "name": "นมแพะอัดเม็ด (Goat Milk Tablet) 500 กรัม",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "name": "BOK DOK Koi Food 1 กก.",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "ขนมนมแพะอัดเม็ด ให้เป็นรางวัลหรือฝึกได้"
+      "image": "assets/img/products/koi-food.jpg",
+      "note": "อาหารปลาคาร์ปเม็ดลอยน้ำ สำหรับปลาทุกช่วงวัย"
     },
     {
-      "name": "BOK DOK ไก่กรอบ (Crispy Chicken Jerky)",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "name": "อาหารปลาแบ่งขาย (เม็ดลอยน้ำ)",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "เนื้อไก่แท้ ไม่ใส่สารกันบูด"
+      "image": "assets/img/products/fish-bulk.jpg",
+      "note": "แบ่งขายถุงใหญ่ ราคาประหยัด สำหรับบ่อปลาและตู้ปลา"
     },
     {
-      "name": "BOK DOK สันในไก่เส้นนิ่ม (CK84X)",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "name": "อาหารแบ่งขาย (ธัญพืช / เมล็ดรวม / เม็ดอัด)",
+      "category": "อาหารสัตว์พิเศษ (Exotic)",
       "price": "",
-      "image": "",
-      "note": "สันในไก่อบเส้นนิ่ม ถุง 290 กรัม เคี้ยวง่าย เหมาะกับสุนัขสูงวัย"
+      "image": "assets/img/products/seed-bulk.jpg",
+      "note": "ตักแบ่งตามน้ำหนัก สำหรับนก หนู และกระต่าย บอกชนิดสัตว์ได้เลย"
     },
     {
-      "name": "BOK DOK ไก่พันปลาแผ่น (CK95X)",
+      "name": "JerHigh 2IN1 สติ๊กเนื้อไก่",
       "category": "ขนม วิตามิน & อาหารเสริม",
       "price": "",
-      "image": "",
-      "note": "ไก่พันปลาแผ่น 26 ชิ้น"
+      "image": "assets/img/products/jerhigh-2in1.jpg",
+      "note": "เนื้อไก่แท้ เสริมแคลเซียมและบำรุงสายตา มีหลายรสให้เลือก"
     },
     {
-      "name": "ไก่พันกระดูก / ไก่อบแท่ง",
+      "name": "JerHigh Chicken Milky Stick",
       "category": "ขนม วิตามิน & อาหารเสริม",
       "price": "",
-      "image": "",
-      "note": "ขนมขัดฟันสำหรับสุนัข มีหลายแบบและหลายขนาด"
+      "image": "assets/img/products/jerhigh-milky.jpg",
+      "note": "สติ๊กเนื้อไก่ผสมนม เพิ่มพลังงาน แบบซิปล็อก"
     },
     {
-      "name": "ขนมบิสกิตรูปกระดูก",
+      "name": "JOMO Treats ขนมปลาแท้",
       "category": "ขนม วิตามิน & อาหารเสริม",
       "price": "",
-      "image": "",
-      "note": "บิสกิตอบกรอบ แบ่งขายเป็นถุง"
+      "image": "assets/img/products/jomo-treats.jpg",
+      "note": "ทำจากปลา 100% เสริมโอเมก้า 3-6 ไม่ใส่ธัญพืช ให้ได้ทั้งหมาและแมว"
     },
     {
-      "name": "Friskies Party Mix",
+      "name": "BOK DOK ไก่อบกรอบ (Crispy Jerky)",
       "category": "ขนม วิตามิน & อาหารเสริม",
       "price": "",
-      "image": "",
-      "note": "ขนมแมวอบกรอบ หลายรส"
+      "image": "assets/img/products/bokdok-crispy.jpg",
+      "note": "เนื้อไก่อบแห้ง กรอบ ไม่ใส่สี ให้เป็นรางวัลหรือใช้ฝึกคำสั่ง"
+    },
+    {
+      "name": "BOK DOK สันในไก่เส้นนิ่ม",
+      "category": "ขนม วิตามิน & อาหารเสริม",
+      "price": "",
+      "image": "assets/img/products/bokdok-soft.jpg",
+      "note": "เนื้อสันในไก่แท้ เนื้อนุ่ม เคี้ยวง่าย เหมาะกับสุนัขทุกวัย"
+    },
+    {
+      "name": "BOK DOK ไก่พันแคลเซียม 24 ชิ้น",
+      "category": "ขนม วิตามิน & อาหารเสริม",
+      "price": "",
+      "image": "assets/img/products/bokdok-calcium.jpg",
+      "note": "ไก่พันแท่งแคลเซียม ช่วยขัดฟันและเสริมแคลเซียม"
+    },
+    {
+      "name": "BOK DOK ไก่พันแท่งกัด 45 ชิ้น",
+      "category": "ขนม วิตามิน & อาหารเสริม",
+      "price": "",
+      "image": "assets/img/products/bokdok-stick.jpg",
+      "note": "แท่งกัดพันเนื้อไก่ ช่วยลดคราบหินปูนขณะเคี้ยว"
+    },
+    {
+      "name": "BOK DOK แท่งขัดฟัน (Dental Stick)",
+      "category": "ขนม วิตามิน & อาหารเสริม",
+      "price": "",
+      "image": "assets/img/products/bokdok-dental.jpg",
+      "note": "ช่วยลดกลิ่นปากและคราบหินปูน ผสมวิตามินบำรุงผิวหนัง"
+    },
+    {
+      "name": "Me-O ขนมแมวเลีย (Creamy Treats)",
+      "category": "ขนม วิตามิน & อาหารเสริม",
+      "price": "",
+      "image": "assets/img/products/meo-creamy.jpg",
+      "note": "รสไก่ ตับ ทูน่า และแซลมอน ให้เป็นรางวัลหรือใช้ป้อนยา"
+    },
+    {
+      "name": "Purina Friskies Party Mix Crunch",
+      "category": "ขนม วิตามิน & อาหารเสริม",
+      "price": "",
+      "image": "assets/img/products/party-mix.jpg",
+      "note": "ขนมแมวกรอบ รสทูน่าและปลาโอ ให้เป็นรางวัลระหว่างวัน"
+    },
+    {
+      "name": "นมแพะอัดเม็ด (Goat Milk Tablet)",
+      "category": "ขนม วิตามิน & อาหารเสริม",
+      "price": "",
+      "image": "assets/img/products/goat-milk.jpg",
+      "note": "บำรุงร่างกาย ย่อยง่าย ให้ได้ทั้งสุนัข แมว และสัตว์ฟันแทะ"
+    },
+    {
+      "name": "Oxbow Natural Science Papaya Support",
+      "category": "ขนม วิตามิน & อาหารเสริม",
+      "price": "",
+      "image": "assets/img/products/papaya-support.jpg",
+      "note": "เอนไซม์จากมะละกอ ช่วยระบบย่อยของกระต่าย หนูตะเภา และชินชิล่า"
     },
     {
       "name": "วิตามินและอาหารเสริมบำรุง",
       "category": "ขนม วิตามิน & อาหารเสริม",
       "price": "",
       "image": "",
-      "note": "บำรุงขน ข้อ และเสริมภูมิคุ้มกัน — ปรึกษาสัตวแพทย์ก่อนเลือกได้"
+      "note": "บำรุงขน ข้อต่อ และภูมิคุ้มกัน มีทั้งชนิดเม็ดและชนิดน้ำ ปรึกษาสัตวแพทย์ก่อนใช้"
     },
     {
-      "name": "กรงนก (หลายขนาด)",
+      "name": "กรงสัตว์เล็ก พร้อมถาดรอง",
       "category": "ของใช้ & อุปกรณ์",
       "price": "",
-      "image": "",
-      "note": "ตั้งแต่กรงนกเล็กจนถึงกรงใหญ่"
+      "image": "assets/img/products/cage-small.jpg",
+      "note": "สำหรับหนูแฮมสเตอร์ กระต่าย และสัตว์เล็ก ถอดล้างง่าย"
     },
     {
-      "name": "กรงหนู / กรงกระต่าย พร้อมถาดรอง",
+      "name": "ชามอาหาร & ชามน้ำ",
       "category": "ของใช้ & อุปกรณ์",
       "price": "",
-      "image": "",
-      "note": "มีหลายขนาดและหลายสี"
+      "image": "assets/img/products/bowls.jpg",
+      "note": "มีทั้งแบบเดี่ยว แบบคู่ และแบบกันหก หลายขนาดหลายสี"
+    },
+    {
+      "name": "กระบะทรายแมว มีขอบสูง",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/litter-box.jpg",
+      "note": "ขอบสูงกันทรายกระเด็น มาพร้อมที่ตักทราย"
+    },
+    {
+      "name": "ถาดรองทราย / ตะแกรงรองกรง",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/litter-tray.jpg",
+      "note": "ถอดล้างง่าย ใช้กับกรงกระต่ายและกรงหนูได้"
+    },
+    {
+      "name": "แผ่นรองเจลเย็น",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/cool-mat.jpg",
+      "note": "ช่วยคลายร้อนในหน้าร้อน วางในกรงหรือบนที่นอนได้"
+    },
+    {
+      "name": "หลอดไฟกก DAIICHI 200W",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/heat-lamp.jpg",
+      "note": "ให้ความอบอุ่นลูกสัตว์และสัตว์ป่วย อายุการใช้งาน 1,500 ชั่วโมง"
+    },
+    {
+      "name": "เครื่องกกอุ่นสำหรับสัตว์เลี้ยง",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/pet-heater.jpg",
+      "note": "ปรับอุณหภูมิได้ เหมาะกับลูกสุนัข ลูกแมว และสัตว์เล็ก"
+    },
+    {
+      "name": "Aspen Shaving วัสดุรองกรง 10 ลิตร",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/aspen-shaving.jpg",
+      "note": "ไม้แอสเพนธรรมชาติ ไม่มีฝุ่น ซับกลิ่นและความชื้นได้ดี"
+    },
+    {
+      "name": "วัสดุรองกรง (กระดาษ / ขี้เลื่อยอัดเม็ด)",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/bedding-bulk.jpg",
+      "note": "แบ่งขาย ซับได้ดี ราคาประหยัด สำหรับกรงหนูและกระต่าย"
+    },
+    {
+      "name": "Sukina Petto แผ่นรองซับฝึกขับถ่าย",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/training-pads.jpg",
+      "note": "มาตรฐานญี่ปุ่น ล็อกกลิ่นได้ 3 วัน ซึมซับสูง แพ็ค 20 แผ่น"
+    },
+    {
+      "name": "BOK DOK Pet Diaper ผ้าอ้อมสัตว์เลี้ยง",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/pet-diaper.jpg",
+      "note": "มีไซส์ M และ L แพ็ค 12 ชิ้น สำหรับสัตว์ป่วย สัตว์สูงอายุ หรือช่วงเป็นสัด"
+    },
+    {
+      "name": "กรรไกรตัดเล็บ & ตะไบ",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/nail-clipper.jpg",
+      "note": "มีทั้งแบบด้ามจับและแบบกรรไกร พร้อมตะไบแต่งเล็บ ใช้ได้ทั้งหมาและแมว"
+    },
+    {
+      "name": "หวีสางขน / หวีซี่ถี่",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/comb.jpg",
+      "note": "สางขนพันกันและสางเห็บหมัด มีทั้งด้ามไม้และด้ามพลาสติก"
+    },
+    {
+      "name": "แปรงสลิกเกอร์ (Slicker Brush)",
+      "category": "ของใช้ & อุปกรณ์",
+      "price": "",
+      "image": "assets/img/products/slicker-brush.jpg",
+      "note": "แปรงขนหลุดและขนพันกัน มีทั้งแบบเข็มและแบบหัวกลมกันบาดผิว"
     },
     {
       "name": "กล่องเดินทาง (Pet Carrier)",
       "category": "ของใช้ & อุปกรณ์",
       "price": "",
       "image": "",
-      "note": "หลายขนาด สำหรับพาน้องมาคลินิกหรือเดินทาง"
+      "note": "หลายขนาด ล็อกแน่น ระบายอากาศดี ใช้พามาคลินิกหรือเดินทาง"
     },
     {
-      "name": "ชามอาหาร-ชามน้ำ พลาสติก",
+      "name": "กรงนก (หลายขนาด)",
       "category": "ของใช้ & อุปกรณ์",
       "price": "",
       "image": "",
-      "note": "หลายขนาดหลายสี ราคาย่อมเยา"
-    },
-    {
-      "name": "กระบะทรายแมว",
-      "category": "ของใช้ & อุปกรณ์",
-      "price": "",
-      "image": "",
-      "note": "มีทั้งแบบเปิดและแบบมีฝาครอบ"
+      "note": "ตั้งแต่กรงนกเล็กถึงกรงนกแก้ว พร้อมถ้วยอาหารและคอน"
     },
     {
       "name": "ของเล่นสุนัขและแมว",
       "category": "ของใช้ & อุปกรณ์",
       "price": "",
       "image": "",
-      "note": "ลูกบอล ของเล่นยาง และของเล่นแมวหลายแบบ"
+      "note": "ตุ๊กตา ลูกบอล เชือกกัด และของเล่นตกแมว"
     },
     {
-      "name": "Virbac C.E.T. Enzymatic ยาสีฟันสัตว์เลี้ยง",
+      "name": "Bravecto ยาเม็ดเคี้ยวกำจัดเห็บหมัด",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/bravecto.jpg",
+      "note": "มี 4 ขนาดตามน้ำหนัก 2–4.5 / 4.5–10 / 10–20 / 20–40 กก. ควรให้สัตวแพทย์เลือกขนาดให้"
+    },
+    {
+      "name": "Dermcare Malaseb แชมพู / โฟมยา",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/malaseb.jpg",
+      "note": "สำหรับผิวหนังติดเชื้อแบคทีเรียและยีสต์ ใช้ตามคำแนะนำของสัตวแพทย์"
+    },
+    {
+      "name": "Me-O Cat Litter สูตรชาร์โคล 10 ลิตร",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/meo-litter.jpg",
+      "note": "ทรายเบนโทไนต์จับตัวเป็นก้อน กลิ่นโอเชียน ดับกลิ่นปัสสาวะ"
+    },
+    {
+      "name": "ทรายแมว Platinum 10 ลิตร",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/platinum-litter.jpg",
+      "note": "จับตัวเป็นก้อนดี มีหลายกลิ่นให้เลือก"
+    },
+    {
+      "name": "Catty Cat ทรายเต้าหู้",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/tofu-litter.jpg",
+      "note": "ทำจากกากถั่วเหลือง ทิ้งลงชักโครกได้ ฝุ่นน้อย มีกลิ่นซากุระและกลิ่นธรรมชาติ"
+    },
+    {
+      "name": "BOK DOK ทิชชู่เปียกสัตว์เลี้ยง",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/bokdok-wipes.jpg",
+      "note": "เช็ดขนและอุ้งเท้า ผสมว่านหางจระเข้และวิตามินอี มีทั้งสูตรแมวและสูตรรวม"
+    },
+    {
+      "name": "Nano Wipe ทิชชู่เปียก 80 แผ่น",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/nano-wipe.jpg",
+      "note": "สูตรอ่อนโยน ไม่มีแอลกอฮอล์และพาราเบน มี 3 กลิ่น"
+    },
+    {
+      "name": "แชมพู Petme (พีช / อะโวคาโด / ไรซ์มิลค์)",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/petme-shampoo.jpg",
+      "note": "สูตรอ่อนโยน บำรุงขนและผิวหนัง ขนาด 250 มล."
+    },
+    {
+      "name": "Nano Furr Detox Shampoo / Nano Scrub",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/nano-shampoo.jpg",
+      "note": "แชมพู 5-in-1 ทำความสะอาดล้ำลึก และสูตรผิวแพ้ง่ายผสมนาโนซิลเวอร์"
+    },
+    {
+      "name": "Dolly Pet Spray สเปรย์บำรุงขน",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/coat-spray.jpg",
+      "note": "ออร์แกนิก 100% บำรุงขนให้นุ่มเงา ใช้ได้ทุกวัน"
+    },
+    {
+      "name": "สเปรย์อาบน้ำแห้ง สำหรับแมว",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/dry-bath.jpg",
+      "note": "ทำความสะอาดโดยไม่ต้องอาบน้ำ เหมาะกับแมวที่กลัวน้ำหรือสัตว์ป่วย"
+    },
+    {
+      "name": "น้ำหอมสัตว์เลี้ยง (Perfume)",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/perfume.jpg",
+      "note": "ผสมเจลว่านหางจระเข้ กลิ่นติดทน ใช้ได้ทั้งสุนัขและแมว"
+    },
+    {
+      "name": "เซรั่มเคลือบขน Beauty Pet",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/coat-serum.jpg",
+      "note": "ช่วยให้ขนเรียบลื่น ลดขนพันกัน เหมาะกับสุนัขขนยาว"
+    },
+    {
+      "name": "OAKWOOD สเปรย์แก้ขนพันกัน",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/oakwood.jpg",
+      "note": "คลายปมขนก่อนหวี ลดการดึงรั้งเวลาแปรงขน"
+    },
+    {
+      "name": "Dolly สเปรย์กำจัดกลิ่น สูตรสมุนไพร",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/dolly-deo.jpg",
+      "note": "สำหรับกรงกระต่ายและกรงหนู ช่วยลดกลิ่นอับในกรง"
+    },
+    {
+      "name": "DEO MIST สเปรย์ดับกลิ่น",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/deo-mist.jpg",
+      "note": "ส่วนผสมธรรมชาติ 100% จากญี่ปุ่น ดับกลิ่นคอกและกรง"
+    },
+    {
+      "name": "Organic Deoclean สเปรย์ทำความสะอาด",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/organic-clean.jpg",
+      "note": "ทำความสะอาดพื้นและกรง สูตรอ่อนโยน"
+    },
+    {
+      "name": "HERBPLUS สเปรย์สมุนไพร",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/herbplus.jpg",
+      "note": "สูตรสมุนไพรไล่แมลง ใช้ฉีดบริเวณที่เลี้ยงสัตว์"
+    },
+    {
+      "name": "DD Pet สเปรย์ไล่ยุง ตะไคร้หอม",
+      "category": "ดูแลความสะอาด",
+      "price": "",
+      "image": "assets/img/products/mosquito-spray.jpg",
+      "note": "สูตรตะไคร้หอมและยูคาลิปตัส มีทั้งสูตรหมาแมว และสูตรนก-ไก่"
+    },
+    {
+      "name": "Virbac C.E.T. ยาสีฟันเอนไซม์",
       "category": "ดูแลความสะอาด",
       "price": "",
       "image": "",
-      "note": "ยาสีฟันเอนไซม์ กลืนได้ ไม่ต้องบ้วน สำหรับสุนัขและแมว"
+      "note": "ยาสีฟันสำหรับสัตว์เลี้ยง กลืนได้ ไม่ต้องบ้วน ลดคราบหินปูน"
     },
     {
       "name": "แปรงสีฟันสัตว์เลี้ยง",
       "category": "ดูแลความสะอาด",
       "price": "",
       "image": "",
-      "note": "มีทั้งแบบด้ามยาวและแบบสวมนิ้ว"
-    },
-    {
-      "name": "Bok Bok Cat Wet Wipes 3-in-1",
-      "category": "ดูแลความสะอาด",
-      "price": "",
-      "image": "",
-      "note": "ทิชชู่เปียกเช็ดตัวแมว"
-    },
-    {
-      "name": "Nano Wipe ทิชชู่เปียกสัตว์เลี้ยง",
-      "category": "ดูแลความสะอาด",
-      "price": "",
-      "image": "",
-      "note": "เช็ดตัว เช็ดเท้า ใช้ได้ทุกวัน"
-    },
-    {
-      "name": "แชมพูสุนัขและแมว (หลายสูตร)",
-      "category": "ดูแลความสะอาด",
-      "price": "",
-      "image": "",
-      "note": "สูตรขนนุ่ม ลดกลิ่น และสูตรผิวแพ้ง่าย"
-    },
-    {
-      "name": "Sukina Petto Training Pads (56 ชิ้น)",
-      "category": "ดูแลความสะอาด",
-      "price": "",
-      "image": "",
-      "note": "แผ่นรองซับฝึกขับถ่าย ซึมเร็ว ล็อกกลิ่น"
-    },
-    {
-      "name": "แผ่นรองซับ / ทรายแมว",
-      "category": "ดูแลความสะอาด",
-      "price": "",
-      "image": "",
-      "note": "มีหลายยี่ห้อและหลายขนาด"
+      "note": "มีทั้งแบบด้ามยาวและแบบสวมนิ้ว ใช้คู่กับยาสีฟันสัตว์เลี้ยง"
     }
   ]
 }
