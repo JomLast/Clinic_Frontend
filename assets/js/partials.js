@@ -31,6 +31,46 @@ const ICON = {
   alert:    `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
 };
 
+/* ----- สถิติผู้เข้าชม (ปิดอยู่จนกว่าจะใส่รหัส) -----
+   ใส่รหัสอันใดอันหนึ่งแล้วสถิติจะเริ่มเก็บทันทีทุกหน้า — เว้นว่าง = ไม่โหลดอะไรเลย
+
+   ga4        Google Analytics 4  ("G-XXXXXXXXXX")
+              analytics.google.com > Admin > Data streams > สร้าง Web stream
+              ข้อดี: เชื่อมกับ Search Console ได้ ดูข้อมูลได้ละเอียดมาก
+              ข้อเสีย: ใช้คุกกี้ ตาม PDPA ควรมีแถบขอความยินยอม
+
+   cloudflare Cloudflare Web Analytics (token ยาว ๆ)
+              dash.cloudflare.com > Analytics > Web Analytics > Add a site
+              ข้อดี: ไม่ใช้คุกกี้ จึงไม่ต้องมีแถบขอความยินยอม เบากว่ามาก
+              เหมาะกับเว็บนี้ที่อยากรู้แค่ว่ามีคนเข้ากี่คน หน้าไหนคนดูเยอะ   */
+const ANALYTICS = {
+  ga4: "",
+  cloudflare: "",
+};
+
+function initAnalytics(){
+  if(location.hostname === "localhost" || location.hostname === "127.0.0.1") return;  // ไม่นับตอนทดสอบ
+
+  if(ANALYTICS.cloudflare){
+    const s = document.createElement("script");
+    s.defer = true;
+    s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+    s.setAttribute("data-cf-beacon", JSON.stringify({ token: ANALYTICS.cloudflare }));
+    document.head.appendChild(s);
+  }
+
+  if(ANALYTICS.ga4){
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ANALYTICS.ga4;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", ANALYTICS.ga4);
+  }
+}
+
 /* ----- เมนูหลัก (มี dropdown) ----- */
 const NAV = [
   { label:"หน้าหลัก", href:"index.html", id:"home" },
@@ -222,6 +262,7 @@ function initSite(){
 
   initSearch();
   initOpenStatus();
+  initAnalytics();
 
   // หมายเหตุ: ฟอร์มจองนัดส่งเข้าอีเมลคลินิกผ่าน Web3Forms — สคริปต์อยู่ท้าย contact.html (ไม่มี backend)
 }

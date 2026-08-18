@@ -108,6 +108,23 @@
           <div class="field"><label>บริการ / อาการเบื้องต้น</label><textarea name="note" placeholder="เช่น ฉีดวัคซีน, ตรวจสุขภาพ, ไม่กินอาหาร 2 วัน..."></textarea></div>
           <button type="submit" class="btn btn-red"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> ส่งคำขอนัดหมาย</button>
           <div class="form-success" id="formSuccess"><i data-lucide="check-circle" class="ico"></i> ส่งคำขอจองนัดเรียบร้อย! ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด</div>
+
+          <!-- สรุปการจองหลังส่งสำเร็จ — ลูกค้าแคปหน้าจอเก็บไว้ได้ ไม่ต้องพึ่งอีเมลตอบกลับ (ฟีเจอร์เสียเงิน) -->
+          <div class="bk-confirm" id="bkConfirm">
+            <div class="bk-head">
+              <i data-lucide="check-circle" class="ico"></i>
+              <div>
+                <b>ได้รับคำขอจองนัดแล้ว</b>
+                <span>ทีมงานจะโทรกลับยืนยันคิวในเวลาทำการ (09:00&ndash;20:00 น.) &mdash; <b>ยังไม่ถือว่าคิวยืนยันจนกว่าจะได้รับสาย</b></span>
+              </div>
+            </div>
+            <ul class="bk-list" id="bkList"></ul>
+            <div class="bk-acts">
+              <a class="btn btn-line" id="bkLine" href="#" target="_blank" rel="noopener"><i data-lucide="message-circle" class="ico"></i> ส่งสรุปนี้ทาง LINE</a>
+              <button type="button" class="btn btn-outline" id="bkCal"><i data-lucide="calendar-plus" class="ico"></i> บันทึกลงปฏิทิน</button>
+            </div>
+            <p class="bk-note">แนะนำให้กด &ldquo;ส่งสรุปนี้ทาง LINE&rdquo; ด้วย จะได้คุยต่อและยืนยันคิวได้เร็วขึ้น &middot; ถ้าต้องการเลื่อนหรือยกเลิก โทร <a href="tel:0861199349" style="color:var(--red);font-weight:600">086 119 9349</a></p>
+          </div>
           <p class="form-note">หรือโทรนัดโดยตรงที่ <b>086 119 9349</b> · เปิดทุกวัน 09:00 – 20:00 น.</p>
         </form>
       </div>
@@ -237,10 +254,15 @@ if (form) {
       });
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.message || "HTTP " + res.status);
-      if (successBox) {
-        successBox.style.display = "block";
-        successBox.textContent = "ส่งคำขอจองนัดเรียบร้อย! ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด";
-      }
+      showConfirm({
+        owner: payload["ชื่อเจ้าของ"],
+        phone: payload["เบอร์โทร"],
+        pet:   payload["ชื่อสัตว์เลี้ยง"],
+        type:  payload["ชนิดสัตว์"],
+        date:  payload["วันที่ต้องการ"],
+        time:  payload["ช่วงเวลา"],
+        note:  payload["อาการ/บริการ"]
+      });
       f.reset();
     } catch (err) {
       console.error("booking error:", err);
@@ -249,6 +271,85 @@ if (form) {
       if (btn) { btn.disabled = false; btn.textContent = oldText; }
     }
   });
+}
+/* ===== สรุปการจองบนหน้าจอ =====
+   Web3Forms ตอบกลับอีเมลอัตโนมัติได้เฉพาะแพ็กเกจเสียเงิน จึงทำสรุปบนหน้าจอแทน
+   ลูกค้าแคปเก็บไว้ได้ ส่งต่อทาง LINE ได้ และบันทึกลงปฏิทินมือถือได้             */
+const LINE_URL = "https://line.me/ti/p/tK01btn-wu";
+
+/* กันข้อความที่ผู้ใช้กรอกมาแทรก HTML ลงหน้าเว็บ */
+function esc(v){
+  return String(v == null ? "" : v)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+function thaiDate(iso){
+  if(!iso) return "-";
+  const M = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+  const d = new Date(iso + "T00:00:00");
+  if(isNaN(d)) return iso;
+  return d.getDate() + " " + M[d.getMonth()] + " " + (d.getFullYear() + 543);
+}
+
+function showConfirm(b){
+  const box  = document.getElementById("bkConfirm");
+  const list = document.getElementById("bkList");
+  if(!box || !list) return;
+
+  const rows = [
+    ["ชื่อเจ้าของ", b.owner],
+    ["เบอร์ติดต่อ", b.phone],
+    ["สัตว์เลี้ยง", (b.pet && b.pet !== "-" ? b.pet + " · " : "") + (b.type || "-")],
+    ["วันที่ต้องการ", thaiDate(b.date)],
+    ["ช่วงเวลา", b.time || "-"],
+  ];
+  if(b.note && b.note !== "-") rows.push(["อาการ/บริการ", b.note]);
+
+  list.innerHTML = rows.map(function(r){
+    return '<li><span class="k">' + r[0] + '</span><span class="v">' + esc(r[1] || "-") + '</span></li>';
+  }).join("");
+
+  // ปุ่ม LINE — เปิดแชทคลินิก พร้อมคัดลอกสรุปไว้ให้วางส่งได้เลย
+  const msg = "ขอจองนัดครับ/ค่ะ\n" + rows.map(function(r){ return r[0] + ": " + (r[1] || "-"); }).join("\n");
+  const lineBtn = document.getElementById("bkLine");
+  if(lineBtn){
+    lineBtn.href = LINE_URL;
+    lineBtn.addEventListener("click", function(){
+      if(navigator.clipboard) navigator.clipboard.writeText(msg).catch(function(){});
+    });
+  }
+
+  // ปุ่มบันทึกลงปฏิทิน — สร้างไฟล์ .ics ในเครื่อง ไม่ต้องพึ่งเซิร์ฟเวอร์
+  const calBtn = document.getElementById("bkCal");
+  if(calBtn){
+    calBtn.addEventListener("click", function(){
+      const startHour = /บ่าย/.test(b.time || "") ? "13" : "09";
+      const dt = (b.date || "").replace(/-/g, "");
+      if(!dt) return;
+      const ics = [
+        "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Asiapet//TH","CALSCALE:GREGORIAN","BEGIN:VEVENT",
+        "UID:" + Date.now() + "@asiapet",
+        "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g,"").split(".")[0] + "Z",
+        "DTSTART;TZID=Asia/Bangkok:" + dt + "T" + startHour + "0000",
+        "DTEND;TZID=Asia/Bangkok:"   + dt + "T" + (Number(startHour)+3) + "0000",
+        "SUMMARY:นัดคลินิกเอเชียเพ็ท — " + (b.pet && b.pet !== "-" ? b.pet : b.type || "สัตว์เลี้ยง"),
+        "LOCATION:เอเชียเพ็ท 320/12 ถ.สายเอเชีย ข้างบิ๊กซีนครสวรรค์",
+        "DESCRIPTION:" + (b.time || "") + " — โทร 086-119-9349 (รอทีมงานโทรยืนยันคิว)",
+        "BEGIN:VALARM","TRIGGER:-PT12H","ACTION:DISPLAY","DESCRIPTION:พรุ่งนี้มีนัดที่เอเชียเพ็ท","END:VALARM",
+        "END:VEVENT","END:VCALENDAR"
+      ].join("\r\n");
+      const url = URL.createObjectURL(new Blob([ics], {type:"text/calendar;charset=utf-8"}));
+      const a = document.createElement("a");
+      a.href = url; a.download = "asiapet-นัดหมาย.ics";
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    });
+  }
+
+  box.classList.add("show");
+  if(window.lucide) window.lucide.createIcons();
+  box.scrollIntoView({ behavior:"smooth", block:"center" });
 }
 </script>
 </body>

@@ -612,3 +612,26 @@ footer{ background:var(--black); color:#fff; padding:60px 0 30px; }
   .hero-trust{ margin-top:18px; gap:8px 18px; }
   section{ padding:48px 0; }
 }
+
+/* ===== กล่องยืนยันการจองหลังส่งฟอร์มสำเร็จ =====
+   ใช้แทนอีเมลตอบกลับอัตโนมัติ ซึ่งเป็นฟีเจอร์เสียเงินของ Web3Forms
+   ลูกค้าได้สรุปการจองไว้แคปหน้าจอ + บันทึกลงปฏิทิน + ทักไลน์ยืนยันต่อได้ */
+.bk-confirm{ display:none; background:#fff; border:1px solid var(--grey-line); border-left:4px solid #28C76F;
+  border-radius:var(--radius); padding:24px 26px; box-shadow:var(--shadow); }
+.bk-confirm.show{ display:block; }
+.bk-head{ display:flex; align-items:flex-start; gap:12px; margin-bottom:18px; }
+.bk-head svg.ico{ width:26px; height:26px; color:#28C76F; flex:none; margin-top:2px; }
+.bk-head b{ display:block; font-size:1.1rem; margin-bottom:4px; }
+.bk-head span{ color:var(--grey-text); font-size:.92rem; line-height:1.65; }
+.bk-list{ list-style:none; margin:0 0 20px; padding:16px 18px; background:var(--grey-bg); border-radius:12px; display:grid; gap:9px; }
+.bk-list li{ display:flex; gap:12px; font-size:.94rem; }
+.bk-list .k{ color:var(--grey-text); min-width:96px; flex:none; }
+.bk-list .v{ font-weight:600; }
+.bk-acts{ display:flex; flex-wrap:wrap; gap:10px; }
+.bk-acts .btn{ padding:12px 20px; font-size:.93rem; }
+.bk-note{ margin-top:16px; font-size:.87rem; color:var(--grey-text); line-height:1.7; }
+@media(max-width:520px){
+  .bk-list li{ flex-direction:column; gap:2px; }
+  .bk-list .k{ min-width:auto; font-size:.85rem; }
+  .bk-acts .btn{ width:100%; justify-content:center; }
+}
