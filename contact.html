@@ -80,13 +80,13 @@
           <!-- honeypot กันบอท: ช่องล่องหน คนไข้จริงไม่เห็น/ไม่กรอก ถ้าถูกกรอก = สแปม -->
           <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div class="form-row">
-            <div class="field"><label>ชื่อเจ้าของ <span class="req">*</span></label><input type="text" name="owner" placeholder="ชื่อ-นามสกุล" required /></div>
-            <div class="field"><label>เบอร์โทร <span class="req">*</span></label><input type="tel" name="phone" placeholder="08X-XXX-XXXX" required /></div>
+            <div class="field"><label for="bkOwner">ชื่อเจ้าของ <span class="req">*</span></label><input id="bkOwner" type="text" name="owner" placeholder="ชื่อ-นามสกุล" required /></div>
+            <div class="field"><label for="bkPhone">เบอร์โทร <span class="req">*</span></label><input id="bkPhone" type="tel" name="phone" placeholder="08X-XXX-XXXX" required /></div>
           </div>
           <div class="form-row">
-            <div class="field"><label>ชื่อสัตว์เลี้ยง</label><input type="text" name="pet" placeholder="เช่น น้องโกโก้" /></div>
-            <div class="field"><label>ชนิดสัตว์ <span class="req">*</span></label>
-              <select name="type" required>
+            <div class="field"><label for="bkPet">ชื่อสัตว์เลี้ยง</label><input id="bkPet" type="text" name="pet" placeholder="เช่น น้องโกโก้" /></div>
+            <div class="field"><label for="bkType">ชนิดสัตว์ <span class="req">*</span></label>
+              <select id="bkType" name="type" required>
                 <option value="">-- เลือก --</option>
                 <option>สุนัข</option><option>แมว</option><option>กระต่าย</option>
                 <option>นก</option><option>สัตว์ฟันแทะ</option><option>สัตว์ปีก</option>
@@ -95,9 +95,9 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="field"><label>วันที่ต้องการ <span class="req">*</span></label><input type="date" name="date" required /></div>
-            <div class="field"><label>ช่วงเวลา <span class="req">*</span></label>
-              <select name="time" required>
+            <div class="field"><label for="bkDate">วันที่ต้องการ <span class="req">*</span></label><input id="bkDate" type="date" name="date" required /></div>
+            <div class="field"><label for="bkTime">ช่วงเวลา <span class="req">*</span></label>
+              <select id="bkTime" name="time" required>
                 <option value="">-- เลือก --</option>
                 <option>เช้า (09:00 – 12:00)</option>
                 <option>บ่าย (13:00 – 16:00)</option>
@@ -105,7 +105,7 @@
               </select>
             </div>
           </div>
-          <div class="field"><label>บริการ / อาการเบื้องต้น</label><textarea name="note" placeholder="เช่น ฉีดวัคซีน, ตรวจสุขภาพ, ไม่กินอาหาร 2 วัน..."></textarea></div>
+          <div class="field"><label for="bkNote">บริการ / อาการเบื้องต้น</label><textarea id="bkNote" name="note" placeholder="เช่น ฉีดวัคซีน, ตรวจสุขภาพ, ไม่กินอาหาร 2 วัน..."></textarea></div>
           <button type="submit" class="btn btn-red"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> ส่งคำขอนัดหมาย</button>
           <div class="form-success" id="formSuccess"><i data-lucide="check-circle" class="ico"></i> ส่งคำขอจองนัดเรียบร้อย! ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด</div>
 
