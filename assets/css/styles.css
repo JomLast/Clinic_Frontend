@@ -52,7 +52,15 @@ h2.title{ font-size:clamp(1.8rem,4vw,2.5rem); font-weight:700; line-height:1.25;
 .lang{ display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.12); padding:4px 12px; border-radius:50px; cursor:pointer; }
 
 /* ===== NAVBAR ===== */
+/* หัวเว็บถูก JS ยัดไว้ในกล่อง #site-header ซึ่งสูงแค่ 122px (แถบบน 38 + เมนู 84)
+   position:sticky ยึดกับกล่องแม่ เท่ากับเลื่อนตามได้แค่ 38px แล้วหลุดหายไปกับหน้า
+   หัวเว็บจึงไม่เคยติดขอบบนจริงสักหน้าเดียว
+   display:contents ทำให้กล่องนี้หายไปจากการจัดวาง หัวเว็บไปยึดกับ body แทน  */
+#site-header{ display:contents; }
 header{ position:sticky; top:0; z-index:200; background:#fff; box-shadow:0 2px 18px rgba(26,26,26,.07); }
+/* พอหัวเว็บติดขอบบนได้จริงแล้ว ลิงก์ข้ามหน้าแบบ #anchor (เช่น service-lab.html#imaging)
+   จะเลื่อนมาแล้วหัวข้อไปจมอยู่ใต้หัวเว็บ ต้องเผื่อระยะไว้ให้ทุกจุดหมาย     */
+[id]{ scroll-margin-top:100px; }
 nav{ display:flex; align-items:center; justify-content:space-between; height:84px; gap:18px; }
 .brand{ display:flex; align-items:center; gap:12px; flex:none; }
 /* โลโก้แบบครอปแถบสามเหลี่ยมล่างออกอัตโนมัติ (ใช้ภาพต้นฉบับได้เลย) */
