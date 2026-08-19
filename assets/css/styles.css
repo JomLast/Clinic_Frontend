@@ -384,6 +384,43 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .prod-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--red); }
 .prod-img{ aspect-ratio:1/1; background:var(--grey-bg); display:grid; place-items:center; overflow:hidden; }
 .prod-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* ===== เลื่อนดูรูปในการ์ด (สินค้าตัวเดียวกันคนละรส/ขนาด) =====
+   display:block ไม่ใช่ grid — grid + place-items:center ทำให้ height:100%
+   ของรางเลื่อนหาความสูงอ้างอิงไม่ได้ (เจอปัญหาเดียวกันมาแล้วที่การ์ดบทความ) */
+.prod-img.multi{ display:block; position:relative; }
+.prod-track{ display:flex; width:100%; height:100%; overflow-x:auto; overflow-y:hidden;
+  scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain; }
+.prod-track::-webkit-scrollbar{ display:none; }
+.prod-track img{ flex:0 0 100%; width:100%; height:100%; object-fit:cover; scroll-snap-align:center; }
+.prod-track:focus-visible{ outline:2px solid var(--red); outline-offset:-2px; }
+
+/* ปุ่มลูกศร — โผล่เมื่อชี้เมาส์เท่านั้น บนมือถือใช้ปัดนิ้วแทน จอเล็กพื้นที่น้อย */
+.prod-img.multi .pnav{ position:absolute; top:50%; transform:translateY(-50%);
+  width:30px; height:30px; border:0; border-radius:50%; cursor:pointer;
+  background:rgba(255,255,255,.92); color:var(--ink); font-size:1.15rem; line-height:1;
+  box-shadow:0 2px 8px rgba(28,26,23,.22); opacity:0; transition:opacity .18s; }
+.prod-img.multi .pnav.prev{ left:7px; }
+.prod-img.multi .pnav.next{ right:7px; }
+.prod-card:hover .pnav{ opacity:1; }
+.prod-img.multi .pnav:disabled{ opacity:0 !important; pointer-events:none; }
+.prod-img.multi .pnav:focus-visible{ opacity:1; outline:2px solid var(--red); }
+
+/* ตัวนับ 1/6 — บอกจำนวนรูปตั้งแต่แรกเห็น ไม่ต้องเดาว่าเลื่อนได้กี่รูป */
+.prod-img.multi .pcount{ position:absolute; top:8px; right:8px; z-index:1;
+  background:rgba(28,26,23,.62); color:#fff; font-size:.7rem; font-weight:600;
+  padding:2px 7px; border-radius:999px; letter-spacing:.3px; }
+
+.prod-img.multi .pdots{ position:absolute; left:0; right:0; bottom:7px; z-index:1;
+  display:flex; justify-content:center; gap:5px; }
+.pdot{ width:6px; height:6px; padding:0; border:0; border-radius:50%; cursor:pointer;
+  background:rgba(255,255,255,.62); box-shadow:0 0 3px rgba(28,26,23,.45); transition:.18s; }
+.pdot.on{ background:#fff; width:16px; border-radius:99px; }
+.pdot:focus-visible{ outline:2px solid var(--red); outline-offset:2px; }
+
+@media(hover:none){ .prod-img.multi .pnav{ display:none; } }
+@media(prefers-reduced-motion:reduce){ .prod-track{ scroll-behavior:auto; } }
 .prod-img .ph{ color:var(--red); opacity:.4; }
 .prod-img .ph svg.ico{ width:44px; height:44px; }
 .prod-body{ padding:15px 16px 18px; display:flex; flex-direction:column; gap:5px; flex:1; }
