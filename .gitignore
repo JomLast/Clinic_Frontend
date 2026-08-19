@@ -10,3 +10,6 @@ assets/img/grooming/_orig/
 # รูปดิบจากมือถือ ก่อนย่อ/จับคู่
 photo-inbox/
 assets/img/products/_inbox/
+
+# ไฟล์ปกดิบจาก AI ก่อนย่อ
+assets/img/articles/_raw/
