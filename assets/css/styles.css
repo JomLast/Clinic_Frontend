@@ -319,14 +319,19 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
    เดิมใช้ margin ติดลบ -14px ให้แถบเต็มขอบ แต่ .container กว้าง 92%
    ขอบข้างจึงเป็น 4% ของจอ ซึ่งเท่ากับ 13px ที่จอ 320px -> ล้นออกไป 1px
    ทำให้ทั้งหน้าเลื่อนซ้ายขวาได้ จึงเปลี่ยนเป็นการ์ดอยู่ในคอนเทนเนอร์แทน */
-.prod-toolbar{ position:sticky; top:var(--hdr,84px); z-index:60; margin:0 0 26px; padding:12px 14px 9px;
-  background:var(--surface); border:1px solid var(--grey-line); border-radius:18px; box-shadow:var(--shadow); }
-.prod-count{ text-align:center; font-size:.8rem; color:var(--grey-text); margin:0; }
+/* ต่อกับหัวเว็บเป็นชิ้นเดียว — เดิมทำเป็นการ์ดมุมมนลอยอยู่ จึงดูเหมือน
+   แถบไปแปะกลางสินค้าแทนที่จะเป็นแถบเครื่องมือด้านบน                    */
+.prod-toolbar{ position:sticky; top:var(--hdr,84px); z-index:60; margin:0 0 24px; padding:11px 14px 8px;
+  background:var(--surface); border:1px solid var(--grey-line); border-top:0;
+  border-radius:0 0 18px 18px; box-shadow:0 6px 16px rgba(26,26,26,.07); }
+.prod-count{ text-align:center; font-size:.8rem; color:var(--grey-text); margin:6px 0 0; }
+/* ตอนไม่ได้กรอง บรรทัดนี้ซ้ำกับเลขในปุ่ม "ทั้งหมด" อยู่แล้ว ซ่อนไว้ให้แถบเตี้ยลง */
+.prod-count:empty{ display:none; }
 
 /* ปุ่มเลือกหมวด — เรียงเป็นแถวเดียวเสมอ ถ้าไม่พอให้เลื่อนแนวนอน
    ปล่อยให้ตัดบรรทัดไม่ได้ เพราะแถบนี้ปักหมุดอยู่บนสุด พอสูงสองบรรทัด
    (วัดได้ 181px ที่จอ 785px) จะกินพื้นที่จอจนเหลือที่ดูสินค้าน้อยมาก      */
-.prod-chips{ display:flex; gap:8px; justify-content:center; margin:0 0 8px; }
+.prod-chips{ display:flex; gap:8px; justify-content:center; margin:0; }
 @media(max-width:1240px){
   .prod-chips{ flex-wrap:nowrap; overflow-x:auto; justify-content:flex-start;
     scrollbar-width:none; -webkit-overflow-scrolling:touch;
@@ -387,8 +392,8 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 /* จอแคบ: หัวเว็บเตี้ยลง และปุ่มหมวดยาวเกินจะตัดบรรทัดจนแถบสูงบังสินค้า
    จึงให้เลื่อนแนวนอนแทน                                                */
 @media(max-width:760px){
-  .prod-toolbar{ padding:10px 11px 7px; border-radius:15px; }
-  .prod-chips{ margin:0 -11px 8px; padding:2px 11px 4px; }
+  .prod-toolbar{ padding:9px 11px 7px; border-radius:0 0 15px 15px; }
+  .prod-chips{ margin:0 -11px; padding:2px 11px 4px; }
   .chip{ font-size:.8rem; padding:6px 12px; }
   .prod-filter{ margin-bottom:8px; }
   .prod-filter input{ padding:11px 42px 11px 42px; font-size:.92rem; }

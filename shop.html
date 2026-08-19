@@ -310,11 +310,16 @@
     if(empty) empty.style.display = "none";          // ข้อความ "กำลังอัปเดต" ใช้เฉพาะตอนไม่มีข้อมูลเลย
     if(none)  none.style.display  = hits.length ? "none" : "block";
 
+    /* ตอนไม่ได้กรอง ปล่อยว่างไว้ — เลขรวมมีอยู่ในปุ่ม "ทั้งหมด" แล้ว
+       เขียนซ้ำอีกบรรทัดทำให้แถบสูงขึ้นเปล่า ๆ (CSS ซ่อน :empty ไว้)  */
     if(count){
       count.textContent = (!curCat && !term)
-        ? "ทั้งหมด " + ALL.length + " รายการ"
+        ? ""
         : "แสดง " + hits.length + " จาก " + ALL.length + " รายการ";
     }
+    /* บรรทัดนับโผล่/หายทำให้แถบสูงไม่เท่าเดิม ต้องวัดใหม่ ไม่งั้นระยะเผื่อ
+       ตอนเลื่อนไปหัวข้อหมวดจะคลาดไปตามความสูงที่เปลี่ยน */
+    measureSticky();
   }
 
   /* ใช้ตอนกดการ์ดหมวดด้านบน — การ์ดสั่ง "เลื่อนไปที่หมวด" ไม่ใช่ "กรอง"
@@ -350,6 +355,9 @@
   var rt;
   window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(measureSticky, 150); });
   window.addEventListener('orientationchange', function(){ setTimeout(measureSticky, 300); });
+  /* ฟอนต์ Kanit โหลดทีหลัง ทำให้แถบสูงขึ้นอีกไม่กี่พิกเซลหลังวัดครั้งแรก
+     ถ้าไม่วัดซ้ำ ระยะเผื่อจะขาดไปเท่านั้น หัวข้อหมวดโผล่ไม่พ้นแถบ */
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(measureSticky);
 
   fetch('data/products.json', { cache: 'no-store' })
     .then(function(r){ return r.ok ? r.json() : { products: [] }; })
