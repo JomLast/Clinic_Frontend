@@ -596,6 +596,29 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
 .qr-card .btn-line{ background:#06C755; color:#fff; width:100%; justify-content:center; }
 .qr-card .btn-line:hover{ background:#05a648; transform:translateY(-2px); box-shadow:0 8px 20px rgba(6,199,85,.35); }
 
+/* ===== ทีมสัตวแพทย์ ===== */
+.vet-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:900px; margin:0 auto; }
+.vet-card{ display:flex; gap:20px; background:var(--surface); border:1px solid var(--grey-line);
+  border-left:4px solid var(--red); border-radius:var(--radius); padding:26px 24px;
+  box-shadow:var(--shadow); transition:.3s ease; }
+.vet-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--red); }
+.vet-ic{ flex:none; width:58px; height:58px; border-radius:16px; background:rgba(232,51,75,.1);
+  color:var(--red); display:grid; place-items:center; }
+.vet-ic svg.ico{ width:29px; height:29px; stroke-width:1.7; }
+.vet-body{ min-width:0; }
+.vet-card h3{ font-size:1.13rem; font-weight:700; line-height:1.4; }
+.vet-role{ color:var(--red); font-size:.86rem; font-weight:600; margin:2px 0 12px; }
+.vet-facts{ list-style:none; display:flex; flex-direction:column; gap:8px; }
+.vet-facts li{ display:flex; gap:9px; align-items:flex-start; color:var(--grey-text);
+  font-size:.92rem; line-height:1.6; }
+.vet-facts svg.ico{ width:17px; height:17px; flex:none; margin-top:.25em; color:var(--red); opacity:.85; }
+.vet-facts b{ color:var(--ink); font-weight:600; white-space:nowrap; }
+@media(max-width:760px){ .vet-grid{ grid-template-columns:1fr; } }
+@media(max-width:420px){
+  .vet-card{ flex-direction:column; gap:14px; padding:22px 18px; }
+  .vet-facts b{ white-space:normal; }
+}
+
 /* ===== FUTURE / ROADMAP ===== */
 .future{ text-align:center; }
 .future .ribbon{ display:inline-block; background:rgba(232,51,75,.1); color:var(--red); font-weight:600; padding:8px 20px; border-radius:50px; margin-bottom:18px; }
