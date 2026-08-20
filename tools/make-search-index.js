@@ -21,7 +21,7 @@ const pick = (s, re) => { const m = s.match(re); return m ? strip(m[1]) : ''; };
 function section(f) {
   if (f.startsWith('service-') || f === 'services.html' || f === 'centers.html') return 'บริการ';
   if (f.startsWith('animal-') || f === 'animals.html') return 'สัตว์ที่เรารักษา';
-  if (f.startsWith('article-') || f === 'articles.html' || f === 'vaccine.html') return 'สาระน่ารู้';
+  if (f.startsWith('article-') || f === 'articles.html' || f === 'vaccine.html') return 'บทความ';
   if (f === 'shop.html') return 'เพ็ทช็อป';
   if (f === 'contact.html') return 'ติดต่อ';
   return 'ทั่วไป';
