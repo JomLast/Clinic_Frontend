@@ -1,0 +1,14 @@
+{
+  "name": "เอเชียเพ็ท นครสวรรค์ — คลินิกรักษาสัตว์",
+  "short_name": "เอเชียเพ็ท",
+  "description": "คลินิกรักษาสัตว์ ข้างบิ๊กซีนครสวรรค์ รับสุนัข แมว กระต่าย นก และสัตว์พิเศษ เปิดทุกวัน 09:00–20:00 น.",
+  "lang": "th",
+  "start_url": "/",
+  "display": "browser",
+  "theme_color": "#E8334B",
+  "background_color": "#FAF7F0",
+  "icons": [
+    { "src": "assets/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
