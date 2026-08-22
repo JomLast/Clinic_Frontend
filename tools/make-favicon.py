@@ -15,8 +15,7 @@
     16, 32 px  ->  ตัว A     (แท็บเบราว์เซอร์ บุ๊กมาร์ก ประวัติ)
     48+  px    ->  Asiapet   (ผลค้นหา Google, ไอคอนบนหน้าจอมือถือ)
 
-ทั้งสองแบบเป็นตัวอักษรขาวบนพื้นแดงมุมมน — คอนทราสต์สูงกว่าแดงบนขาว
-และไม่จมหายไปกับพื้นขาวของหน้าผลค้นหา
+สลับสีได้ที่ตัวแปร STYLE ด้านล่าง — "light" คือแดงบนขาวแบบโลโก้จริง
 """
 import os
 from PIL import Image, ImageDraw
@@ -25,7 +24,12 @@ ROOT = os.path.join(os.path.dirname(__file__), "..")
 SQ   = os.path.join(ROOT, "assets", "img", "logo-square.png")   # โลโก้จัตุรัส (มีเงาสัตว์)
 WORD = os.path.join(ROOT, "assets", "img", "logo.png")          # โลโก้แนวนอน 2 บรรทัด
 OUT  = os.path.join(ROOT, "assets", "img")
-RED  = (232, 51, 75)                      # --red ของเว็บ
+RED   = (232, 51, 75)                     # --red ของเว็บ
+WHITE = (255, 255, 255)
+
+# "light"  = ตัวหนังสือแดงบนพื้นขาว  (เหมือนโลโก้จริง)
+# "solid"  = ตัวหนังสือขาวบนพื้นแดง  (คอนทราสต์สูงกว่าที่ขนาดเล็ก)
+STYLE = "light"
 
 Y0, Y1 = 118, 208                         # แถวที่คำว่า "Asiapet" อยู่ใน logo-square.png
 
@@ -45,17 +49,51 @@ def red_mask(im):
 
 
 def plate(mask, size, fill=0.62, radius=0.22):
-    """วางหน้ากากสีขาวลงบนแผ่นแดงมุมมนขนาด size"""
+    """วางตัวอักษรลงบนแผ่นมุมมนขนาด size ตามสไตล์ที่เลือกไว้ที่ STYLE"""
     w, h = mask.size
     scale = (size * fill) / max(w, h)
     m = mask.resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.LANCZOS)
 
+    bg, ink = (WHITE, RED) if STYLE == "light" else (RED, WHITE)
+
     icon = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     ImageDraw.Draw(icon).rounded_rectangle(
-        [0, 0, size - 1, size - 1], radius=int(size * radius), fill=RED + (255,))
-    white = Image.new("RGBA", m.size, (255, 255, 255, 255))
-    icon.paste(white, ((size - m.size[0]) // 2, (size - m.size[1]) // 2), m)
+        [0, 0, size - 1, size - 1], radius=int(size * radius), fill=bg + (255,))
+    letters = Image.new("RGBA", m.size, ink + (255,))
+    icon.paste(letters, ((size - m.size[0]) // 2, (size - m.size[1]) // 2), m)
     return icon
+
+
+def plate_logo(size, fill=0.92, radius=0.20):
+    """วางโลโก้เต็ม (Asiapet แดง + Animal hospital ดำ) บนแผ่นขาวมุมมน
+       ต่างจาก plate() ตรงที่คงสีเดิมของโลโก้ไว้ ไม่ได้ย้อมสีเดียว"""
+    im = Image.open(WORD).convert("RGBA")
+    ink = ink_mask(im)
+    im = im.crop(ink.getbbox())                       # ตัดขอบขาวรอบนอกทิ้ง
+
+    w, h = im.size
+    scale = (size * fill) / max(w, h)
+    lg = im.resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.LANCZOS)
+    lm = ink.crop(ink.getbbox()).resize(lg.size, Image.LANCZOS)
+
+    icon = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    ImageDraw.Draw(icon).rounded_rectangle(
+        [0, 0, size - 1, size - 1], radius=int(size * radius), fill=WHITE + (255,))
+    icon.paste(lg, ((size - lg.size[0]) // 2, (size - lg.size[1]) // 2), lm)
+    return icon
+
+
+def ink_mask(im):
+    """หน้ากากของ 'หมึก' = ทุกพิกเซลที่ไม่ใช่พื้นขาว (ได้ทั้งตัวแดงและตัวดำ)"""
+    im = im.convert("RGB")
+    m = Image.new("L", im.size, 0)
+    ip, mp = im.load(), m.load()
+    for y in range(im.size[1]):
+        for x in range(im.size[0]):
+            r, g, b = ip[x, y]
+            d = 255 - min(r, g, b)                    # ยิ่งห่างจากขาว ยิ่งทึบ
+            mp[x, y] = 255 if d > 60 else (min(255, d * 4) if d > 15 else 0)
+    return m
 
 
 # ---------- แบบที่ 1: ตัว A ----------
@@ -91,13 +129,13 @@ def mark_word():
 
 
 def main():
-    A, W = mark_A(), mark_word()
+    A = mark_A()
 
     small = [16, 32]                      # แท็บเบราว์เซอร์ — ต้องอ่านออกที่ 16px
     big   = [48, 64, 128, 256]            # Google ใช้ 48px
 
     imgs = {s: plate(A, s) for s in small}
-    imgs.update({s: plate(W, s, fill=0.86, radius=0.20) for s in big})
+    imgs.update({s: plate_logo(s) for s in big})
 
     # Pillow ตัดขนาดที่ใหญ่กว่าภาพหลักทิ้ง จึงต้องใช้ภาพใหญ่สุดเป็นภาพหลัก
     # แล้วส่งที่เหลือไปทาง append_images ให้มันจับคู่ตามขนาด
@@ -109,10 +147,10 @@ def main():
 
     # ไอคอนบนหน้าจอมือถือ — แสดงใหญ่เสมอ ใช้คำเต็มได้
     for n, name in [(180, "apple-touch-icon.png"), (192, "icon-192.png"), (512, "icon-512.png")]:
-        plate(W, n, fill=0.86, radius=0.20).save(os.path.join(OUT, name), "PNG", optimize=True)
-        print("  %-22s %d x %d  (Asiapet)" % (name, n, n))
+        plate_logo(n).save(os.path.join(OUT, name), "PNG", optimize=True)
+        print("  %-22s %d x %d  (logo)" % (name, n, n))
 
-    print("  favicon.ico            16/32 = A | 48/64/128/256 = Asiapet")
+    print("  favicon.ico            16/32 = A | 48/64/128/256 = logo")
 
 
 if __name__ == "__main__":
