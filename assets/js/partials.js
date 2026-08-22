@@ -14,7 +14,7 @@ const SITE = {
   lineId:   "asiapet310",
   lineQR:   "https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=https%3A%2F%2Fline.me%2Fti%2Fp%2FtK01btn-wu",
   instagram:"https://www.instagram.com/asiapet01/",
-  address:  "320/12 ข้างบิ๊กซีนครสวรรค์ ถ.สายเอเชีย ต.ปากน้ำโพ อ.เมือง จ.นครสวรรค์ 60000",
+  address:  "320/12 ข้างบิ๊กซีนครสวรรค์ ถ.สายเอเชีย ต.นครสวรรค์ตก อ.เมือง จ.นครสวรรค์ 60000",
   mapLink:  "https://maps.app.goo.gl/9gafEAtYKx8WSJxn7",
   mapEmbed: "https://www.google.com/maps?q=15.6959822,100.1217192&z=17&hl=th&output=embed",
   hours: "09:00 – 20:00 น.",          // เปิดทุกวัน เวลาเดียวกันหมด
