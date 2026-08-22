@@ -80,6 +80,7 @@ const NAV = [
       { label:"ผ่าตัด & ทำหมัน", href:"service-surgery.html" },
       { label:"อาบน้ำ & ตัดขน", href:"service-grooming.html" },
       { label:"ศูนย์เฉพาะทาง", href:"centers.html" },
+      { label:"ค่าบริการ", href:"prices.html" },
       { label:"ดูบริการทั้งหมด →", href:"services.html" },
   ]},
   { label:"สัตว์ที่เรารักษา", href:"animals.html", id:"animals", sub:[
@@ -162,6 +163,7 @@ function buildFooter(){
           <h5>เมนู</h5>
           <ul>
             <li><a href="services.html">บริการของเรา</a></li>
+            <li><a href="prices.html">ค่าบริการ</a></li>
             <li><a href="animals.html">สัตว์ที่เรารักษา</a></li>
             <li><a href="shop.html">เพ็ทช็อป</a></li>
             <li><a href="articles.html">บทความ</a></li>

@@ -141,6 +141,10 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .hero-en{ font-family:'Poppins',sans-serif; font-weight:700; font-size:clamp(1rem,2.4vw,1.35rem); letter-spacing:2px; text-transform:uppercase; color:var(--grey-text); margin-bottom:8px; }
 .hero-th{ font-family:'Kanit',sans-serif; font-size:clamp(2.1rem,6.5vw,3.6rem); font-weight:800; line-height:1.12; color:var(--ink); letter-spacing:-.5px; }
 .hero-th .red{ color:var(--red); }
+/* ชื่อละติน — คนพิมพ์ค้นหาว่า asiapet ด้วยแป้นอังกฤษ ต้องมีคำนี้บนหน้าจริง
+   ไม่ใช่แค่ใน schema ไม่งั้น Google ไม่มีข้อความบนหน้าให้จับคู่ */
+.hero-th .hero-latin{ font-family:'Poppins',sans-serif; font-weight:700; font-size:.42em;
+  color:var(--grey-text); letter-spacing:1px; vertical-align:middle; margin-left:2px; }
 .hero-trust{ display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:center; margin-top:34px; }
 .hero-trust span{ display:inline-flex; align-items:center; gap:7px; color:var(--ink-soft); font-weight:500; font-size:.95rem; }
 .hero-trust svg.ico{ width:18px; height:18px; color:var(--red); }
@@ -503,6 +507,61 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 /* จอแคบ: ราคายาวจะบีบชื่อบริการจนตัดบรรทัด — เรียงลงล่างแทน */
 @media(max-width:480px){
   .price-list li{ flex-direction:column; align-items:flex-start; gap:3px; }
+}
+
+/* ===== หน้ารวมค่าบริการ (prices.html) ===== */
+.pr-lead{ max-width:820px; margin:0 auto 26px; text-align:center; color:var(--grey-text); }
+.pr-lead strong{ color:var(--ink); }
+
+/* แถบเครื่องมือ — ใช้โครงเดียวกับหน้าเพ็ทช็อป ปักหมุดใต้หัวเว็บ */
+.pr-toolbar{ position:sticky; top:var(--hdr,84px); z-index:60; margin:0 0 26px; padding:12px 14px 9px;
+  background:var(--surface); border:1px solid var(--grey-line); border-radius:18px; box-shadow:0 6px 16px rgba(26,26,26,.07); }
+.pr-sort{ display:flex; gap:6px; justify-content:center; margin-top:9px; }
+.pr-sort button{ display:inline-flex; align-items:center; gap:6px; font-family:inherit; font-size:.83rem; font-weight:600;
+  color:var(--grey-text); background:transparent; border:0; border-radius:999px; padding:6px 13px; cursor:pointer; transition:.16s; }
+.pr-sort button svg.ico{ width:16px; height:16px; }
+.pr-sort button:hover{ color:var(--red); }
+.pr-sort button.is-on{ background:var(--cream); color:var(--red); }
+
+.pr-group{ margin:0 0 28px; scroll-margin-top:calc(var(--hdr,84px) + var(--bar,150px) + 14px); }
+.pr-group-title{ display:flex; align-items:center; gap:9px; font-size:1.08rem; font-weight:700; margin:0 0 11px; }
+.pr-group-title svg.ico{ color:var(--red); width:21px; height:21px; }
+.pr-group-title .n{ font-size:.78rem; font-weight:600; color:var(--grey-text); }
+
+.pr-list{ background:var(--surface); border:1px solid var(--grey-line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+.pr-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:15px 20px;
+  border-top:1px solid var(--grey-line); color:inherit; transition:background .15s ease; }
+.pr-row:first-child{ border-top:0; }
+.pr-row:hover{ background:var(--cream); }
+.pr-name{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.pr-name b{ font-weight:600; line-height:1.4; }
+.pr-name small{ font-size:.82rem; color:var(--grey-text); line-height:1.5; }
+.pr-tag{ align-self:flex-start; margin-top:5px; font-size:.72rem; font-weight:600; color:var(--grey-text);
+  background:var(--grey-bg); border-radius:999px; padding:2px 9px; }
+.pr-val{ white-space:nowrap; font-weight:700; color:var(--red); font-size:1.02rem; }
+.pr-val i{ display:block; font-style:normal; font-size:.72rem; font-weight:500; color:var(--grey-text); text-align:right; }
+.pr-val.ask{ color:var(--grey-text); font-weight:600; font-size:.88rem; }
+
+/* กล่องลิงก์ต่อ 2 อัน (ฉุกเฉิน / เพ็ทช็อป) */
+.pr-note-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:820px; margin:16px auto 0; }
+.pr-note{ display:flex; gap:13px; align-items:flex-start; padding:16px 18px; background:var(--surface);
+  border:1px solid var(--grey-line); border-radius:var(--radius); color:inherit; transition:.18s ease; }
+.pr-note:hover{ border-color:var(--red); transform:translateY(-2px); }
+.pr-note svg.ico{ color:var(--red); width:22px; height:22px; flex:none; margin-top:2px; }
+.pr-note strong{ display:block; font-size:.96rem; margin-bottom:2px; }
+.pr-note span{ font-size:.85rem; color:var(--grey-text); line-height:1.55; }
+
+@media(max-width:760px){
+  .pr-toolbar{ padding:10px 11px 8px; border-radius:15px; }
+  .pr-row{ padding:13px 15px; gap:12px; }
+  .pr-val{ font-size:.95rem; }
+  .pr-note-grid{ grid-template-columns:1fr; gap:12px; }
+}
+/* จอแคบ: ราคายาวจะบีบชื่อบริการจนตัดบรรทัด — เรียงลงล่างแทน */
+@media(max-width:460px){
+  .pr-row{ flex-direction:column; align-items:flex-start; gap:6px; }
+  .pr-val i{ display:inline; margin-right:4px; }
+  .pr-val{ text-align:left; }
 }
 
 /* ===== BACK BUTTON (ปุ่มย้อนกลับ) ===== */
