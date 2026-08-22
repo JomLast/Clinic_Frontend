@@ -42,7 +42,9 @@ const baht = (n) => n.toLocaleString("en-US");
 function val(p) {
   if (p.ask) return '<span class="pr-val ask">สอบถามราคา</span>';
   const v = p.to ? baht(p.from) + "–" + baht(p.to) + "+" : baht(p.from);
-  return '<span class="pr-val"><i>เริ่มต้น</i>' + v + " ฿</span>";
+  // ราคาคงที่ไม่ต้องขึ้นคำว่า "เริ่มต้น" — ต้องตรงกับ valHTML ใน prices.html
+  const lead = p.fix ? "" : "<i>เริ่มต้น</i>";
+  return '<span class="pr-val">' + lead + v + " ฿</span>";
 }
 
 function row(p) {
