@@ -1,156 +1,84 @@
 # -*- coding: utf-8 -*-
-"""สร้าง favicon จากโลโก้ Asiapet
+"""สร้าง favicon จากโลโก้หลักของ Asiapet
 
 รัน:  python tools/make-favicon.py
 
-ทำไมไฟล์ .ico มีสองแบบปนกัน
---------------------------------
-คำว่า "Asiapet" เต็มคำ ย่อลงเหลือ 16px แล้วอ่านไม่ออก กลายเป็นรอยเปื้อนสีแดง
-แต่ที่ 48px ขึ้นไปอ่านออกชัดเจน — ซึ่ง 48px คือขนาดที่ Google ใช้แสดง
-ในหน้าผลค้นหา ส่วน 16/32px คือขนาดที่เบราว์เซอร์ใช้บนแท็บ
+ใช้โลโก้เต็มทุกขนาด — Asiapet สีแดง + Animal hospital สีดำ พื้นหลังโปร่งใส
+ไม่ได้ตัดเหลือตัว A เหมือนก่อนหน้านี้ เพราะที่ขนาดเล็กสิ่งที่คนจำได้คือ
+รูปทรงและสีของโลโก้ ไม่ใช่ตัวหนังสือ
 
-ไฟล์ .ico เก็บภาพหลายภาพในไฟล์เดียวได้ และแต่ละภาพเป็นคนละรูปกันได้
-จึงใส่ทั้งสองแบบลงไป แล้วให้แต่ละที่หยิบขนาดที่เหมาะไปใช้เอง
-
-    16, 32 px  ->  ตัว A     (แท็บเบราว์เซอร์ บุ๊กมาร์ก ประวัติ)
-    48+  px    ->  Asiapet   (ผลค้นหา Google, ไอคอนบนหน้าจอมือถือ)
-
-สลับสีได้ที่ตัวแปร STYLE ด้านล่าง — "light" คือแดงบนขาวแบบโลโก้จริง
+ข้อยกเว้นเดียวคือ apple-touch-icon.png
+--------------------------------------
+iOS ไม่รองรับพื้นโปร่งใสในไอคอนหน้าจอ มันจะถมส่วนโปร่งด้วยสีดำ
+ทำให้โลโก้กลายเป็นกล่องดำ ไฟล์นั้นไฟล์เดียวจึงวางบนพื้นขาว
 """
 import os
 from PIL import Image, ImageDraw
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
-SQ   = os.path.join(ROOT, "assets", "img", "logo-square.png")   # โลโก้จัตุรัส (มีเงาสัตว์)
-WORD = os.path.join(ROOT, "assets", "img", "logo.png")          # โลโก้แนวนอน 2 บรรทัด
+LOGO = os.path.join(ROOT, "assets", "img", "logo.png")   # โลโก้แนวนอน 2 บรรทัด
 OUT  = os.path.join(ROOT, "assets", "img")
-RED   = (232, 51, 75)                     # --red ของเว็บ
 WHITE = (255, 255, 255)
 
-# "light"  = ตัวหนังสือแดงบนพื้นขาว  (เหมือนโลโก้จริง)
-# "solid"  = ตัวหนังสือขาวบนพื้นแดง  (คอนทราสต์สูงกว่าที่ขนาดเล็ก)
-STYLE = "light"
-
-Y0, Y1 = 118, 208                         # แถวที่คำว่า "Asiapet" อยู่ใน logo-square.png
-
-
-# ---------- เครื่องมือร่วม ----------
-
-def red_mask(im):
-    """หน้ากากจากพิกเซลสีแดง (= ตัวอักษร Asiapet)"""
-    im = im.convert("RGB")
-    m = Image.new("L", im.size, 0)
-    ip, mp = im.load(), m.load()
-    for y in range(im.size[1]):
-        for x in range(im.size[0]):
-            r, g, b = ip[x, y]
-            mp[x, y] = 255 if (r > 140 and g < 130 and b < 130) else 0
-    return m
-
-
-def plate(mask, size, fill=0.62, radius=0.22):
-    """วางตัวอักษรลงบนแผ่นมุมมนขนาด size ตามสไตล์ที่เลือกไว้ที่ STYLE"""
-    w, h = mask.size
-    scale = (size * fill) / max(w, h)
-    m = mask.resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.LANCZOS)
-
-    bg, ink = (WHITE, RED) if STYLE == "light" else (RED, WHITE)
-
-    icon = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    ImageDraw.Draw(icon).rounded_rectangle(
-        [0, 0, size - 1, size - 1], radius=int(size * radius), fill=bg + (255,))
-    letters = Image.new("RGBA", m.size, ink + (255,))
-    icon.paste(letters, ((size - m.size[0]) // 2, (size - m.size[1]) // 2), m)
-    return icon
-
-
-def plate_logo(size, fill=0.92, radius=0.20):
-    """วางโลโก้เต็ม (Asiapet แดง + Animal hospital ดำ) บนแผ่นขาวมุมมน
-       ต่างจาก plate() ตรงที่คงสีเดิมของโลโก้ไว้ ไม่ได้ย้อมสีเดียว"""
-    im = Image.open(WORD).convert("RGBA")
-    ink = ink_mask(im)
-    im = im.crop(ink.getbbox())                       # ตัดขอบขาวรอบนอกทิ้ง
-
-    w, h = im.size
-    scale = (size * fill) / max(w, h)
-    lg = im.resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.LANCZOS)
-    lm = ink.crop(ink.getbbox()).resize(lg.size, Image.LANCZOS)
-
-    icon = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    ImageDraw.Draw(icon).rounded_rectangle(
-        [0, 0, size - 1, size - 1], radius=int(size * radius), fill=WHITE + (255,))
-    icon.paste(lg, ((size - lg.size[0]) // 2, (size - lg.size[1]) // 2), lm)
-    return icon
+FILL = 0.96          # โลโก้กินพื้นที่กี่ส่วนของกรอบ (เหลือขอบนิดเดียว)
 
 
 def ink_mask(im):
-    """หน้ากากของ 'หมึก' = ทุกพิกเซลที่ไม่ใช่พื้นขาว (ได้ทั้งตัวแดงและตัวดำ)"""
+    """หน้ากากของ 'หมึก' = ทุกพิกเซลที่ไม่ใช่พื้นขาว (ได้ทั้งตัวแดงและตัวดำ)
+       ค่ากลาง ๆ ไล่เป็นเฉดเพื่อให้ขอบตัวอักษรไม่หยัก"""
     im = im.convert("RGB")
     m = Image.new("L", im.size, 0)
     ip, mp = im.load(), m.load()
     for y in range(im.size[1]):
         for x in range(im.size[0]):
             r, g, b = ip[x, y]
-            d = 255 - min(r, g, b)                    # ยิ่งห่างจากขาว ยิ่งทึบ
+            d = 255 - min(r, g, b)                 # ยิ่งห่างจากขาว ยิ่งทึบ
             mp[x, y] = 255 if d > 60 else (min(255, d * 4) if d > 15 else 0)
     return m
 
 
-# ---------- แบบที่ 1: ตัว A ----------
-
-def find_A(im):
-    """หาขอบตัว A โดยดูช่องว่างระหว่างตัวอักษร"""
-    px = im.convert("RGB").load()
-    cols = [sum(1 for y in range(Y0, Y1)
-                if px[x, y][0] > 150 and px[x, y][1] < 110 and px[x, y][2] < 110)
-            for x in range(0, 300)]
-    runs, s = [], None
-    for x, n in enumerate(cols):
-        if n > 0 and s is None: s = x
-        if n == 0 and s is not None: runs.append((s, x - 1)); s = None
-    return runs[0]
+def logo_trimmed():
+    """โลโก้ที่ตัดขอบขาวรอบนอกออกแล้ว พร้อมหน้ากากของมัน"""
+    im = Image.open(LOGO).convert("RGBA")
+    m = ink_mask(im)
+    bb = m.getbbox()
+    return im.crop(bb), m.crop(bb)
 
 
-def mark_A():
-    im = Image.open(SQ)
-    x0, x1 = find_A(im)
-    return red_mask(im.crop((x0 - 4, Y0 - 4, x1 + 4, Y1 + 4)))
+def icon(size, bg=None, radius=0.20):
+    """โลโก้กลางกรอบจัตุรัส — bg=None คือพื้นโปร่งใส"""
+    im, m = logo_trimmed()
+    w, h = im.size
+    scale = (size * FILL) / max(w, h)
+    lg = im.resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.LANCZOS)
+    lm = m.resize(lg.size, Image.LANCZOS)
 
-
-# ---------- แบบที่ 2: คำว่า Asiapet ----------
-
-def mark_word():
-    """ตัดเฉพาะบรรทัดบน (Asiapet) จากโลโก้แนวนอน ทิ้งคำว่า Animal hospital
-       เพราะบรรทัดล่างตัวเล็กกว่ามาก ย่อแล้วเละก่อนบรรทัดบนเสมอ"""
-    im = Image.open(WORD)
-    m = red_mask(im)
-    bb = m.getbbox()                      # กรอบของคำว่า Asiapet (สีแดงล้วน)
-    return m.crop(bb)
+    canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    if bg:
+        ImageDraw.Draw(canvas).rounded_rectangle(
+            [0, 0, size - 1, size - 1], radius=int(size * radius), fill=bg + (255,))
+    canvas.paste(lg, ((size - lg.size[0]) // 2, (size - lg.size[1]) // 2), lm)
+    return canvas
 
 
 def main():
-    A = mark_A()
-
-    small = [16, 32]                      # แท็บเบราว์เซอร์ — ต้องอ่านออกที่ 16px
-    big   = [48, 64, 128, 256]            # Google ใช้ 48px
-
-    imgs = {s: plate(A, s) for s in small}
-    imgs.update({s: plate_logo(s) for s in big})
+    sizes = [16, 32, 48, 64, 128, 256]
+    imgs = {s: icon(s) for s in sizes}
 
     # Pillow ตัดขนาดที่ใหญ่กว่าภาพหลักทิ้ง จึงต้องใช้ภาพใหญ่สุดเป็นภาพหลัก
     # แล้วส่งที่เหลือไปทาง append_images ให้มันจับคู่ตามขนาด
-    sizes = small + big
     biggest = max(sizes)
     imgs[biggest].save(os.path.join(ROOT, "favicon.ico"), format="ICO",
                        sizes=[(s, s) for s in sizes],
                        append_images=[imgs[s] for s in sizes if s != biggest])
+    print("  favicon.ico            16/32/48/64/128/256  transparent")
 
-    # ไอคอนบนหน้าจอมือถือ — แสดงใหญ่เสมอ ใช้คำเต็มได้
-    for n, name in [(180, "apple-touch-icon.png"), (192, "icon-192.png"), (512, "icon-512.png")]:
-        plate_logo(n).save(os.path.join(OUT, name), "PNG", optimize=True)
-        print("  %-22s %d x %d  (logo)" % (name, n, n))
+    icon(180, bg=WHITE).save(os.path.join(OUT, "apple-touch-icon.png"), "PNG", optimize=True)
+    print("  apple-touch-icon.png   180 x 180  white (iOS)")
 
-    print("  favicon.ico            16/32 = A | 48/64/128/256 = logo")
+    for n in (192, 512):
+        icon(n).save(os.path.join(OUT, "icon-%d.png" % n), "PNG", optimize=True)
+        print("  icon-%-3d.png           %d x %d  transparent" % (n, n, n))
 
 
 if __name__ == "__main__":
