@@ -302,6 +302,37 @@ var PRICES = [
   render();
 
   if(window.ResizeObserver && bar) new ResizeObserver(measure).observe(bar);
+
+  /* ===== ตามขอบล่างจริงของหัวเว็บ =====
+     --hdr คือ "ความสูง" ของหัวเว็บ ใช้ได้ก็ต่อเมื่อหัวเว็บปักหมุดอยู่บนสุดจริง
+     แต่หัวเว็บถูก JS ยัดไว้ในกล่อง #site-header ที่แก้ด้วย display:contents
+     ซึ่งบางเบราว์เซอร์ (Safari รุ่นเก่า, WebView บางตัว) ไม่รองรับ
+     พอไม่รองรับ หัวเว็บจะเลื่อนตามได้แค่ 38px แล้วหลุดหายไปกับหน้า
+     แถบค้นหาจึงค้างอยู่ต่ำลงมา 84px โดยไม่มีอะไรอยู่ข้างบน = เห็นเป็นช่องว่าง
+
+     แก้โดยวัดขอบล่างของหัวเว็บทุกครั้งที่เลื่อน แล้วให้แถบเกาะตามตำแหน่งนั้น
+     ถ้าหัวเว็บปักหมุดอยู่ ค่าจะเท่ากับความสูงเดิม ถ้าเลื่อนหายไปค่าจะเป็น 0
+     แถบก็จะขึ้นไปติดขอบบนพอดี ไม่มีช่องว่าง
+
+     ยังเก็บ --hdr ไว้เหมือนเดิม เพราะ scroll-margin-top ของหัวข้อหมวดต้องใช้
+     ค่าคงที่ ถ้าใช้ค่าที่เปลี่ยนตลอดเวลา ตำแหน่งที่เลื่อนไปจะไม่นิ่ง        */
+  var hdrTick = false;
+  function trackHeader(){
+    if(hdrTick) return;
+    hdrTick = true;
+    requestAnimationFrame(function(){
+      hdrTick = false;
+      var h = document.querySelector('header');
+      if(!h) return;
+      var b = h.getBoundingClientRect().bottom;
+      document.documentElement.style.setProperty(
+        '--hdr-now', Math.max(0, Math.round(b)) + 'px');
+    });
+  }
+  window.addEventListener('scroll', trackHeader, { passive: true });
+  window.addEventListener('resize', trackHeader);
+  trackHeader();
+
   window.addEventListener('resize', measure);
   window.addEventListener('orientationchange', measure);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(measure);

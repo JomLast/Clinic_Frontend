@@ -335,7 +335,11 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
    ทำให้ทั้งหน้าเลื่อนซ้ายขวาได้ จึงเปลี่ยนเป็นการ์ดอยู่ในคอนเทนเนอร์แทน */
 /* ต่อกับหัวเว็บเป็นชิ้นเดียว — เดิมทำเป็นการ์ดมุมมนลอยอยู่ จึงดูเหมือน
    แถบไปแปะกลางสินค้าแทนที่จะเป็นแถบเครื่องมือด้านบน                    */
-.prod-toolbar{ position:sticky; top:var(--hdr,84px); z-index:60; margin:0 0 24px; padding:11px 14px 8px;
+/* --hdr-now = ขอบล่างจริงของหัวเว็บ ณ ตอนนั้น (JS อัปเดตตอนเลื่อน)
+   ใช้แทน --hdr ซึ่งเป็นแค่ "ความสูง" เพราะบางเบราว์เซอร์ไม่รองรับ
+   display:contents หัวเว็บจึงเลื่อนหายไปแทนที่จะปักหมุด แล้วแถบนี้
+   จะค้างอยู่ต่ำลงมา 84px โดยไม่มีอะไรอยู่ข้างบน เห็นเป็นช่องว่าง     */
+.prod-toolbar{ position:sticky; top:var(--hdr-now,var(--hdr,84px)); z-index:60; margin:0 0 24px; padding:11px 14px 8px;
   background:var(--surface); border:1px solid var(--grey-line); border-top:0;
   border-radius:0 0 18px 18px; box-shadow:0 6px 16px rgba(26,26,26,.07); }
 .prod-count{ text-align:center; font-size:.8rem; color:var(--grey-text); margin:6px 0 0; }
@@ -514,7 +518,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .pr-lead strong{ color:var(--ink); }
 
 /* แถบเครื่องมือ — ใช้โครงเดียวกับหน้าเพ็ทช็อป ปักหมุดใต้หัวเว็บ */
-.pr-toolbar{ position:sticky; top:var(--hdr,84px); z-index:60; margin:0 0 26px; padding:12px 14px 9px;
+.pr-toolbar{ position:sticky; top:var(--hdr-now,var(--hdr,84px)); z-index:60; margin:0 0 26px; padding:12px 14px 9px;
   background:var(--surface); border:1px solid var(--grey-line); border-radius:18px; box-shadow:0 6px 16px rgba(26,26,26,.07); }
 .pr-sort{ display:flex; gap:6px; justify-content:center; margin-top:9px; }
 .pr-sort button{ display:inline-flex; align-items:center; gap:6px; font-family:inherit; font-size:.83rem; font-weight:600;
