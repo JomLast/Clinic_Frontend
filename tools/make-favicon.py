@@ -45,11 +45,11 @@ def logo_trimmed():
     return im.crop(bb), m.crop(bb)
 
 
-def icon(size, bg=None, radius=0.20):
+def icon(size, bg=None, radius=0.20, fill=FILL):
     """โลโก้กลางกรอบจัตุรัส — bg=None คือพื้นโปร่งใส"""
     im, m = logo_trimmed()
     w, h = im.size
-    scale = (size * FILL) / max(w, h)
+    scale = (size * fill) / max(w, h)
     lg = im.resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.LANCZOS)
     lm = m.resize(lg.size, Image.LANCZOS)
 
@@ -79,6 +79,24 @@ def main():
     for n in (192, 512):
         icon(n).save(os.path.join(OUT, "icon-%d.png" % n), "PNG", optimize=True)
         print("  icon-%-3d.png           %d x %d  transparent" % (n, n, n))
+
+    # ---- ไอคอนสำหรับผลค้นหา Google ----------------------------------
+    # แยกไฟล์ออกมาต่างหากด้วยสองเหตุผล
+    #
+    # 1) Google เก็บแคช favicon ตาม URL ที่อยู่ของไฟล์  favicon.ico ใช้ที่อยู่
+    #    เดิมมาตั้งแต่เวอร์ชันแรกที่เป็นตัว A ตัวเดียว ต่อให้เนื้อไฟล์เปลี่ยน
+    #    Google ก็ยังหยิบของเก่าในแคชมาโชว์ได้อีกนาน  การให้ที่อยู่ใหม่ที่
+    #    ไม่เคยถูกเก็บมาก่อนคือวิธีที่ตรงที่สุดที่จะบังคับให้มันไปโหลดใหม่
+    #
+    # 2) ไฟล์นี้ต้องมีพื้นทึบ ไม่ใช่พื้นโปร่งเหมือนไฟล์อื่น เพราะคำว่า
+    #    Animal hospital เป็นสีดำ ถ้าพื้นโปร่งแล้วไปเจอผลค้นหาโหมดมืด
+    #    บรรทัดนั้นจะหายไปกับพื้นหลังเลย
+    #
+    # ย่อโลโก้ลงเหลือ 0.88 เพราะบนมือถือ Google ครอปไอคอนเป็นวงกลม
+    # ถ้าเต็มขอบเหมือนไฟล์อื่น ตัว A กับ t หัวท้ายจะโดนตัด
+    icon(144, bg=WHITE, radius=0, fill=0.88).save(
+        os.path.join(OUT, "favicon-144.png"), "PNG", optimize=True)
+    print("  favicon-144.png        144 x 144  white (Google)")
 
 
 if __name__ == "__main__":
