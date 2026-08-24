@@ -1125,20 +1125,25 @@
       "images": []
     },
     {
-      "name": "NexGard ยาเม็ดเคี้ยวกำจัดเห็บหมัด (สุนัข)",
+      "name": "NexGard SPECTRA ยาเม็ดเคี้ยว เห็บหมัด + พยาธิ (สุนัข)",
       "category": "ยาป้องกันปรสิต",
       "price": "",
-      "image": "",
-      "note": "มีหลายขนาดตามน้ำหนักตัว สัตวแพทย์ประเมินและเลือกขนาดให้",
-      "images": []
+      "image": "assets/img/products/nexgard-spectra.jpg",
+      "note": "afoxolaner + milbemycin oxime คุมทั้งเห็บหมัดและพยาธิภายใน มีแบ่งตามน้ำหนัก มี 15–30 กก. และ 30–60 กก. กล่องละ 3 เม็ด",
+      "images": [
+        "assets/img/products/nexgard-spectra.jpg",
+        "assets/img/products/nexgard-spectra-2.jpg"
+      ]
     },
     {
       "name": "Drontal Cat ยาถ่ายพยาธิสำหรับแมว",
       "category": "ยาป้องกันปรสิต",
       "price": "",
-      "image": "",
-      "note": "คำนวณขนาดตามน้ำหนักตัว",
-      "images": []
+      "image": "assets/img/products/drontal-cat.jpg",
+      "note": "ถ่ายพยาธิตัวกลมและตัวตืด 1 เม็ดต่อน้ำหนัก 4 กก. ขวดละ 24 เม็ด",
+      "images": [
+        "assets/img/products/drontal-cat.jpg"
+      ]
     },
     {
       "name": "Drontal Dog ยาถ่ายพยาธิสำหรับสุนัข",
@@ -1149,12 +1154,14 @@
       "images": []
     },
     {
-      "name": "Antinol อาหารเสริมบำรุงข้อ",
+      "name": "Antinol Plus อาหารเสริมบำรุงข้อ (แมว)",
       "category": "ขนม วิตามิน & อาหารเสริม",
       "price": "",
-      "image": "",
-      "note": "มีสูตรสำหรับสุนัขและแมว ช่วยดูแลข้อต่อและการเคลื่อนไหว",
-      "images": []
+      "image": "assets/img/products/antinol-plus-cat.jpg",
+      "note": "สูตร EAB-277 ชนิดแคปซูลบีบป้อนง่าย กล่องละ 60 แคปซูล — ผลิตภัณฑ์จากสัตว์ทะเล เลี่ยงในแมวที่แพ้อาหารทะเล",
+      "images": [
+        "assets/img/products/antinol-plus-cat.jpg"
+      ]
     }
   ]
 }
