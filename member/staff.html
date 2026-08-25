@@ -73,6 +73,35 @@
       </div>
     </section>
 
+    <!-- ================= สมัครให้ลูกค้าที่ไม่มีไลน์ ================= -->
+    <section class="screen" id="s-new">
+      <div class="pad">
+        <div class="h-scr"><b>สมัครสมาชิกให้ลูกค้า</b>
+          <button class="more" data-go="s-find"
+                  style="margin-left:auto;color:rgba(255,255,255,.5);font-size:.78rem">← กลับ</button>
+        </div>
+        <p class="sub">
+          สำหรับลูกค้าที่ยังไม่มีไลน์ หรือไม่อยากแอด — สะสมแต้มได้เต็มที่เหมือนกัน
+          แค่ต้องถามเราเวลาอยากรู้ยอด วันหลังอยากผูกไลน์ค่อยผูกได้ แต้มไม่หาย
+        </p>
+
+        <div class="field">
+          <label for="newPhone">เบอร์โทรศัพท์</label>
+          <input id="newPhone" type="tel" inputmode="numeric" maxlength="12" placeholder="08X-XXX-XXXX" />
+        </div>
+        <div class="field">
+          <label for="newName">ชื่อเจ้าของ</label>
+          <input id="newName" type="text" maxlength="60" placeholder="เช่น คุณพลอย" />
+        </div>
+        <div class="field">
+          <label for="newPet">ชื่อน้อง <span style="font-weight:300;opacity:.6">(ใส่ทีหลังก็ได้)</span></label>
+          <input id="newPet" type="text" maxlength="60" placeholder="เช่น ข้าวปั้น" />
+        </div>
+
+        <button class="cta" id="newBtn">สมัครให้</button>
+      </div>
+    </section>
+
     <!-- ================= สมาชิก + บวกแต้ม ================= -->
     <section class="screen" id="s-member">
       <div class="pad">
@@ -86,13 +115,19 @@
           <div class="row tot">แต้มปัจจุบัน <span id="mPts">0</span></div>
         </div>
 
-        <!-- โผล่เฉพาะตอนลูกค้ากดขอผูกบัญชีค้างไว้ -->
+        <!-- รหัสผูกบัญชีไลน์ — โผล่เมื่อลูกค้าขอค้างไว้ หรือพนักงานกดออกให้ -->
         <div class="panel" id="linkPanel" hidden style="border:1px solid rgba(217,182,121,.35)">
-          <div style="font-size:.82rem;color:rgba(255,255,255,.7)">
-            ลูกค้าขอผูกบัญชีไลน์ — อ่านรหัสนี้ให้ฟัง
+          <div style="font-size:.82rem;color:rgba(255,255,255,.7)" id="linkWhy">
+            รหัสผูกบัญชีไลน์ — อ่านให้ลูกค้าฟัง
           </div>
           <div class="bigcode" id="linkCode">······</div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.45);text-align:center" id="linkExp"></div>
         </div>
+
+        <button class="cta ghost" id="linkBtn"
+                style="background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.16)">
+          ออกรหัสผูกบัญชีไลน์
+        </button>
 
         <div class="field">
           <label for="bill">ยอดบิล (บาท)</label>

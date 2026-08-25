@@ -429,7 +429,9 @@
     var code = $("#codeInput").value.replace(/\D/g, "");
     if (code.length !== 6) { toast("ใส่รหัส 6 หลัก", true); return; }
     var btn = this; btn.disabled = true; btn.textContent = "กำลังยืนยัน…";
-    api("confirmLink", { code: code })
+    /* ส่งเบอร์ไปด้วย — หลังบ้านต้องเช็คว่ารหัสกับเบอร์ตรงกัน
+       ไม่งั้นรหัสที่พนักงานออกให้แบบไม่ผูกบัญชี จะเดา 6 หลักเอาได้ */
+    api("confirmLink", { code: code, phone: pendingPhone })
       .then(function (data) {
         btn.disabled = false; btn.textContent = "ยืนยัน";
         state = data; render(); go("s-card");

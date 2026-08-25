@@ -126,7 +126,13 @@
       .then(function (d) {
         btn.disabled = false; btn.textContent = "ค้นหา";
         if (!d.found) {
-          toast("ยังไม่มีสมาชิกเบอร์นี้ — ให้ลูกค้าสมัครในไลน์ก่อน", true);
+          /* ไม่เจอไม่ใช่ทางตัน — พาไปหน้าสมัครให้เลย พร้อมเติมเบอร์ไว้ให้
+             ลูกค้าที่ไม่มีไลน์ต้องสมัครได้ ไม่งั้นจะเสียลูกค้ากลุ่มนี้ทั้งกลุ่ม */
+          $("#newPhone").value = $("#findPhone").value;
+          $("#newName").value = "";
+          $("#newPet").value = "";
+          go("s-new");
+          toast("ยังไม่มีสมาชิกเบอร์นี้ — สมัครให้ได้เลย");
           return;
         }
         current = d;
@@ -147,8 +153,12 @@
 
     $("#linkPanel").hidden = !d.pendingCode;
     if (d.pendingCode) {
+      $("#linkWhy").textContent = "ลูกค้ากดขอผูกบัญชีไลน์ค้างไว้ — อ่านรหัสนี้ให้ฟัง";
       $("#linkCode").textContent = d.pendingCode.replace(/^(\d{3})(\d{3})$/, "$1 $2");
+      $("#linkExp").textContent = "";
     }
+    // มีไลน์ผูกแล้วก็ยังออกรหัสได้ เผื่อคนในบ้านคนที่สองจะผูกเพิ่ม
+    $("#linkBtn").hidden = false;
 
     $("#bill").value = "";
     ["bOntime", "bParasite", "bCheckup"].forEach(function (k) { $("#" + k).checked = false; });
@@ -200,6 +210,53 @@
       })
       .catch(function (err) {
         btn.disabled = false; btn.textContent = "ยืนยัน บวกแต้มให้ลูกค้า";
+        toast(err.message, true);
+      });
+  });
+
+  /* ---------------- สมัครให้ลูกค้าที่ไม่มีไลน์ ---------------- */
+  phoneMask($("#newPhone"));
+
+  $("#newBtn").addEventListener("click", function () {
+    var phone = $("#newPhone").value.replace(/\D/g, "");
+    if (!/^0[0-9]{8,9}$/.test(phone)) { toast("เบอร์โทรไม่ถูกต้อง", true); return; }
+    var btn = this; btn.disabled = true; btn.textContent = "กำลังสมัคร…";
+
+    api("createMember", {
+      phone: phone,
+      name: $("#newName").value.trim() || null,
+      petName: $("#newPet").value.trim() || null
+    })
+      .then(function (d) {
+        btn.disabled = false; btn.textContent = "สมัครให้";
+        current = d;
+        showMember(d);
+        go("s-member");
+        toast("สมัครให้แล้ว บวกแต้มได้เลย");
+      })
+      .catch(function (err) {
+        btn.disabled = false; btn.textContent = "สมัครให้";
+        toast(err.message, true);
+      });
+  });
+
+  /* ---------------- ออกรหัสผูกบัญชีไลน์ ---------------- */
+  $("#linkBtn").addEventListener("click", function () {
+    if (!current) return;
+    var btn = this; btn.disabled = true; btn.textContent = "กำลังออกรหัส…";
+
+    api("issueCode", { phone: current.member.phone })
+      .then(function (d) {
+        btn.disabled = false; btn.textContent = "ออกรหัสผูกบัญชีไลน์";
+        $("#linkWhy").textContent = "ให้ลูกค้าเปิดบัตรสมาชิกในไลน์ ใส่เบอร์ แล้วพิมพ์รหัสนี้";
+        $("#linkCode").textContent = d.code.replace(/^(\d{3})(\d{3})$/, "$1 $2");
+        $("#linkExp").textContent = d.hours >= 1
+          ? "ใช้ได้ถึงพรุ่งนี้ · กลับบ้านแล้วค่อยทำก็ได้"
+          : "ใช้ได้ 10 นาที";
+        $("#linkPanel").hidden = false;
+      })
+      .catch(function (err) {
+        btn.disabled = false; btn.textContent = "ออกรหัสผูกบัญชีไลน์";
         toast(err.message, true);
       });
   });

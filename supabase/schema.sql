@@ -178,12 +178,16 @@ create unique index if not exists bookings_slot_idx
 create table if not exists link_codes (
   id         uuid primary key default gen_random_uuid(),
   member_id  uuid not null references members(id) on delete cascade,
-  subject    text not null,                         -- LINE userId ที่ขอผูก
+  -- ว่างได้ เพราะรหัสมีสองแบบ
+  --   ลูกค้าขอเอง  → รู้ว่าเป็นบัญชีไลน์ไหน ผูก subject ไว้เลย ปลอดภัยกว่า
+  --   พนักงานออกให้ → ลูกค้ายังไม่มีไลน์หรือยังไม่ได้เปิดหน้า จึงยังไม่รู้ subject
+  --                   ใช้ทีหลังได้จากบัญชีไลน์ไหนก็ได้ แต่ต้องกรอกเบอร์ให้ตรงด้วย
+  subject    text,
   code       text not null,                         -- 6 หลัก
   expires_at timestamptz not null default now() + interval '10 minutes',
   used_at    timestamptz
 );
-create index if not exists link_codes_lookup_idx on link_codes(subject, code);
+create index if not exists link_codes_lookup_idx on link_codes(code) where used_at is null;
 
 -- หมายเหตุ: ไม่มีตารางพนักงาน
 -- รหัสเข้าโหมดพนักงานเก็บเป็น environment variable ชื่อ STAFF_PIN

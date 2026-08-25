@@ -100,24 +100,49 @@ Deno.serve(async (req) => {
         return json(req, await loadEverything(db, created.id));
       }
 
-      /* ------------------------------------------------------------- */
+      /* -------------------------------------------------------------
+         ยืนยันรหัสที่ได้จากเคาน์เตอร์
+
+         รหัสมีสองแบบ (ดูเหตุผลที่ staff/issueCode)
+           - ผูก subject ไว้แล้ว → ต้องเป็นบัญชีไลน์เดิมเท่านั้น
+           - ไม่ผูก subject      → บัญชีไลน์ไหนก็ได้ แต่ต้องกรอกเบอร์ให้ตรง
+             เดารหัส 6 หลักอย่างเดียวไม่พอ ต้องรู้เบอร์ของสมาชิกด้วย
+         ------------------------------------------------------------- */
       case "confirmLink": {
         if (memberId) return json(req, await loadEverything(db, memberId));
 
         const code = String(body.code ?? "").replace(/\D/g, "");
-        const { data: lc } = await db
+        const phone = normalisePhone(body.phone);
+        const wrong = "รหัสไม่ถูกต้องหรือหมดอายุแล้ว ขอรหัสใหม่ที่เคาน์เตอร์";
+        if (code.length !== 6) throw new BadRequest(wrong);
+
+        /* รหัสเดียวกันอาจซ้ำข้ามสมาชิกได้ จึงดึงมาทั้งหมดแล้วค่อยคัด
+           อย่าใช้ maybeSingle ตรงนี้ เจอสองแถวเมื่อไหร่จะพังทันที */
+        const { data: rows } = await db
           .from("link_codes")
-          .select("id, member_id, expires_at, used_at")
-          .eq("subject", line.sub)
+          .select("id, member_id, subject, expires_at, members!inner(phone)")
           .eq("code", code)
+          .is("used_at", null);
+
+        const now = new Date();
+        const lc = (rows ?? []).find((r) =>
+          new Date(r.expires_at) > now &&
+          (r.subject === null || r.subject === line.sub) &&
+          // deno-lint-ignore no-explicit-any
+          (r.members as any).phone === phone
+        );
+        if (!lc) throw new BadRequest(wrong);
+
+        /* ใช้แล้วต้องใช้ซ้ำไม่ได้ — เช็ค used_at ใน where อีกรอบ
+           ถ้ามีคนกดพร้อมกันสองครั้ง จะมีแค่ครั้งเดียวที่อัปเดตติด */
+        const { data: claimed } = await db
+          .from("link_codes")
+          .update({ used_at: now.toISOString() })
+          .eq("id", lc.id)
           .is("used_at", null)
-          .maybeSingle();
+          .select("id");
+        if (!claimed || !claimed.length) throw new BadRequest(wrong);
 
-        if (!lc || new Date(lc.expires_at) < new Date()) {
-          throw new BadRequest("รหัสไม่ถูกต้องหรือหมดอายุแล้ว ขอรหัสใหม่ที่เคาน์เตอร์");
-        }
-
-        await db.from("link_codes").update({ used_at: new Date().toISOString() }).eq("id", lc.id);
         await db.from("member_logins").insert({
           member_id: lc.member_id, provider: "line", subject: line.sub,
         });

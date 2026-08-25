@@ -136,20 +136,74 @@ Deno.serve(async (req) => {
       }
 
       /* -------------------------------------------------------------
-         ออกรหัสผูกบัญชีให้เอง เผื่อกรณีลูกค้ากดขอไม่สำเร็จ
+         สมัครสมาชิกให้ลูกค้าที่ยังไม่มีไลน์ หรือไม่อยากแอด
+
+         ตัวตนของสมาชิกคือเบอร์โทรอยู่แล้ว บัญชีไลน์เป็นแค่ประตูเข้า
+         สมาชิกที่ยังไม่มีประตูจึงมีได้ตามปกติ สะสมแต้มได้เต็มที่
+         แค่ต้องถามพนักงานเวลาอยากรู้ยอด จนกว่าจะผูกไลน์วันหลัง
+         ------------------------------------------------------------- */
+      case "createMember": {
+        const phone = normalisePhone(body.phone);
+
+        const { data: existing } = await db
+          .from("members").select("id").eq("phone", phone).maybeSingle();
+        if (existing) throw new BadRequest("เบอร์นี้มีสมาชิกอยู่แล้ว กดค้นหาได้เลย");
+
+        const { data: created, error } = await db
+          .from("members")
+          .insert({
+            phone,
+            display_name: body.name ? String(body.name).slice(0, 60) : null,
+            note: "สมัครที่เคาน์เตอร์โดย " + staffName,
+          })
+          .select("id, phone, display_name, points, last_activity_at")
+          .single();
+        if (error) throw error;
+
+        if (body.petName) {
+          await db.from("pets").insert({
+            member_id: created.id,
+            name: String(body.petName).slice(0, 60),
+            species: body.petSpecies ? String(body.petSpecies).slice(0, 30) : null,
+          });
+        }
+
+        const { data: pets } = await db
+          .from("pets").select("id, name, species, emoji").eq("member_id", created.id);
+
+        return json(req, {
+          found: true, member: created, pets: pets ?? [],
+          pendingCode: null, coupons: [],
+        });
+      }
+
+      /* -------------------------------------------------------------
+         ออกรหัสผูกบัญชีไลน์ให้ลูกค้าถือกลับไป
+
+         ใช้ได้สองกรณี
+           - ลูกค้าเปิดหน้าสมาชิกค้างไว้แล้ว ส่ง subject มาด้วย → ผูกกับ
+             บัญชีนั้นบัญชีเดียว ใครเอารหัสไปก็ใช้ไม่ได้
+           - ลูกค้ายังไม่มีไลน์ / จะไปทำที่บ้าน → ไม่มี subject
+             ให้รหัสอายุ 24 ชั่วโมง แล้วตอนใช้ต้องกรอกเบอร์ให้ตรงด้วย
+             เดารหัสอย่างเดียวไม่พอ ต้องรู้เบอร์ด้วย
          ------------------------------------------------------------- */
       case "issueCode": {
         const phone = normalisePhone(body.phone);
-        const subject = String(body.subject ?? "");
-        if (!subject) throw new BadRequest("ต้องให้ลูกค้าเปิดหน้าสมาชิกก่อน");
+        const subject = body.subject ? String(body.subject) : null;
 
         const { data: member } = await db
           .from("members").select("id").eq("phone", phone).maybeSingle();
         if (!member) throw new BadRequest("ไม่พบสมาชิกเบอร์นี้");
 
         const code = sixDigits();
-        await db.from("link_codes").insert({ member_id: member.id, subject, code });
-        return json(req, { code });
+        const hours = subject ? 0.17 : 24;   // ผูก subject แล้วไม่ต้องอายุยาว
+        await db.from("link_codes").insert({
+          member_id: member.id,
+          subject,
+          code,
+          expires_at: new Date(Date.now() + hours * 3600_000).toISOString(),
+        });
+        return json(req, { code, hours });
       }
 
       default:
