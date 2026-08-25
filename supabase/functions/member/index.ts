@@ -173,10 +173,10 @@ Deno.serve(async (req) => {
         if (body.useCoupon) {
           const { data: cp } = await db
             .from("coupons")
-            .select("id, expires_at, rewards!inner(kind)")
+            .select("id, expires_at, rewards!inner(category)")
             .eq("member_id", memberId)
             .eq("status", "active")
-            .eq("rewards.kind", "pool")
+            .in("rewards.category", ["pool", "garden"])
             .order("expires_at", { ascending: true })
             .limit(1)
             .maybeSingle();
@@ -250,8 +250,10 @@ async function loadEverything(db: ReturnType<typeof admin>, memberId: string) {
       .order("expires_at", { ascending: true }),
     db.from("point_entries").select("kind, delta, note, bill_amount, created_at")
       .eq("member_id", memberId).order("created_at", { ascending: false }).limit(20),
-    db.from("rewards").select("code, name, note, cost, kind")
-      .eq("active", true).order("sort"),
+    /* ราคาต้องมาจากฐานข้อมูล ไม่ใช่คิดที่หน้าเว็บ
+       เพราะราคาช่วงว่างขึ้นกับวันและเวลาไทย ถ้าหน้าเว็บคิดเองจะเพี้ยน
+       ตามโซนเวลาของเครื่องลูกค้า แล้วกดแลกทีจะเด้งว่าแต้มไม่พอ */
+    db.rpc("fn_rewards_now"),
     db.from("bookings").select("id, facility, slot_at, status")
       .eq("member_id", memberId).eq("status", "booked")
       .gte("slot_at", new Date().toISOString()).order("slot_at"),

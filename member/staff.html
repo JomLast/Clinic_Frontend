@@ -141,14 +141,12 @@
           <input id="bill" type="tel" inputmode="numeric" maxlength="9" placeholder="0" />
         </div>
 
-        <div class="panel">
-          <label class="chk"><input type="checkbox" id="bOntime"> มาตามนัดวัคซีน <b style="margin-left:auto;color:var(--foil)">+20</b></label>
-          <label class="chk"><input type="checkbox" id="bParasite"> ให้ยาปรสิตครบ 3 เดือนติด <b style="margin-left:auto;color:var(--foil)">+30</b></label>
-          <label class="chk"><input type="checkbox" id="bCheckup"> ตรวจสุขภาพประจำปี <b style="margin-left:auto;color:var(--foil)">+50</b></label>
-        </div>
+        <!-- ช่องติ๊กโบนัสสร้างจากตาราง point_rules ไม่ได้เขียนตายไว้ในหน้า
+             คุณหมอเพิ่ม/ลบ/แก้แต้มในหน้า Supabase ได้เอง แล้วที่นี่เปลี่ยนตาม -->
+        <div class="panel" id="bonusPanel"></div>
 
         <div class="panel">
-          <div class="row">จากยอดบิล ทุก 100 บาท <span id="cBase">0</span></div>
+          <div class="row" id="baseRow">จากยอดบิล <span id="cBase">0</span></div>
           <div class="row">โบนัส <span id="cBonus">0</span></div>
           <div class="row tot">รวมที่จะได้ <span id="cTot">0</span></div>
         </div>

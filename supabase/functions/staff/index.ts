@@ -7,15 +7,23 @@
 
 import { admin, json, preflight, normalisePhone, BadRequest, sixDigits } from "../_shared/http.ts";
 
-/* กติกาแต้ม — ต้องตรงกับหน้าค่าบริการและเอกสารออกแบบ
-   แก้ที่เดียวตรงนี้ที่เดียว ห้ามไปคิดซ้ำที่หน้าเว็บ */
-const BAHT_PER_POINT = 100;
-const BONUS = {
-  ontime:   { points: 20, note: "โบนัส มาตามนัด" },
-  parasite: { points: 30, note: "โบนัส ให้ยาป้องกันปรสิตต่อเนื่อง" },
-  checkup:  { points: 50, note: "โบนัส ตรวจสุขภาพประจำปี" },
-} as const;
-type BonusKey = keyof typeof BONUS;
+/* กติกาแต้มทั้งหมดอยู่ในฐานข้อมูล ไม่ได้ฝังในโค้ดแล้ว
+   ตาราง settings.baht_per_point และ point_rules
+   คุณหมอแก้ตัวเลขในหน้า Supabase ได้เอง มีผลทันทีโดยไม่ต้อง deploy */
+interface Rule {
+  code: string; label: string; points: number;
+  hint: string | null; staff_toggle: boolean; sort: number;
+}
+
+async function loadRules(db: ReturnType<typeof admin>) {
+  const [rules, setting] = await Promise.all([
+    db.from("point_rules").select("code, label, points, hint, staff_toggle, sort")
+      .eq("active", true).order("sort"),
+    db.from("settings").select("value").eq("key", "baht_per_point").maybeSingle(),
+  ]);
+  const bahtPerPoint = Math.max(1, parseInt(setting.data?.value ?? "100", 10) || 100);
+  return { rules: (rules.data ?? []) as Rule[], bahtPerPoint };
+}
 
 /** เทียบรหัสแบบใช้เวลาคงที่ ไม่ให้เดาทีละหลักจากเวลาตอบกลับได้ */
 function pinOk(given: unknown): boolean {
@@ -48,7 +56,8 @@ Deno.serve(async (req) => {
           .eq("phone", phone)
           .maybeSingle();
 
-        if (!member) return json(req, { found: false, phone });
+        const cfg = await loadRules(db);
+        if (!member) return json(req, { found: false, phone, ...cfg });
 
         const [pets, pending, coupons] = await Promise.all([
           db.from("pets").select("id, name, species, emoji")
@@ -58,7 +67,7 @@ Deno.serve(async (req) => {
             .eq("member_id", member.id).is("used_at", null)
             .gt("expires_at", new Date().toISOString())
             .order("expires_at", { ascending: false }).limit(1).maybeSingle(),
-          db.from("coupons").select("id, code, expires_at, rewards(name, kind)")
+          db.from("coupons").select("id, code, expires_at, rewards(name, category)")
             .eq("member_id", member.id).eq("status", "active")
             .order("expires_at", { ascending: true }),
         ]);
@@ -69,6 +78,7 @@ Deno.serve(async (req) => {
           pets: pets.data ?? [],
           pendingCode: pending.data?.code ?? null,
           coupons: coupons.data ?? [],
+          ...cfg,
         });
       }
 
@@ -84,23 +94,30 @@ Deno.serve(async (req) => {
         const bill = Math.max(0, Math.floor(Number(body.billAmount) || 0));
         if (bill > 1_000_000) throw new BadRequest("ยอดบิลดูผิดปกติ ตรวจสอบอีกครั้ง");
 
+        const { rules, bahtPerPoint } = await loadRules(db);
+
         const rows: Record<string, unknown>[] = [];
-        const base = Math.floor(bill / BAHT_PER_POINT);
+        const base = Math.floor(bill / bahtPerPoint);
         if (base > 0) {
           rows.push({
             member_id: memberId, kind: "purchase", delta: base,
             bill_amount: bill, note: "ค่าบริการ", created_by: staffName,
           });
         }
-        for (const key of Object.keys(BONUS) as BonusKey[]) {
-          if (body.bonuses?.[key]) {
+        /* วนจากกติกาในฐานข้อมูล ไม่ใช่รายการที่หน้าเว็บส่งมา
+           หน้าเว็บบอกได้แค่ว่า "ติ๊กข้อไหน" ส่วนจะได้กี่แต้มระบบตัดสินเอง */
+        for (const r of rules) {
+          if (body.bonuses?.[r.code]) {
             rows.push({
-              member_id: memberId, kind: key, delta: BONUS[key].points,
-              note: BONUS[key].note, created_by: staffName,
+              member_id: memberId, kind: "bonus", rule_code: r.code,
+              delta: r.points, note: "โบนัส " + r.label, created_by: staffName,
             });
           }
         }
-        if (!rows.length) throw new BadRequest("บิลนี้ไม่ได้แต้ม (ต่ำกว่า 100 บาทและไม่มีโบนัส)");
+        if (!rows.length) {
+          throw new BadRequest(
+            "บิลนี้ไม่ได้แต้ม (ต่ำกว่า " + bahtPerPoint + " บาทและไม่มีโบนัส)");
+        }
 
         const { error } = await db.from("point_entries").insert(rows);
         if (error) throw error;
@@ -191,6 +208,7 @@ Deno.serve(async (req) => {
         return json(req, {
           found: true, member: created, pets: pets ?? [],
           pendingCode: null, coupons: [],
+          ...(await loadRules(db)),
         });
       }
 

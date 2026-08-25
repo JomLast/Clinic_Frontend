@@ -14,7 +14,10 @@
   var API = CFG.SUPABASE_URL + "/functions/v1/staff";
   var $ = function (s) { return document.querySelector(s); };
 
-  var BONUS = { bOntime: 20, bParasite: 30, bCheckup: 50 };
+  /* กติกาแต้มมาจากฐานข้อมูล ไม่ได้เขียนตายไว้ที่นี่แล้ว
+     หลังบ้านส่งมาพร้อมผลการค้นหาทุกครั้ง จึงสดเสมอ */
+  var rules = [];
+  var bahtPerPoint = 100;
   var session = { pin: "", who: "" };
   var current = null;
 
@@ -145,7 +148,21 @@
       });
   });
 
+  function renderBonusToggles() {
+    var list = rules.filter(function (r) { return r.staff_toggle; });
+    $("#bonusPanel").hidden = !list.length;
+    $("#bonusPanel").innerHTML = list.map(function (r) {
+      return '<label class="chk"><input type="checkbox" data-rule="' + escHtml(r.code) + '"> ' +
+        '<span style="line-height:1.35">' + escHtml(r.label) +
+        (r.hint ? '<small style="display:block;font-size:.68rem;opacity:.55">' +
+          escHtml(r.hint) + "</small>" : "") + "</span>" +
+        '<b style="margin-left:auto;color:var(--foil);flex:none">+' + r.points + "</b></label>";
+    }).join("");
+    $("#baseRow").firstChild.textContent = "จากยอดบิล ทุก " + bahtPerPoint + " บาท ";
+  }
+
   function showMember(d) {
+    if (d.rules) { rules = d.rules; bahtPerPoint = d.bahtPerPoint || 100; renderBonusToggles(); }
     var petNames = d.pets.map(function (p) { return (p.emoji || "🐾") + " " + p.name; }).join("  ");
     $("#mWho").firstChild.textContent = d.member.display_name || fmtPhone(d.member.phone);
     $("#mSub").textContent = [fmtPhone(d.member.phone), petNames].filter(Boolean).join(" · ");
@@ -163,8 +180,13 @@
     renderCoupons(d.coupons || []);
 
     $("#bill").value = "";
-    ["bOntime", "bParasite", "bCheckup"].forEach(function (k) { $("#" + k).checked = false; });
+    clearBonuses();
     calc();
+  }
+
+  function clearBonuses() {
+    var b = document.querySelectorAll("[data-rule]");
+    for (var i = 0; i < b.length; i++) b[i].checked = false;
   }
 
   /* คูปองที่ลูกค้าแลกไว้ — พนักงานกดใช้ได้เลย
@@ -217,9 +239,12 @@
      ของจริงหลังบ้านคิดใหม่เองทั้งหมด ไม่เชื่อค่าที่หน้าเว็บส่งไป   */
   function calc() {
     var bill = parseInt(($("#bill").value || "0").replace(/\D/g, ""), 10) || 0;
-    var base = Math.floor(bill / 100);
+    var base = Math.floor(bill / bahtPerPoint);
     var bonus = 0;
-    Object.keys(BONUS).forEach(function (k) { if ($("#" + k).checked) bonus += BONUS[k]; });
+    rules.forEach(function (r) {
+      var el = document.querySelector('[data-rule="' + r.code + '"]');
+      if (el && el.checked) bonus += r.points;
+    });
     $("#cBase").textContent = base;
     $("#cBonus").textContent = bonus;
     $("#cTot").textContent = base + bonus;
@@ -227,9 +252,8 @@
     return { base: base, bonus: bonus, total: base + bonus };
   }
   $("#bill").addEventListener("input", calc);
-  ["bOntime", "bParasite", "bCheckup"].forEach(function (k) {
-    $("#" + k).addEventListener("change", calc);
-  });
+  // ช่องติ๊กถูกสร้างทีหลัง จึงดักที่ตัวแม่แทนการผูกทีละอัน
+  $("#bonusPanel").addEventListener("change", calc);
 
   $("#giveBtn").addEventListener("click", function () {
     if (!current) return;
@@ -240,18 +264,21 @@
     api("award", {
       memberId: current.member.id,
       billAmount: parseInt(($("#bill").value || "0").replace(/\D/g, ""), 10) || 0,
-      bonuses: {
-        ontime: $("#bOntime").checked,
-        parasite: $("#bParasite").checked,
-        checkup: $("#bCheckup").checked
-      }
+      bonuses: (function () {
+        var out = {};
+        rules.forEach(function (r) {
+          var el = document.querySelector('[data-rule="' + r.code + '"]');
+          if (el && el.checked) out[r.code] = true;
+        });
+        return out;
+      })()
     })
       .then(function (d) {
         btn.textContent = "ยืนยัน บวกแต้มให้ลูกค้า";
         current.member.points = d.points;
         $("#mPts").textContent = d.points;
         $("#bill").value = "";
-        ["bOntime", "bParasite", "bCheckup"].forEach(function (k) { $("#" + k).checked = false; });
+        clearBonuses();
         calc();
         toast("บวกให้แล้ว " + d.gained + " แต้ม · รวมเป็น " + d.points);
       })

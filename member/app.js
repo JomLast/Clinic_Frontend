@@ -26,7 +26,9 @@
     bag:  '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/>',
     vax:  '<path d="M18 2 8 12l-2 6 6-2L22 6z"/><path d="M2 22l4-1"/>',
     heart:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8z"/>',
-    box:  '<path d="M3 7h18v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>'
+    box:  '<path d="M3 7h18v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+    garden:'<path d="M3 20h18M5 16h14"/><path d="M8 16V7a2 2 0 1 1 4 0M14 16V7a2 2 0 1 1 4 0"/><path d="M8 11h4"/>',
+    paw:  '<circle cx="6" cy="9" r="2"/><circle cx="11" cy="6" r="2"/><circle cx="17" cy="8" r="2"/><circle cx="19.5" cy="13" r="1.8"/><path d="M12.5 12c2.8 0 5 2.4 5 4.6 0 1.7-1.3 2.9-3 2.9-1 0-1.4-.4-2-.4s-1 .4-2 .4c-1.7 0-3-1.2-3-2.9C7.5 14.4 9.7 12 12.5 12z"/>'
   };
   function svg(d) { return '<svg viewBox="0 0 24 24">' + d + "</svg>"; }
   function esc(s) {
@@ -179,13 +181,13 @@
       $("#feed").innerHTML = '<div class="empty">' + svg(I.star) + "ยังไม่มีรายการ<br>แต้มแรกรอคุณอยู่ที่เคาน์เตอร์</div>";
       return;
     }
+    /* note ถูกเขียนไว้ตอนบันทึกแล้ว ตารางนี้เป็นแค่ตัวสำรองเวลา note ว่าง */
     var LABEL = {
-      purchase: "ค่าบริการ", ontime: "โบนัส มาตามนัด", parasite: "โบนัส ให้ยาต่อเนื่อง",
-      checkup: "โบนัส ตรวจสุขภาพประจำปี", referral: "โบนัส แนะนำเพื่อน",
-      birthday: "ของขวัญวันเกิด", redeem: "แลกรางวัล", expire: "แต้มหมดอายุ", adjust: "ปรับแต้ม"
+      purchase: "ค่าบริการ", bonus: "แต้มโบนัส", redeem: "แลกรางวัล",
+      expire: "แต้มหมดอายุ", adjust: "ปรับแต้ม"
     };
     $("#feed").innerHTML = state.feed.map(function (f) {
-      var cls = f.kind === "redeem" ? "pl" : (f.delta > 0 && f.kind !== "purchase" ? "gd" : "");
+      var cls = f.kind === "redeem" ? "pl" : (f.kind === "bonus" ? "gd" : "");
       var ico = f.kind === "redeem" ? I.pool : (f.kind === "purchase" ? I.bag : I.star);
       var sub = thDate(new Date(f.created_at)) +
                 (f.bill_amount ? " · " + f.bill_amount.toLocaleString("en-US") + " ฿" : "");
@@ -197,17 +199,48 @@
     }).join("");
   }
 
+  /* หมวดรางวัล — สวนกับสระอยู่ในคลินิกเดียวกัน จึงเรียงจากถูกไปแพง
+     ให้ของที่เอื้อมถึงง่ายที่สุดอยู่บนสุด คนใหม่จะได้เห็นว่ามีของที่แลกไหว */
+  var CATS = {
+    garden:  { label: "สวน",              ic: "garden", cls: "" },
+    pool:    { label: "สระว่ายน้ำ",        ic: "pool",   cls: "" },
+    clinic:  { label: "บริการในคลินิก",    ic: "heart",  cls: "rd" },
+    shop:    { label: "เพ็ทช็อป",          ic: "bag",    cls: "rd" },
+    charity: { label: "ช่วยสัตว์จร",       ic: "paw",    cls: "gd" },
+    gift:    { label: "ของขวัญ",           ic: "star",   cls: "gd" }
+  };
+
   function renderRewards() {
     var pts = state.member.points;
-    $("#rewards").innerHTML = state.rewards.map(function (r) {
-      var can = pts >= r.cost;
-      var note = can ? (r.note || "") : "อีก " + (r.cost - pts) + " แต้ม";
-      return '<button class="rw" data-rw="' + esc(r.code) + '"' + (can ? "" : " disabled") + ">" +
-             '<div class="ri ' + (r.kind === "cash" ? "rd" : "") + '">' +
-             svg(r.kind === "cash" ? I.cash : I.pool) + "</div>" +
-             '<div class="rt"><b>' + esc(r.name) + "</b><small>" + esc(note) + "</small></div>" +
-             '<div class="rb">' + r.cost + "</div></button>";
-    }).join("");
+    var order = Object.keys(CATS);
+    var html = "";
+
+    order.forEach(function (cat) {
+      var list = state.rewards.filter(function (r) { return r.category === cat; });
+      if (!list.length) return;
+
+      html += '<h4 style="margin-top:6px">' + esc(CATS[cat].label) + "</h4>";
+      html += list.map(function (r) {
+        var can = pts >= r.cost;
+        var note = can ? (r.note || "") : "อีก " + (r.cost - pts) + " แต้ม";
+        /* ราคาช่วงว่าง — โชว์ราคาเต็มขีดฆ่าไว้ข้าง ๆ ไม่งั้นลูกค้าไม่รู้ว่ากำลังได้ส่วนลด */
+        var price = r.off_peak
+          ? '<s style="opacity:.5;font-weight:600;margin-right:5px">' + r.base_cost + "</s>" + r.cost
+          : String(r.cost);
+        var badge = r.off_peak
+          ? '<span style="display:block;font-size:.64rem;color:var(--pool);font-weight:400">' +
+            "ราคาช่วงว่าง จ.–ศ. ก่อนเที่ยง</span>"
+          : "";
+        return '<button class="rw" data-rw="' + esc(r.code) + '"' + (can ? "" : " disabled") + ">" +
+               '<div class="ri ' + CATS[cat].cls + '">' + svg(I[CATS[cat].ic]) + "</div>" +
+               '<div class="rt"><b>' + esc(r.name) + "</b><small>" + esc(note) + "</small>" +
+               badge + "</div>" +
+               '<div class="rb">' + price + "</div></button>";
+      }).join("");
+    });
+
+    $("#rewards").innerHTML = html ||
+      '<div class="empty">' + svg(I.star) + "ยังไม่ได้ตั้งรางวัล</div>";
   }
 
   function renderCoupons() {
@@ -291,7 +324,7 @@
     var r = state.rewards.filter(function (x) { return x.code === b.dataset.rw; })[0];
     if (!r) return;
     sheet(
-      '<div class="sh-ic">' + svg(r.kind === "cash" ? I.cash : I.pool) + "</div>" +
+      '<div class="sh-ic">' + svg(I[(CATS[r.category] || CATS.pool).ic]) + "</div>" +
       "<h3>แลก" + esc(r.name) + "?</h3>" +
       '<div class="ledger">' +
       "<div>แต้มที่มี <span>" + state.member.points + "</span></div>" +
@@ -300,7 +333,8 @@
       "<p>แลกแล้วคืนแต้มไม่ได้ · คูปองจะเก็บไว้ในบัตรของคุณ " +
       "<b>วันที่มาใช้แค่แจ้งเบอร์โทร</b> พนักงานเห็นในระบบและกดตัดให้เอง</p>" +
       '<div class="btns"><button class="no" data-close>ยังก่อน</button>' +
-      '<button class="yes' + (r.kind === "cash" ? "" : " pool") + '" data-ok="' + esc(r.code) + '">แลกเลย</button></div>'
+      '<button class="yes' + (r.category === "clinic" || r.category === "shop" ? "" : " pool") +
+      '" data-ok="' + esc(r.code) + '">แลกเลย</button></div>'
     );
   });
 
