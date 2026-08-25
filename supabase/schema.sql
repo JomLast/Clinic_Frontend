@@ -410,6 +410,79 @@ $$;
 
 
 -- =====================================================================
+--  ค้นหาสมาชิก — สำหรับหน้า admin
+--
+--  ค้นได้ทั้งเบอร์ ชื่อเจ้าของ และชื่อสัตว์ ด้วยช่องเดียว
+--  เพราะเวลาลูกค้าโทรมาถามแต้ม เขามักบอกว่า "หมาชื่อข้าวปั้น"
+--  ไม่ได้บอกเบอร์ และคนรับสายก็ไม่ควรต้องถามซ้ำว่าเบอร์อะไร
+--
+--  เบอร์ตัดอักขระที่ไม่ใช่ตัวเลขทิ้งก่อน จะได้ค้น 086-119 แล้วเจอ
+-- =====================================================================
+create or replace function fn_search_members(p_q text, p_limit int default 25)
+returns table (
+  id uuid, phone text, display_name text, points integer,
+  last_activity_at timestamptz, pet_names text, login_count bigint
+)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  with q as (
+    select coalesce(nullif(trim(p_q), ''), '')          as raw,
+           regexp_replace(coalesce(p_q, ''), '\D', '', 'g') as digits
+  )
+  select m.id, m.phone, m.display_name, m.points, m.last_activity_at,
+         (select string_agg(p.name, ' · ' order by p.name)
+            from pets p where p.member_id = m.id and p.active),
+         (select count(*) from member_logins l where l.member_id = m.id)
+    from members m, q
+   where q.raw <> ''
+     and (
+          (q.digits <> '' and m.phone like '%' || q.digits || '%')
+       or m.display_name ilike '%' || q.raw || '%'
+       or exists (select 1 from pets p
+                   where p.member_id = m.id and p.name ilike '%' || q.raw || '%')
+     )
+   order by m.last_activity_at desc
+   limit greatest(1, least(p_limit, 100));
+$$;
+
+
+-- =====================================================================
+--  ตัวเลขรวมสำหรับหน้า admin
+--
+--  ตัวที่ควรจับตาที่สุดคือ points_outstanding — แต้มที่ลูกค้าถืออยู่
+--  มันคือ "หนี้" ที่คลินิกต้องจ่ายคืนเป็นของรางวัลในอนาคต
+--  ถ้าตัวเลขนี้โตเร็วกว่าที่ตั้งใจ แปลว่าแจกง่ายเกินไป ต้องรีบปรับกติกา
+-- =====================================================================
+create or replace function fn_admin_stats()
+returns json
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select json_build_object(
+    'members',            (select count(*) from members),
+    'members_with_line',  (select count(distinct member_id) from member_logins),
+    'active_90d',         (select count(*) from members
+                            where last_activity_at > now() - interval '90 days'),
+    'points_outstanding', (select coalesce(sum(points), 0) from members),
+    'issued_30d',         (select coalesce(sum(delta), 0) from point_entries
+                            where delta > 0 and created_at > now() - interval '30 days'),
+    'redeemed_30d',       (select coalesce(-sum(delta), 0) from point_entries
+                            where kind = 'redeem' and created_at > now() - interval '30 days'),
+    'coupons_active',     (select count(*) from coupons where status = 'active'),
+    'coupons_used_30d',   (select count(*) from coupons
+                            where status = 'used' and used_at > now() - interval '30 days'),
+    'bookings_upcoming',  (select count(*) from bookings
+                            where status = 'booked' and slot_at > now())
+  );
+$$;
+
+
+-- =====================================================================
 --  แต้มหมดอายุ — 18 เดือนนับจากครั้งล่าสุดที่มาใช้บริการ
 --  เรียกวันละครั้งจาก Edge Function หรือ pg_cron
 -- =====================================================================

@@ -33,6 +33,31 @@ export function preflight(req: Request): Response | null {
   return req.method === "OPTIONS" ? new Response(null, { headers: cors(req) }) : null;
 }
 
+/* CORS แบบเปิดกว้าง — ใช้กับ function ของ admin เท่านั้น
+ *
+ * หน้า admin ตั้งใจให้เป็นโปรแกรมแยก จะเปิดจากไฟล์ในเครื่อง จาก localhost
+ * จากโฮสต์อื่น หรือฝังใน VetLast ก็ได้ ซึ่งแปลว่า origin เดาไม่ได้
+ * (เปิดจากไฟล์ในเครื่อง origin จะเป็น "null" ด้วยซ้ำ)
+ *
+ * ปลอดภัยเพราะ CORS ไม่ใช่ด่านความปลอดภัยของเรา ด่านจริงคือ ADMIN_PIN
+ * ที่ต้องส่งมาในตัวคำขอทุกครั้ง เว็บอื่นยิงมาก็ไม่รู้รหัส และเราไม่ใช้คุกกี้
+ * จึงไม่มีสิทธิ์อะไรติดไปกับคำขอโดยอัตโนมัติให้ถูกขโมยใช้
+ */
+export function corsAny(): Record<string, string> {
+  return {
+    "access-control-allow-origin": "*",
+    "access-control-allow-headers": "content-type",
+    "access-control-allow-methods": "POST, OPTIONS",
+  };
+}
+
+export function jsonAny(body: unknown, status = 200): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...corsAny(), "content-type": "application/json; charset=utf-8" },
+  });
+}
+
 /* service_role ข้าม RLS ได้ — คีย์นี้อยู่ในฝั่ง server เท่านั้น
  * ห้ามหลุดไปหน้าเว็บเด็ดขาด */
 export function admin(): SupabaseClient {
