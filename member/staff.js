@@ -160,10 +160,57 @@
     // มีไลน์ผูกแล้วก็ยังออกรหัสได้ เผื่อคนในบ้านคนที่สองจะผูกเพิ่ม
     $("#linkBtn").hidden = false;
 
+    renderCoupons(d.coupons || []);
+
     $("#bill").value = "";
     ["bOntime", "bParasite", "bCheckup"].forEach(function (k) { $("#" + k).checked = false; });
     calc();
   }
+
+  /* คูปองที่ลูกค้าแลกไว้ — พนักงานกดใช้ได้เลย
+     นี่คือทางยืนยันหลัก ลูกค้าไม่ต้องอ่านรหัสให้ฟัง พนักงานไม่ต้องพิมพ์
+     เหลือแค่ดูว่าชื่อรางวัลตรงกับที่ลูกค้าขอไหม แล้วกด */
+  function renderCoupons(list) {
+    $("#cpBlk").hidden = !list.length;
+    if (!list.length) { $("#cpList").innerHTML = ""; return; }
+
+    $("#cpList").innerHTML = list.map(function (c) {
+      var name = c.rewards ? c.rewards.name : "คูปอง";
+      var left = Math.round((new Date(c.expires_at) - new Date()) / 864e5);
+      return '<div class="panel" style="margin-bottom:9px;flex-direction:row;align-items:center;gap:12px">' +
+        '<div style="min-width:0;line-height:1.35">' +
+        '<b style="font-weight:500;color:#fff;font-size:.9rem;display:block">' + escHtml(name) + "</b>" +
+        '<small style="color:rgba(255,255,255,.5);font-size:.72rem">รหัส ' +
+        escHtml(c.code).replace(/^(\d{3})(\d{3})$/, "$1 $2") + " · เหลือ " + left + " วัน</small></div>" +
+        '<button class="useCp" data-cp="' + escHtml(c.id) + '" data-name="' + escHtml(name) + '" ' +
+        'style="margin-left:auto;flex:none;background:var(--red);color:#fff;border-radius:999px;' +
+        'padding:9px 18px;font-size:.82rem;font-weight:500">ใช้เลย</button></div>';
+    }).join("");
+  }
+
+  function escHtml(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-cp]");
+    if (!b) return;
+    if (!confirm("ยืนยันตัดคูปอง " + b.dataset.name + " ?\nตัดแล้วคืนไม่ได้")) return;
+
+    b.disabled = true; b.textContent = "กำลังตัด…";
+    api("useCoupon", { couponId: b.dataset.cp })
+      .then(function () {
+        toast("ตัดแล้ว — " + b.dataset.name);
+        // โหลดใหม่ให้เห็นสถานะจริง ไม่ใช่แค่ลบออกจากหน้าจอ
+        return api("lookup", { phone: current.member.phone });
+      })
+      .then(function (d) { current = d; showMember(d); })
+      .catch(function (err) {
+        b.disabled = false; b.textContent = "ใช้เลย";
+        toast(err.message, true);
+      });
+  });
 
   /* ---------------- คิดแต้ม ----------------
      ตัวเลขที่โชว์ตรงนี้เป็นแค่การแสดงผลให้พนักงานเห็นก่อนกด

@@ -58,8 +58,9 @@ Deno.serve(async (req) => {
             .eq("member_id", member.id).is("used_at", null)
             .gt("expires_at", new Date().toISOString())
             .order("expires_at", { ascending: false }).limit(1).maybeSingle(),
-          db.from("coupons").select("code, expires_at, rewards(name)")
-            .eq("member_id", member.id).eq("status", "active"),
+          db.from("coupons").select("id, code, expires_at, rewards(name, kind)")
+            .eq("member_id", member.id).eq("status", "active")
+            .order("expires_at", { ascending: true }),
         ]);
 
         return json(req, {
@@ -114,23 +115,39 @@ Deno.serve(async (req) => {
         });
       }
 
-      /* ------------------------------------------------------------- */
-      case "useCoupon": {
-        const code = String(body.code ?? "").replace(/\D/g, "");
-        const { data: cp } = await db
-          .from("coupons")
-          .select("id, expires_at, members(phone, display_name), rewards(name)")
-          .eq("code", code).eq("status", "active").maybeSingle();
+      /* -------------------------------------------------------------
+         ตัดคูปอง — รับได้สองทาง
 
+         couponId : พนักงานเห็นคูปองในหน้าสมาชิกแล้วกดใช้เลย
+                    ทางนี้เป็นทางหลัก ไม่มีอะไรให้อ่านผิดหรือพิมพ์ผิด
+         code     : สำรอง สำหรับตอนที่ยังไม่ได้ค้นสมาชิก
+                    หรือคนที่มาแทนเจ้าของแล้วจำเบอร์ไม่ได้
+         ------------------------------------------------------------- */
+      case "useCoupon": {
+        const couponId = body.couponId ? String(body.couponId) : null;
+        const code = String(body.code ?? "").replace(/\D/g, "");
+        if (!couponId && code.length !== 6) throw new BadRequest("ใส่รหัสคูปอง 6 หลัก");
+
+        let q = db.from("coupons")
+          .select("id, expires_at, members(phone, display_name), rewards(name)")
+          .eq("status", "active");
+        q = couponId ? q.eq("id", couponId) : q.eq("code", code);
+
+        const { data: cp } = await q.maybeSingle();
         if (!cp) throw new BadRequest("ไม่พบคูปองนี้ หรือถูกใช้ไปแล้ว");
+
         if (new Date(cp.expires_at) < new Date()) {
           await db.from("coupons").update({ status: "expired" }).eq("id", cp.id);
           throw new BadRequest("คูปองนี้หมดอายุแล้ว");
         }
 
-        await db.from("coupons")
+        /* ใส่ status ซ้ำใน where ด้วย — ถ้าพนักงานสองคนกดพร้อมกัน
+           จะมีแค่คนเดียวที่ตัดติด อีกคนได้ผลลัพธ์ว่าง แล้วขึ้นว่าใช้ไปแล้ว */
+        const { data: done } = await db.from("coupons")
           .update({ status: "used", used_at: new Date().toISOString(), used_by: staffName })
-          .eq("id", cp.id);
+          .eq("id", cp.id).eq("status", "active")
+          .select("id");
+        if (!done || !done.length) throw new BadRequest("คูปองนี้เพิ่งถูกใช้ไป");
 
         return json(req, { ok: true, coupon: cp });
       }

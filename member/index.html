@@ -113,6 +113,15 @@
             </div>
           </div>
 
+          <!-- ช่องเดียว สองสถานะ — ถ้าแลกได้แล้วขึ้นปุ่ม ถ้ายังไม่ถึงขึ้นความคืบหน้า
+               ไม่โชว์พร้อมกันเพราะจะแย่งสายตากันเอง ส่วนตัวเลข "อีกกี่แต้ม"
+               อยู่ในวงแหวนอยู่แล้ว ไม่ต้องพูดซ้ำ -->
+          <button class="card-cta" id="redeemCta" data-go="s-rewards" hidden>
+            <svg viewBox="0 0 24 24"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            <span id="redeemCtaTxt">แลกรางวัล</span>
+            <span class="arw">→</span>
+          </button>
+
           <div class="nextline" id="nextLine" hidden>
             <svg viewBox="0 0 24 24"><path d="M2 15c1.6 0 1.6 1.4 3.2 1.4S6.8 15 8.4 15s1.6 1.4 3.2 1.4S13.2 15 14.8 15s1.6 1.4 3.2 1.4S19.6 15 22 15"/><path d="M7 15V5a2 2 0 1 1 4 0"/></svg>
             <span id="nextTxt"></span>
@@ -195,6 +204,10 @@
     <section class="screen" id="s-coupons">
       <div class="pad">
         <div class="h-scr"><b>คูปองของฉัน</b><span class="bal"><span class="balx">0</span> แต้ม</span></div>
+        <p class="sub" id="cpHow" hidden>
+          บอกพนักงานว่าจะใช้คูปองอะไร แล้ว<b>แจ้งเบอร์โทร</b> — พนักงานเห็นคูปองของคุณในระบบ
+          และกดตัดให้เอง ไม่ต้องอ่านรหัสให้ฟัง รหัสด้านล่างมีไว้เผื่อกรณีที่ค้นเบอร์ไม่เจอ
+        </p>
         <div class="blk" id="coupons"></div>
       </div>
     </section>

@@ -154,11 +154,27 @@ svg{ fill:none; }
   display:block; margin-bottom:3px;
 }
 .bal-row .big{
-  font-family:'Poppins',sans-serif; font-weight:800; font-size:3.15rem; line-height:.9;
-  letter-spacing:-.04em; font-variant-numeric:tabular-nums;
+  font-family:'Poppins',sans-serif; font-weight:800; font-size:3.9rem; line-height:.88;
+  letter-spacing:-.045em; font-variant-numeric:tabular-nums;
   background:linear-gradient(168deg, #F3DFB4 0%, var(--foil) 46%, #A9803F 100%);
   -webkit-background-clip:text; background-clip:text; color:transparent;
 }
+@media (max-width:359px){ .bal-row .big{ font-size:3.2rem; } }
+
+/* ปุ่มแลกรางวัลบนบัตร — ทองเต็มปุ่มเพื่อให้เป็นสิ่งที่สะดุดตาที่สุดรองจากตัวเลข */
+.card-cta{
+  margin-top:17px; width:100%; display:flex; align-items:center; gap:9px;
+  background:linear-gradient(150deg, #F0D69F 0%, var(--foil) 55%, #BE9450 100%);
+  color:#22190C; border-radius:12px; padding:13px 15px;
+  font-size:.92rem; font-weight:500; position:relative;
+  box-shadow:0 6px 18px -8px rgba(217,182,121,.7);
+  transition:.16s ease;
+}
+.card-cta:active{ transform:scale(.985); }
+.card-cta svg{ width:18px; height:18px; stroke:#22190C; stroke-width:1.9;
+  stroke-linecap:round; stroke-linejoin:round; flex:none; }
+.card-cta .arw{ margin-left:auto; font-family:'Poppins',sans-serif; font-weight:700; }
+.card-cta[hidden]{ display:none; }
 .bal-row .unit{ font-size:.76rem; color:rgba(255,255,255,.5); padding-bottom:9px; }
 .ring{ margin-left:auto; position:relative; width:64px; height:64px; flex:none; }
 .ring svg{ transform:rotate(-90deg); display:block; }

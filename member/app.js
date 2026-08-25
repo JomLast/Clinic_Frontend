@@ -152,11 +152,18 @@
       $("#ringArc").style.strokeDashoffset = C - C * Math.max(0, Math.min(1, done / span));
       $("#ringLab").innerHTML = "อีก " + (next.cost - pts) + "<br>แต้ม";
       $("#nextTxt").textContent = "อีก " + (next.cost - pts) + " แต้ม แลก" + next.name + "ได้";
-      $("#nextLine").hidden = false;
     } else {
       $("#ringArc").style.strokeDashoffset = 0;
       $("#ringLab").innerHTML = state.rewards.length ? "ครบ<br>ทุกอัน" : "";
-      $("#nextLine").hidden = true;
+    }
+
+    /* ช่องล่างของบัตรมีที่ให้อันเดียว — แลกได้แล้วขึ้นปุ่ม ยังไม่ถึงขึ้นความคืบหน้า */
+    var ready = state.rewards.filter(function (r) { return pts >= r.cost; }).length;
+    $("#redeemCta").hidden = ready === 0;
+    $("#nextLine").hidden = ready > 0 || !next;
+    if (ready) {
+      $("#redeemCtaTxt").textContent =
+        ready === 1 ? "แลกรางวัลได้แล้ว" : "แลกได้ " + ready + " อย่าง";
     }
 
     renderFeed();
@@ -205,6 +212,7 @@
 
   function renderCoupons() {
     var cps = state.coupons;
+    $("#cpHow").hidden = !cps.length;
     $("#coupons").innerHTML = cps.length ? cps.map(function (c) {
       var name = c.rewards ? c.rewards.name : "คูปอง";
       var left = daysBetween(new Date(), new Date(c.expires_at));
@@ -213,7 +221,7 @@
              thDate(new Date(c.expires_at)) + "</small></div></div>" +
              '<div class="cp-b"><span class="code">' +
              esc(c.code).replace(/^(\d{3})(\d{3})$/, "$1 $2") + "</span>" +
-             '<span class="cm">แจ้งรหัสนี้<br>ที่เคาน์เตอร์</span></div></div>';
+             '<span class="cm">รหัสสำรอง<br>ปกติไม่ต้องใช้</span></div></div>';
     }).join("") : '<div class="empty">' + svg(I.pool) + "ยังไม่มีคูปอง<br>แลกได้ที่หน้ารางวัล</div>";
 
     $("#cpCount").textContent = cps.length
@@ -289,7 +297,8 @@
       "<div>แต้มที่มี <span>" + state.member.points + "</span></div>" +
       "<div>ใช้ไป <span>−" + r.cost + "</span></div>" +
       '<div class="tot">เหลือ <span>' + (state.member.points - r.cost) + "</span></div></div>" +
-      "<p>แลกแล้วคืนแต้มไม่ได้ คูปองจะไปอยู่ในหน้าคูปองของฉัน พร้อมรหัสให้แจ้งที่เคาน์เตอร์</p>" +
+      "<p>แลกแล้วคืนแต้มไม่ได้ · คูปองจะเก็บไว้ในบัตรของคุณ " +
+      "<b>วันที่มาใช้แค่แจ้งเบอร์โทร</b> พนักงานเห็นในระบบและกดตัดให้เอง</p>" +
       '<div class="btns"><button class="no" data-close>ยังก่อน</button>' +
       '<button class="yes' + (r.kind === "cash" ? "" : " pool") + '" data-ok="' + esc(r.code) + '">แลกเลย</button></div>'
     );
