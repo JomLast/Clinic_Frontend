@@ -1,0 +1,155 @@
+# ระบบสะสมแต้ม — สิ่งที่ต้องตั้งค่าเอง
+
+ส่วนที่เป็นโค้ดผมเขียนเสร็จแล้ว เหลือส่วนที่ต้องใช้บัญชีของคลินิกซึ่งผมทำแทนไม่ได้
+ทำตามลำดับนี้ ข้ามข้อไม่ได้เพราะข้อหลัง ๆ ต้องใช้ค่าจากข้อก่อนหน้า
+
+**ค่ารายเดือนทั้งหมด: 0 บาท**
+
+---
+
+## 1. Supabase (ฐานข้อมูล)
+
+1. สมัครที่ https://supabase.com ด้วยบัญชี GitHub ของคลินิก
+2. **New project**
+   - Name: `asiapet-loyalty`
+   - Database password: ตั้งแล้วเก็บไว้ที่ปลอดภัย (ใช้ตอนเชื่อมตรงเท่านั้น ปกติไม่ต้องใช้)
+   - **Region: `Southeast Asia (Singapore)`** — ใกล้ไทยที่สุด อย่าเลือกอเมริกา
+   - Plan: **Free**
+3. รอสร้างเสร็จ ~2 นาที
+4. เมนูซ้าย **SQL Editor → New query** → เปิดไฟล์ [`schema.sql`](schema.sql) ก๊อปทั้งไฟล์มาวาง → **Run**
+   - ต้องขึ้น `Success. No rows returned`
+5. เมนูซ้าย **Table Editor** — ต้องเห็นตาราง `members`, `pets`, `rewards` ฯลฯ
+   และในตาราง `rewards` ต้องมีรางวัลตั้งต้น 5 รายการอยู่แล้ว
+
+> ⚠️ **โปรเจกต์ฟรีจะถูกพักถ้าไม่มีใครเรียกใช้ 7 วันติด**
+> คลินิกที่มีคนใช้ทุกวันไม่มีทางถึง แต่ช่วงแรกที่ยังไม่มีลูกค้าใช้อาจโดน
+> เดี๋ยวผมตั้ง GitHub Actions ยิงเข้าไปวันละครั้งให้ (ฟรี) กันไว้ก่อน
+
+---
+
+## 2. LINE Developers (ตัวตนผู้ใช้ + ส่งข้อความ)
+
+ไปที่ https://developers.line.biz/console/ ล็อกอินด้วยบัญชีไลน์ที่ดูแล LINE OA ของคลินิก
+
+### 2.1 สร้าง Provider — **ทำครั้งเดียว ห้ามพลาด**
+
+**Create a new provider** ชื่อ `Asiapet`
+
+> 🚨 **ข้อนี้สำคัญที่สุดในเอกสารทั้งฉบับ**
+> รหัสผู้ใช้ที่ไลน์ออกให้ **ผูกกับ Provider** ถ้า LINE Login กับ Messaging API
+> อยู่คนละ Provider คนเดียวกันจะได้รหัสคนละตัว แต้มจะไม่เชื่อมกันเลย
+> และ **LINE ย้าย channel ข้าม Provider ทีหลังไม่ได้** ต้องรื้อสร้างใหม่ทั้งหมด
+>
+> **สร้าง Provider เดียว แล้วสร้างทั้งสอง channel ไว้ข้างใน**
+
+### 2.2 Messaging API channel
+
+ใน Provider `Asiapet` → **Create a new channel → Messaging API**
+
+ถ้าคลินิกมี LINE OA อยู่แล้ว ให้ใช้วิธี **เชื่อมของเดิมเข้ามา** แทนการสร้างใหม่
+(ที่ LINE OA Manager → ตั้งค่า → Messaging API → เลือก Provider `Asiapet`)
+อย่าสร้าง OA ใหม่ เพราะเพื่อนที่มีอยู่จะไม่ตามมา
+
+### 2.3 LINE Login channel
+
+ใน Provider เดียวกัน → **Create a new channel → LINE Login**
+
+- App types: ติ๊ก **Web app**
+- ตั้งชื่อว่า `Asiapet Member`
+
+จากนั้นเข้าไปที่ channel นี้ → แท็บ **LINE Login** → **Linked LINE Official Account**
+เลือก LINE OA ของคลินิกที่สร้างในข้อ 2.2
+
+> ข้อนี้ทำให้ตอนลูกค้าล็อกอิน มีปุ่ม "เพิ่มเพื่อน" ขึ้นมาให้ในหน้าเดียวกัน
+> คนสมัครสมาชิกกับคนแอดเพื่อนจึงเป็นขั้นตอนเดียวกัน ไม่ต้องไล่ชวนทีหลัง
+
+### 2.4 LIFF app
+
+ใน LINE Login channel → แท็บ **LIFF** → **Add**
+
+| ช่อง | ใส่ |
+|---|---|
+| LIFF app name | `บัตรสมาชิก` |
+| Size | **Full** |
+| Endpoint URL | `https://asiapethospital.com/member/` |
+| Scopes | ✅ `profile` ✅ `openid` |
+| Bot link feature | **On (Aggressive)** |
+
+จดค่า **LIFF ID** ไว้ (หน้าตาแบบ `2001234567-AbCdEfGh`)
+
+---
+
+## 3. ค่าที่ต้องเอามาใส่
+
+### 3.1 ตั้ง environment variables ใน Supabase
+
+**Project Settings → Edge Functions → Secrets** เพิ่ม 2 ค่า
+
+| ชื่อ | เอามาจากไหน |
+|---|---|
+| `LINE_LOGIN_CHANNEL_ID` | LINE Login channel → แท็บ Basic settings → **Channel ID** |
+| `STAFF_PIN` | **ตั้งเอง** เลข 6 หลักที่พนักงานใช้เข้าโหมดพนักงาน |
+
+> `SUPABASE_URL` กับ `SUPABASE_SERVICE_ROLE_KEY` **ไม่ต้องใส่** Supabase ใส่ให้อัตโนมัติอยู่แล้ว
+
+### 3.2 ค่าที่ต้องส่งให้ผม (ไม่ใช่ความลับ ปลอดภัยที่จะบอก)
+
+- **LIFF ID** — เช่น `2001234567-AbCdEfGh`
+- **Supabase Project URL** — เช่น `https://xxxxxxxx.supabase.co` (ดูที่ Project Settings → Data API)
+
+### 3.3 ค่าที่ **ห้าม** ส่งให้ผมหรือใครทั้งนั้น
+
+- ❌ `service_role` key ของ Supabase
+- ❌ Channel secret / Channel access token ของไลน์
+- ❌ Database password
+
+สามอย่างนี้ใส่ในหน้าตั้งค่าของ Supabase เองเท่านั้น ผมไม่ต้องเห็นและไม่ควรเห็น
+
+---
+
+## 4. Deploy Edge Functions
+
+ติดตั้ง Supabase CLI แล้วรันจากโฟลเดอร์ `Clinic_Frontend`
+
+```bash
+npx supabase login
+```
+
+```bash
+npx supabase link --project-ref <project-ref จาก URL ของ Supabase>
+```
+
+```bash
+npx supabase functions deploy member --no-verify-jwt
+```
+
+```bash
+npx supabase functions deploy staff --no-verify-jwt
+```
+
+> `--no-verify-jwt` จำเป็น เพราะเราไม่ได้ใช้ Supabase Auth
+> เราตรวจ ID token ของไลน์เองใน function อยู่แล้ว (ดู `_shared/line.ts`)
+
+---
+
+## 5. ริชเมนู
+
+ทำทีหลังได้ ต้องมีรูปขนาด **2500 × 1686 px** แบ่ง 6 ช่อง ช่องละ 833 × 843
+ผมเรนเดอร์เป็น PNG ให้ได้เลยไม่ต้องไปจ้างทำ — บอกได้เมื่อพร้อม
+
+---
+
+## สรุปสถานะ
+
+| ส่วน | สถานะ |
+|---|---|
+| โครงสร้างฐานข้อมูล ([`schema.sql`](schema.sql)) | ✅ เขียนเสร็จ |
+| API ฝั่งลูกค้า (`functions/member`) | ✅ เขียนเสร็จ typecheck ผ่าน |
+| API ฝั่งพนักงาน (`functions/staff`) | ✅ เขียนเสร็จ typecheck ผ่าน |
+| หน้าเว็บสมาชิก (`/member/`) | ⏳ กำลังทำ |
+| หน้าโหมดพนักงาน | ⏳ กำลังทำ |
+| เตือนนัดวัคซีนอัตโนมัติ | ⏳ ยังไม่เริ่ม |
+| ข้อ 1–4 ข้างบน | ⏳ **รอคุณหมอ** |
+
+ทั้งหมดนี้ยังไม่ได้ทดสอบกับฐานข้อมูลจริง เพราะยังไม่มีโปรเจกต์ Supabase
+พอทำข้อ 1 เสร็จแล้วบอกผม เดี๋ยวไล่ทดสอบให้ครบทุกเส้นทาง
