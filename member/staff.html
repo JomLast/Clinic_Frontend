@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1C1A17" />
+<meta name="robots" content="noindex, nofollow" />
+<title>โหมดพนักงาน — เอเชียเพ็ท</title>
+<link rel="icon" type="image/png" sizes="144x144" href="../assets/img/favicon-144.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" />
+<link rel="stylesheet" href="app.css" />
+<style>
+  /* หน้านี้เป็นพื้นดำทั้งหน้า ไม่ใช่แค่บางส่วนเหมือนในหน้าลูกค้า */
+  body{ background:var(--onyx); }
+  .shell{ background:var(--onyx); }
+  @media (min-width:520px){ body{ background:#0B0A09; } }
+</style>
+</head>
+<body>
+
+<div class="shell staff">
+  <div class="stage">
+
+    <!-- ================= ใส่รหัสร้าน ================= -->
+    <section class="screen on" id="s-pin">
+      <div class="pad">
+        <div class="hero-mark">
+          <div class="logo" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)">🔑</div>
+          <h1 style="color:#fff">โหมดพนักงาน</h1>
+          <p style="color:rgba(255,255,255,.55)">ใส่รหัสร้านเพื่อเข้าใช้งาน</p>
+        </div>
+
+        <div class="field">
+          <label for="pin">รหัสร้าน</label>
+          <input id="pin" class="big" type="password" inputmode="numeric" maxlength="6"
+                 autocomplete="off" placeholder="······" />
+        </div>
+
+        <div class="field">
+          <label for="who">ชื่อผู้ใช้งาน</label>
+          <input id="who" type="text" maxlength="40" placeholder="เช่น พี่แนน" />
+          <span class="hint">บันทึกไว้ว่าใครเป็นคนบวกแต้ม ใช้ตอนต้องตรวจย้อนหลัง</span>
+        </div>
+
+        <button class="cta" id="pinBtn">เข้าใช้งาน</button>
+      </div>
+    </section>
+
+    <!-- ================= ค้นหาสมาชิก ================= -->
+    <section class="screen" id="s-find">
+      <div class="pad">
+        <div class="h-scr"><b>ค้นหาสมาชิก</b>
+          <button class="more" id="logout"
+                  style="margin-left:auto;color:rgba(255,255,255,.5);font-size:.78rem">ออก</button>
+        </div>
+
+        <div class="field">
+          <label for="findPhone">เบอร์โทรลูกค้า</label>
+          <input id="findPhone" type="tel" inputmode="numeric" maxlength="12" placeholder="08X-XXX-XXXX" />
+        </div>
+        <button class="cta" id="findBtn">ค้นหา</button>
+
+        <div class="field" style="margin-top:8px">
+          <label for="cpCode">หรือใช้คูปอง — ใส่รหัส 6 หลัก</label>
+          <input id="cpCode" type="tel" inputmode="numeric" maxlength="7" placeholder="XXX XXX" />
+        </div>
+        <button class="cta ghost" id="cpBtn"
+                style="background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.16)">
+          ตัดคูปอง
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= สมาชิก + บวกแต้ม ================= -->
+    <section class="screen" id="s-member">
+      <div class="pad">
+        <div class="h-scr"><b>บวกแต้ม</b>
+          <button class="more" data-go="s-find"
+                  style="margin-left:auto;color:rgba(255,255,255,.5);font-size:.78rem">← ค้นใหม่</button>
+        </div>
+
+        <div class="panel">
+          <div class="who" id="mWho">—<small id="mSub">—</small></div>
+          <div class="row tot">แต้มปัจจุบัน <span id="mPts">0</span></div>
+        </div>
+
+        <!-- โผล่เฉพาะตอนลูกค้ากดขอผูกบัญชีค้างไว้ -->
+        <div class="panel" id="linkPanel" hidden style="border:1px solid rgba(217,182,121,.35)">
+          <div style="font-size:.82rem;color:rgba(255,255,255,.7)">
+            ลูกค้าขอผูกบัญชีไลน์ — อ่านรหัสนี้ให้ฟัง
+          </div>
+          <div class="bigcode" id="linkCode">······</div>
+        </div>
+
+        <div class="field">
+          <label for="bill">ยอดบิล (บาท)</label>
+          <input id="bill" type="tel" inputmode="numeric" maxlength="9" placeholder="0" />
+        </div>
+
+        <div class="panel">
+          <label class="chk"><input type="checkbox" id="bOntime"> มาตามนัดวัคซีน <b style="margin-left:auto;color:var(--foil)">+20</b></label>
+          <label class="chk"><input type="checkbox" id="bParasite"> ให้ยาปรสิตครบ 3 เดือนติด <b style="margin-left:auto;color:var(--foil)">+30</b></label>
+          <label class="chk"><input type="checkbox" id="bCheckup"> ตรวจสุขภาพประจำปี <b style="margin-left:auto;color:var(--foil)">+50</b></label>
+        </div>
+
+        <div class="panel">
+          <div class="row">จากยอดบิล ทุก 100 บาท <span id="cBase">0</span></div>
+          <div class="row">โบนัส <span id="cBonus">0</span></div>
+          <div class="row tot">รวมที่จะได้ <span id="cTot">0</span></div>
+        </div>
+
+        <button class="cta" id="giveBtn" disabled>ยืนยัน บวกแต้มให้ลูกค้า</button>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" id="toastIcon"><path d="m4 12 5 5L20 6"/></svg><span id="toastTxt"></span>
+</div>
+
+<script src="config.js"></script>
+<script src="staff.js"></script>
+</body>
+</html>

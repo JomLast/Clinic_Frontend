@@ -1,0 +1,444 @@
+/* ===================================================================
+   บัตรสมาชิกเอเชียเพ็ท — สไตล์ของหน้าสมาชิกและหน้าพนักงาน
+
+   แยกไฟล์ออกจาก assets/css/styles.css ของเว็บหลัก เพราะหน้านี้เป็น
+   "แอป" ที่กินเต็มจอในไลน์ ไม่ใช่หน้าเว็บที่มีหัวเว็บกับฟุตเตอร์
+   แต่ยกโทนสีกับฟอนต์มาชุดเดียวกัน จะได้ดูเป็นของคลินิกเดียวกัน
+   =================================================================== */
+:root{
+  --red:#E8334B; --red-dk:#C91F37; --red-wash:#FDEEF0;
+  --ink:#1C1A17; --ink-2:#3A352F; --muted:#6B6358;
+  --app:#F1ECE2; --surface:#FFFDF8; --raise:#FFFFFF;
+  --line:#E4DCCC; --line-soft:#EFE8DA;
+  --pool:#1B6B76; --pool-ink:#12525B; --pool-wash:#E4F0F1;
+  --gold:#A8791F; --gold-wash:#F8F0DD;
+  --ok:#1F7A45; --ok-wash:#E4F2E9;
+  /* สีทองของบัตร — ใช้บนพื้นเข้มเท่านั้น จึงไม่พลิกตามธีม
+     ตัวนี้คือสิ่งที่ทำให้บัตรดูเป็นของมีค่า ไม่ใช่แค่กล่องสี            */
+  --foil:#D9B679; --foil-dim:rgba(217,182,121,.34);
+  --card-1:#241E1A; --card-2:#171310; --card-3:#3A1218;
+  /* พื้นดำที่ต้องดำทั้งสองธีม — ห้ามใช้ --ink แทน เพราะ --ink พลิกเป็น
+     สีสว่างในโหมดมืด แล้วตัวหนังสือขาวบนนั้นจะกลายเป็นขาวบนขาว */
+  --onyx:#1C1A17;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --red:#FF5D71; --red-dk:#FF8193; --red-wash:#3A1C21;
+    --ink:#F6F1E7; --ink-2:#D9D2C4; --muted:#A79D8C;
+    --app:#141210; --surface:#1E1B17; --raise:#26221C;
+    --line:#332E26; --line-soft:#2A251F;
+    --pool:#77C6D0; --pool-ink:#9DD8E0; --pool-wash:#16302F;
+    --gold:#D9AE55; --gold-wash:#332A17;
+    --ok:#6FCB93; --ok-wash:#17301F;
+  }
+}
+:root[data-theme="dark"]{
+  --red:#FF5D71; --red-dk:#FF8193; --red-wash:#3A1C21;
+  --ink:#F6F1E7; --ink-2:#D9D2C4; --muted:#A79D8C;
+  --app:#141210; --surface:#1E1B17; --raise:#26221C;
+  --line:#332E26; --line-soft:#2A251F;
+  --pool:#77C6D0; --pool-ink:#9DD8E0; --pool-wash:#16302F;
+  --gold:#D9AE55; --gold-wash:#332A17;
+  --ok:#6FCB93; --ok-wash:#17301F;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body{ height:100%; }
+body{
+  font-family:'Kanit',system-ui,sans-serif; font-weight:300;
+  background:var(--app); color:var(--ink); line-height:1.6;
+  -webkit-font-smoothing:antialiased; overscroll-behavior-y:none;
+  display:flex; flex-direction:column;
+}
+button{ font:inherit; color:inherit; background:none; border:none; cursor:pointer; }
+input,select{ font:inherit; color:inherit; }
+svg{ fill:none; }
+:focus-visible{ outline:2px solid var(--red); outline-offset:2px; border-radius:8px; }
+@media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }
+
+/* หน้าจอกว้าง ๆ (เปิดจากคอม) ไม่ควรยืดเต็มจอ อ่านยาก */
+.shell{
+  flex:1; width:100%; max-width:480px; margin:0 auto;
+  display:flex; flex-direction:column; min-height:0;
+  background:var(--app);
+}
+@media (min-width:520px){
+  body{ background:var(--line-soft); }
+  .shell{ box-shadow:0 0 60px rgba(28,26,23,.10); }
+}
+
+/* ---------- จอ ---------- */
+.stage{ flex:1; position:relative; overflow:hidden; }
+.screen{
+  position:absolute; inset:0; overflow-y:auto; overflow-x:hidden;
+  display:none; flex-direction:column; -webkit-overflow-scrolling:touch;
+}
+.screen.on{ display:flex; animation:fade .22s ease; }
+@keyframes fade{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
+.pad{ padding:16px 17px 24px; display:flex; flex-direction:column; gap:15px; }
+
+.h-scr{ display:flex; align-items:baseline; gap:9px; }
+.h-scr b{ font-size:1.05rem; font-weight:500; }
+.h-scr .bal{
+  margin-left:auto; font-family:'Poppins',sans-serif; font-weight:700;
+  font-size:.85rem; color:var(--red); font-variant-numeric:tabular-nums;
+}
+.sub{ font-size:.8rem; color:var(--muted); line-height:1.55; }
+
+/* ---------- บัตร ----------
+   ตั้งใจให้เป็น "วัตถุ" ไม่ใช่แถบสีบนหน้าจอ — บัตรดำลอยอยู่บนพื้นครีม
+   มีขอบทอง มีลายกิโยเช่แบบบนธนบัตร และมีแสงกวาดผ่านครั้งเดียวตอนเปิด
+   ของพวกนี้แหละที่ทำให้รู้สึกว่าเป็นบัตรสมาชิกจริง ไม่ใช่หน้าเว็บ      */
+.card-wrap{ padding:18px 17px 4px; flex:none; }
+.card{
+  position:relative; overflow:hidden; isolation:isolate;
+  border-radius:20px; padding:19px 21px 21px; color:#fff;
+  background:
+    radial-gradient(120% 150% at 88% -25%, var(--card-3) 0%, transparent 58%),
+    linear-gradient(158deg, var(--card-1) 0%, var(--card-2) 62%, #100C0A 100%);
+  border:1px solid var(--foil-dim);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.07) inset,
+    0 18px 40px -12px rgba(28,20,16,.55),
+    0 4px 12px -4px rgba(28,20,16,.35);
+}
+/* ลายกิโยเช่ — วงแหวนซ้อนบาง ๆ แบบลายกันปลอมบนธนบัตร */
+.card-fx{
+  position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:.85;
+  background:
+    repeating-radial-gradient(circle at 18% 118%, transparent 0 13px, rgba(217,182,121,.055) 13px 14px),
+    repeating-radial-gradient(circle at 92% -18%, transparent 0 15px, rgba(217,182,121,.045) 15px 16px);
+}
+/* แสงกวาดครั้งเดียวตอนเปิดหน้า วนซ้ำจะกลายเป็นรบกวนสายตา */
+.card-sheen{
+  position:absolute; inset:-40%; z-index:-1; pointer-events:none;
+  background:linear-gradient(104deg, transparent 38%, rgba(255,255,255,.14) 48%, transparent 58%);
+  transform:translateX(-90%);
+  animation:sheen 1.5s cubic-bezier(.4,0,.2,1) .45s 1 forwards;
+}
+@keyframes sheen{ to{ transform:translateX(90%); } }
+
+.card-top{ display:flex; align-items:center; gap:12px; }
+.pet{
+  width:46px; height:46px; border-radius:50%; flex:none;
+  background:radial-gradient(circle at 32% 28%, rgba(255,255,255,.13), rgba(255,255,255,.03));
+  display:grid; place-items:center; font-size:1.3rem;
+  border:1px solid var(--foil-dim);
+  box-shadow:0 0 0 3px rgba(217,182,121,.09);
+}
+.card-top .who{ min-width:0; }
+.card-top .who b{
+  font-size:1rem; font-weight:500; color:#fff; display:block; line-height:1.3;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.card-top .who small{
+  font-size:.7rem; color:rgba(255,255,255,.62); display:block;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.card-top .lvl{
+  margin-left:auto; flex:none; font-family:'Poppins',sans-serif; font-weight:600; font-size:.56rem;
+  letter-spacing:.17em; padding:4px 11px; border-radius:999px;
+  color:var(--foil); border:1px solid var(--foil-dim); background:rgba(217,182,121,.07);
+}
+
+/* เส้นทองคั่น — บาง ๆ พอให้รู้ว่ามีการแบ่งส่วน */
+.card-rule{
+  height:1px; margin:17px 0 15px;
+  background:linear-gradient(90deg, var(--foil-dim), rgba(217,182,121,.06) 62%, transparent);
+}
+
+.bal-row{ display:flex; align-items:flex-end; gap:9px; }
+.bal-lab{
+  font-size:.62rem; letter-spacing:.15em; text-transform:uppercase;
+  color:rgba(255,255,255,.42); font-family:'Poppins',sans-serif; font-weight:600;
+  display:block; margin-bottom:3px;
+}
+.bal-row .big{
+  font-family:'Poppins',sans-serif; font-weight:800; font-size:3.15rem; line-height:.9;
+  letter-spacing:-.04em; font-variant-numeric:tabular-nums;
+  background:linear-gradient(168deg, #F3DFB4 0%, var(--foil) 46%, #A9803F 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.bal-row .unit{ font-size:.76rem; color:rgba(255,255,255,.5); padding-bottom:9px; }
+.ring{ margin-left:auto; position:relative; width:64px; height:64px; flex:none; }
+.ring svg{ transform:rotate(-90deg); display:block; }
+.ring circle{ transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1); }
+.ring .lab{
+  position:absolute; inset:0; display:grid; place-items:center; text-align:center;
+  font-family:'Poppins',sans-serif; font-weight:700; font-size:.6rem; line-height:1.15;
+  color:var(--foil);
+}
+.nextline{
+  margin-top:16px; font-size:.75rem; color:rgba(255,255,255,.8);
+  border:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.04);
+  border-radius:11px; padding:9px 12px; display:flex; gap:8px; align-items:center;
+}
+.nextline svg{ width:14px; height:14px; stroke:var(--foil); stroke-width:2; flex:none; }
+.nextline[hidden]{ display:none; }
+
+/* ---------- QR ---------- */
+.qrbox{
+  background:var(--raise); border:1px solid var(--line); border-radius:17px;
+  padding:15px; display:flex; align-items:center; gap:15px;
+  box-shadow:0 1px 2px rgba(28,26,23,.04), 0 6px 18px -10px rgba(28,26,23,.18);
+}
+.qr{ width:76px; height:76px; flex:none; display:grid; grid-template-columns:repeat(21,1fr); }
+.qr i{ display:block; }
+.qrbox .qt{ font-size:.76rem; color:var(--muted); line-height:1.5; min-width:0; }
+.qrbox .qt b{ display:block; font-size:.85rem; font-weight:500; color:var(--ink); margin-bottom:2px; }
+.qrbox .qt .ph{
+  font-family:'Poppins',sans-serif; font-weight:700; font-size:.9rem; color:var(--red);
+  letter-spacing:.04em; font-variant-numeric:tabular-nums;
+}
+
+/* ---------- รายการ ---------- */
+.blk{ display:flex; flex-direction:column; gap:9px; }
+.blk h4{
+  font-family:'Poppins',sans-serif; font-size:.63rem; font-weight:600; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:10px;
+}
+/* ขีดสั้น ๆ นำหน้าหัวข้อ — ทำให้หน้าอ่านเป็นระเบียบขึ้นโดยไม่ต้องใส่กรอบ */
+.blk h4::before{
+  content:""; width:14px; height:1.5px; background:var(--red); flex:none; border-radius:2px;
+}
+.blk h4 .more{
+  margin-left:auto; color:var(--red); letter-spacing:.02em; text-transform:none;
+  font-family:'Kanit',sans-serif; font-size:.75rem; font-weight:400;
+}
+
+.feed{ display:flex; flex-direction:column; }
+.frow{ display:flex; align-items:center; gap:11px; padding:10px 0; border-bottom:1px solid var(--line-soft); }
+.frow:last-child{ border-bottom:none; }
+.ic{ width:30px; height:30px; border-radius:9px; display:grid; place-items:center; flex:none; background:var(--red-wash); }
+.ic svg{ width:15px; height:15px; stroke:var(--red-dk); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.ic.pl{ background:var(--pool-wash); } .ic.pl svg{ stroke:var(--pool); }
+.ic.gd{ background:var(--gold-wash); } .ic.gd svg{ stroke:var(--gold); }
+.frow .ft{ font-size:.82rem; line-height:1.35; color:var(--ink-2); min-width:0; }
+.frow .ft small{ display:block; font-size:.68rem; color:var(--muted); }
+.frow .fp{
+  margin-left:auto; font-family:'Poppins',sans-serif; font-weight:700; font-size:.85rem;
+  color:var(--red-dk); white-space:nowrap; font-variant-numeric:tabular-nums;
+}
+.frow .fp.mn{ color:var(--pool); }
+
+/* ---------- รางวัล ---------- */
+.rw{
+  display:flex; gap:12px; align-items:center; background:var(--raise); border:1px solid var(--line);
+  border-radius:15px; padding:13px; width:100%; text-align:left; transition:.16s ease;
+  box-shadow:0 1px 2px rgba(28,26,23,.04), 0 6px 18px -12px rgba(28,26,23,.2);
+}
+.rw:hover:not(:disabled){ border-color:var(--red); }
+.rw:active:not(:disabled){ transform:scale(.985); }
+/* อันที่แลกได้แล้วต้องเด่นกว่าอันที่ยังไม่ถึง โดยไม่ต้องใส่ป้ายอะไรเพิ่ม */
+.rw:not(:disabled) .rb{ box-shadow:0 4px 12px -4px rgba(232,51,75,.5); }
+.rw:disabled{ opacity:.5; cursor:default; box-shadow:none; }
+.rw .ri{ width:40px; height:40px; border-radius:12px; display:grid; place-items:center; flex:none; background:var(--pool-wash); }
+.rw .ri svg{ width:19px; height:19px; stroke:var(--pool); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.rw .ri.rd{ background:var(--red-wash); } .rw .ri.rd svg{ stroke:var(--red-dk); }
+.rw .ri.gd{ background:var(--gold-wash); } .rw .ri.gd svg{ stroke:var(--gold); }
+.rw .rt{ min-width:0; line-height:1.35; }
+.rw .rt b{ display:block; font-size:.86rem; font-weight:500; }
+.rw .rt small{ font-size:.7rem; color:var(--muted); }
+.rw .rb{
+  margin-left:auto; flex:none; font-family:'Poppins',sans-serif; font-weight:700; font-size:.74rem;
+  padding:7px 13px; border-radius:999px; background:var(--red); color:#fff; white-space:nowrap;
+}
+.rw:disabled .rb{ background:var(--line); color:var(--muted); }
+
+/* ---------- คูปอง ---------- */
+.cp{ border:1px solid var(--line); border-radius:16px; overflow:hidden; background:var(--raise); }
+.cp .cp-h{
+  background:var(--pool-wash); padding:13px 15px; display:flex; align-items:center; gap:11px;
+  border-bottom:1px dashed var(--line);
+}
+.cp .cp-h svg{ width:20px; height:20px; stroke:var(--pool); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex:none; }
+.cp .cp-h b{ font-size:.88rem; font-weight:500; color:var(--pool-ink); line-height:1.3; display:block; }
+.cp .cp-h small{ display:block; font-size:.7rem; color:var(--pool-ink); opacity:.78; font-weight:300; }
+.cp .cp-b{ padding:14px 15px; display:flex; align-items:center; gap:12px; }
+.cp .code{
+  font-family:'Poppins',sans-serif; font-weight:800; font-size:1.3rem; letter-spacing:.16em;
+  color:var(--ink); font-variant-numeric:tabular-nums;
+}
+.cp .cp-b .cm{ font-size:.7rem; color:var(--muted); line-height:1.45; margin-left:auto; text-align:right; }
+
+.empty{
+  text-align:center; padding:46px 22px; color:var(--muted); font-size:.85rem; line-height:1.7;
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+.empty svg{ width:36px; height:36px; stroke:var(--line); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ---------- จองสระ ---------- */
+.chips{ display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; }
+.chip{
+  flex:none; border:1px solid var(--line); background:var(--raise); border-radius:13px;
+  padding:10px 14px; text-align:center; line-height:1.3; transition:.15s;
+}
+.chip b{ display:block; font-family:'Poppins',sans-serif; font-weight:700; font-size:1.05rem; }
+.chip small{ font-size:.65rem; color:var(--muted); }
+.chip[aria-pressed="true"]{ background:var(--pool); border-color:var(--pool); color:#fff; }
+.chip[aria-pressed="true"] small{ color:rgba(255,255,255,.85); }
+
+.slots{ display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+.slot{
+  border:1px solid var(--line); background:var(--raise); border-radius:12px; padding:12px 6px;
+  font-family:'Poppins',sans-serif; font-weight:600; font-size:.84rem; transition:.15s;
+}
+.slot small{ display:block; font-family:'Kanit',sans-serif; font-weight:300; font-size:.64rem; color:var(--muted); margin-top:2px; }
+.slot[aria-pressed="true"]{ background:var(--pool); border-color:var(--pool); color:#fff; }
+.slot[aria-pressed="true"] small{ color:rgba(255,255,255,.85); }
+.slot:disabled{ opacity:.38; cursor:default; }
+
+.cta{
+  width:100%; background:var(--red); color:#fff; border-radius:14px; padding:15px;
+  font-weight:500; font-size:.95rem; transition:.18s; display:flex; align-items:center;
+  justify-content:center; gap:8px;
+}
+.cta:hover:not(:disabled){ background:var(--red-dk); }
+.cta:disabled{ background:var(--line); color:var(--muted); cursor:default; }
+.cta.pool{ background:var(--pool); } .cta.pool:hover:not(:disabled){ background:var(--pool-ink); }
+.cta.ghost{ background:var(--surface); color:var(--ink-2); border:1px solid var(--line); }
+
+/* ---------- น้องของฉัน ---------- */
+.petcard{
+  background:var(--raise); border:1px solid var(--line); border-radius:17px; padding:16px;
+  display:flex; gap:14px; align-items:center;
+}
+.petcard .pa{
+  width:54px; height:54px; border-radius:50%; background:var(--red-wash); display:grid;
+  place-items:center; font-size:1.6rem; flex:none;
+}
+.petcard .pi b{ font-size:1rem; font-weight:500; display:block; line-height:1.3; }
+.petcard .pi small{ font-size:.75rem; color:var(--muted); }
+
+.due{ display:flex; align-items:center; gap:11px; padding:12px 0; border-bottom:1px solid var(--line-soft); }
+.due:last-child{ border-bottom:none; }
+.due .dt{ font-size:.83rem; line-height:1.35; }
+.due .dt small{ display:block; font-size:.7rem; color:var(--muted); }
+.pill{
+  margin-left:auto; flex:none; font-size:.7rem; font-weight:500; padding:4px 11px; border-radius:999px;
+  background:var(--ok-wash); color:var(--ok); white-space:nowrap;
+}
+.pill.soon{ background:var(--gold-wash); color:var(--gold); }
+.pill.late{ background:var(--red-wash); color:var(--red-dk); }
+
+.bonus{
+  background:var(--gold-wash); border-radius:14px; padding:14px 16px;
+  font-size:.8rem; color:var(--ink-2); line-height:1.6; display:flex; gap:10px;
+}
+.bonus svg{ width:18px; height:18px; stroke:var(--gold); stroke-width:2; flex:none; margin-top:3px; stroke-linecap:round; stroke-linejoin:round; }
+.bonus b{ font-weight:500; }
+
+/* ---------- ฟอร์ม ---------- */
+.field{ display:flex; flex-direction:column; gap:6px; }
+.field label{ font-size:.8rem; font-weight:500; }
+.field input{
+  width:100%; padding:14px 15px; border:1.5px solid var(--line); border-radius:13px;
+  background:var(--raise); font-size:1rem; outline:none; transition:.16s;
+}
+.field input:focus{ border-color:var(--red); }
+.field .hint{ font-size:.72rem; color:var(--muted); line-height:1.5; }
+.field input.big{
+  font-family:'Poppins',sans-serif; font-weight:700; font-size:1.7rem; text-align:center;
+  letter-spacing:.3em; padding-left:.3em; font-variant-numeric:tabular-nums;
+}
+
+.hero-mark{
+  display:flex; flex-direction:column; align-items:center; gap:12px; padding:34px 0 6px; text-align:center;
+}
+.hero-mark .logo{
+  width:66px; height:66px; border-radius:22px; background:var(--red); color:#fff;
+  display:grid; place-items:center; font-family:'Poppins',sans-serif; font-weight:800; font-size:1.9rem;
+}
+.hero-mark h1{ font-size:1.3rem; font-weight:600; line-height:1.3; }
+.hero-mark p{ font-size:.85rem; color:var(--muted); max-width:30ch; }
+
+/* ---------- แถบล่าง ---------- */
+.tabbar{
+  flex:none; display:grid; grid-template-columns:repeat(4,1fr); background:var(--surface);
+  border-top:1px solid var(--line); padding-bottom:env(safe-area-inset-bottom);
+}
+.tab{
+  padding:10px 2px 9px; display:flex; flex-direction:column; align-items:center; gap:3px;
+  font-size:.65rem; color:var(--muted); position:relative;
+}
+.tab svg{ width:21px; height:21px; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.tab[aria-current="true"]{ color:var(--red); }
+.tab .dot{
+  position:absolute; top:6px; right:calc(50% - 18px); min-width:16px; height:16px; border-radius:999px;
+  background:var(--red); color:#fff; font-family:'Poppins',sans-serif; font-weight:700; font-size:.58rem;
+  display:grid; place-items:center; padding:0 4px;
+}
+.tabbar[hidden]{ display:none; }
+
+/* ---------- แผ่นเด้ง ---------- */
+.veil{
+  position:fixed; inset:0; background:rgba(20,18,15,.55); display:none;
+  align-items:flex-end; justify-content:center; z-index:40; backdrop-filter:blur(2px);
+}
+.veil.on{ display:flex; animation:fade .18s ease; }
+.sheet{
+  width:100%; max-width:480px; background:var(--surface); border-radius:22px 22px 0 0;
+  padding:22px 19px calc(24px + env(safe-area-inset-bottom));
+  display:flex; flex-direction:column; gap:14px; animation:up .24s cubic-bezier(.2,.8,.3,1);
+}
+@keyframes up{ from{ transform:translateY(100%); } to{ transform:none; } }
+.sheet .sh-ic{ width:48px; height:48px; border-radius:14px; display:grid; place-items:center; background:var(--pool-wash); }
+.sheet .sh-ic svg{ width:23px; height:23px; stroke:var(--pool); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.sheet h3{ font-size:1.08rem; font-weight:500; line-height:1.35; }
+.sheet p{ font-size:.84rem; color:var(--muted); line-height:1.6; }
+.sheet .ledger{ background:var(--app); border-radius:12px; padding:13px 15px; display:flex; flex-direction:column; gap:6px; }
+.sheet .ledger div{ display:flex; font-size:.83rem; color:var(--ink-2); }
+.sheet .ledger div span{ margin-left:auto; font-family:'Poppins',sans-serif; font-weight:600; font-variant-numeric:tabular-nums; }
+.sheet .ledger div.tot{ border-top:1px solid var(--line); padding-top:7px; font-weight:500; color:var(--ink); }
+.sheet .btns{ display:flex; gap:9px; }
+.sheet .btns button{ flex:1; border-radius:13px; padding:14px; font-size:.9rem; font-weight:500; }
+.sheet .btns .no{ background:var(--app); color:var(--ink-2); border:1px solid var(--line); }
+.sheet .btns .yes{ background:var(--red); color:#fff; }
+.sheet .btns .yes.pool{ background:var(--pool); }
+
+/* ---------- แจ้งเตือน ---------- */
+.toast{
+  position:fixed; left:50%; transform:translate(-50%,12px); bottom:84px; z-index:60;
+  width:calc(100% - 32px); max-width:448px;
+  background:var(--onyx); color:#fff; border-radius:13px; padding:13px 16px; font-size:.83rem;
+  display:flex; align-items:center; gap:10px; opacity:0;
+  transition:.28s ease; pointer-events:none; line-height:1.45;
+}
+.toast.on{ opacity:1; transform:translate(-50%,0); }
+.toast svg{ width:18px; height:18px; stroke:#6FCB93; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; flex:none; }
+.toast.bad svg{ stroke:#FF8193; }
+
+/* ---------- กำลังโหลด ---------- */
+.boot{ flex:1; display:grid; place-items:center; gap:14px; text-align:center; padding:30px; }
+.boot .spin{
+  width:34px; height:34px; border-radius:50%; border:3px solid var(--line);
+  border-top-color:var(--red); animation:spin .8s linear infinite; margin:0 auto 14px;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.boot p{ font-size:.85rem; color:var(--muted); }
+.boot .err{ color:var(--red-dk); font-size:.88rem; max-width:32ch; }
+
+/* ---------- โหมดพนักงาน ---------- */
+.staff{ background:var(--onyx); min-height:100%; }
+.staff .pad{ color:#fff; }
+.staff .h-scr b{ color:#fff; }
+.staff .sub{ color:rgba(255,255,255,.55); }
+.staff .field label{ color:rgba(255,255,255,.8); }
+.staff .field input{
+  background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.18); color:#fff;
+}
+.staff .field input:focus{ border-color:var(--red); }
+.staff .field .hint{ color:rgba(255,255,255,.5); }
+.panel{ background:rgba(255,255,255,.07); border-radius:15px; padding:15px; display:flex; flex-direction:column; gap:10px; }
+.panel .row{ display:flex; font-size:.83rem; color:rgba(255,255,255,.72); }
+.panel .row span{ margin-left:auto; font-family:'Poppins',sans-serif; font-weight:600; color:#fff; font-variant-numeric:tabular-nums; }
+.panel .row.tot{ border-top:1px solid rgba(255,255,255,.14); padding-top:9px; color:#fff; font-weight:500; }
+.panel .row.tot span{ color:var(--red); font-size:1.1rem; font-weight:800; }
+.panel .who{ font-size:1rem; font-weight:500; color:#fff; line-height:1.35; }
+.panel .who small{ display:block; font-size:.75rem; color:rgba(255,255,255,.6); font-weight:300; }
+.chk{ display:flex; align-items:center; gap:10px; font-size:.83rem; color:rgba(255,255,255,.85); padding:4px 0; }
+.chk input{ accent-color:var(--red); width:18px; height:18px; flex:none; }
+.bigcode{
+  font-family:'Poppins',sans-serif; font-weight:800; font-size:2.4rem; letter-spacing:.18em;
+  color:#fff; text-align:center; padding:8px 0; font-variant-numeric:tabular-nums;
+}
