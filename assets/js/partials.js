@@ -81,6 +81,7 @@ const NAV = [
       { label:"อาบน้ำ & ตัดขน", href:"service-grooming.html" },
       { label:"ศูนย์เฉพาะทาง", href:"centers.html" },
       { label:"ค่าบริการ", href:"prices.html" },
+      { label:"สะสมแต้ม", href:"points.html" },
       { label:"ดูบริการทั้งหมด →", href:"services.html" },
   ]},
   { label:"สัตว์ที่เรารักษา", href:"animals.html", id:"animals", sub:[
