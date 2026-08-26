@@ -240,7 +240,7 @@ Deno.serve(async (req) => {
 /* ดึงทุกอย่างที่หน้าจอต้องใช้ในคำสั่งเดียว
  * หน้าเว็บเปิดครั้งเดียวเห็นครบ ไม่ต้องยิงหลายรอบให้ช้า */
 async function loadEverything(db: ReturnType<typeof admin>, memberId: string) {
-  const [member, pets, coupons, entries, rewards, bookings] = await Promise.all([
+  const [member, pets, coupons, entries, rewards, bookings, rules] = await Promise.all([
     db.from("members").select("id, phone, display_name, points, last_activity_at")
       .eq("id", memberId).single(),
     db.from("pets").select("id, name, species, breed, sex, birthdate, emoji")
@@ -257,22 +257,21 @@ async function loadEverything(db: ReturnType<typeof admin>, memberId: string) {
     db.from("bookings").select("id, facility, slot_at, status")
       .eq("member_id", memberId).eq("status", "booked")
       .gte("slot_at", new Date().toISOString()).order("slot_at"),
+    /* ส่งกติกาแต้มไปด้วย หน้าลูกค้าจะได้อธิบายวิธีได้แต้มจากข้อมูลจริง
+       ถ้าเขียนตัวเลขตายไว้ที่หน้าเว็บ วันที่คุณหมอแก้แต้มในฐานข้อมูล
+       คำอธิบายฝั่งลูกค้าจะกลายเป็นข้อมูลผิดทันทีโดยไม่มีใครรู้ */
+    db.from("point_rules").select("code, label, points, hint")
+      .eq("active", true).order("sort"),
   ]);
-
-  const petIds = (pets.data ?? []).map((p) => p.id);
-  const dues = petIds.length
-    ? (await db.from("pet_due").select("pet_id, kind, label, due_on, done_on")
-        .in("pet_id", petIds).order("due_on")).data ?? []
-    : [];
 
   return {
     registered: true,
     member: member.data,
     pets: pets.data ?? [],
-    dues,
     coupons: coupons.data ?? [],
     feed: entries.data ?? [],
     rewards: rewards.data ?? [],
     bookings: bookings.data ?? [],
+    rules: rules.data ?? [],
   };
 }

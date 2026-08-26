@@ -272,25 +272,24 @@
     }).join("") : '<div class="empty">' + svg(I.heart) +
       "ยังไม่ได้บันทึกน้อง<br>แจ้งพนักงานตอนมาครั้งหน้าได้เลย</div>";
 
-    var dues = state.dues || [];
-    $("#dueBlk").hidden = !dues.length;
-    if (!dues.length) return;
+    renderEarnRules();
+  }
 
-    var today = new Date(); today.setHours(0, 0, 0, 0);
-    $("#dues").innerHTML = dues.map(function (d) {
-      var due = new Date(d.due_on);
-      var left = daysBetween(today, due);
-      var cls = "", label = "", note = "";
-      if (d.done_on) { cls = ""; label = "ทำแล้ว"; note = "ทำเมื่อ " + thDate(new Date(d.done_on)); }
-      else if (left < 0) { cls = "late"; label = "เลยกำหนด"; note = "เลยมา " + Math.abs(left) + " วัน"; }
-      else if (left <= 30) { cls = "soon"; label = "ใกล้ถึง"; note = "อีก " + left + " วัน · " + thDate(due); }
-      else { cls = ""; label = "ยังไม่ถึง"; note = "ครบกำหนด " + thDate(due); }
-      var ico = d.kind === "vaccine" ? I.vax : d.kind === "parasite" ? I.bag : I.heart;
-      var icCls = d.kind === "parasite" ? "gd" : "";
-      return '<div class="due"><div class="ic ' + icCls + '">' + svg(ico) + "</div>" +
-             '<div class="dt">' + esc(d.label) + "<small>" + note + "</small></div>" +
-             '<span class="pill ' + cls + '">' + label + "</span></div>";
+  /* วิธีได้แต้ม — วาดจากกติกาจริงในฐานข้อมูล ไม่ใช่ตัวเลขที่เขียนตายไว้
+     วันที่คุณหมอแก้แต้มใน Supabase หน้านี้เปลี่ยนตามทันที
+     ถ้าเขียนตายไว้ คำอธิบายจะกลายเป็นข้อมูลผิดโดยไม่มีใครรู้ */
+  function renderEarnRules() {
+    var rules = state.rules || [];
+    var rows = '<div class="frow"><div class="ic">' + svg(I.bag) + "</div>" +
+      '<div class="ft">ใช้บริการหรือซื้อของ<small>ทุก 100 บาท</small></div>' +
+      '<div class="fp">+1</div></div>';
+    rows += rules.map(function (r) {
+      return '<div class="frow"><div class="ic gd">' + svg(I.star) + "</div>" +
+        '<div class="ft">' + esc(r.label) +
+        (r.hint ? "<small>" + esc(r.hint) + "</small>" : "") + "</div>" +
+        '<div class="fp">+' + r.points + "</div></div>";
     }).join("");
+    $("#earnRules").innerHTML = rows;
   }
 
   function renderBookings() {

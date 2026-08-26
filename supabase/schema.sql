@@ -72,21 +72,6 @@ create table if not exists pets (
 create index if not exists pets_member_idx on pets(member_id);
 
 -- ---------------------------------------------------------------------
--- ตารางสุขภาพที่ต้องทำ — ตัวนี้แหละที่ทำให้แต้มมีค่าทางการแพทย์
--- ---------------------------------------------------------------------
-create table if not exists pet_due (
-  id       uuid primary key default gen_random_uuid(),
-  pet_id   uuid not null references pets(id) on delete cascade,
-  kind     text not null check (kind in ('vaccine','parasite','checkup')),
-  label    text not null,                           -- 'วัคซีนรวม' ฯลฯ
-  due_on   date not null,
-  done_on  date,
-  reminded_at timestamptz                           -- กันส่งเตือนซ้ำ
-);
-create index if not exists pet_due_pet_idx on pet_due(pet_id);
-create index if not exists pet_due_open_idx on pet_due(due_on) where done_on is null;
-
--- ---------------------------------------------------------------------
 -- ค่าตั้งต้นของระบบ — เก็บเป็นข้อมูล ไม่ฝังในโค้ด
 -- อยากเปลี่ยนอัตราแต้มก็แก้แถวเดียว ไม่ต้อง deploy ใหม่
 -- ---------------------------------------------------------------------
@@ -521,7 +506,6 @@ alter table point_rules   enable row level security;
 alter table members       enable row level security;
 alter table member_logins enable row level security;
 alter table pets          enable row level security;
-alter table pet_due       enable row level security;
 alter table point_entries enable row level security;
 alter table rewards       enable row level security;
 alter table coupons       enable row level security;
