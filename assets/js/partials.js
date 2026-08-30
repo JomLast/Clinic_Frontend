@@ -45,7 +45,7 @@ const ICON = {
               เหมาะกับเว็บนี้ที่อยากรู้แค่ว่ามีคนเข้ากี่คน หน้าไหนคนดูเยอะ   */
 const ANALYTICS = {
   ga4: "",
-  cloudflare: "",
+  cloudflare: "d40bf1a957a941da82f95f11af553a92",
 };
 
 function initAnalytics(){
@@ -53,7 +53,11 @@ function initAnalytics(){
 
   if(ANALYTICS.cloudflare){
     const s = document.createElement("script");
-    s.defer = true;
+    /* Cloudflare ให้มาเป็น type="module" ต้องใส่ตาม เพราะไฟล์ปลายทาง
+       เขียนเป็นโมดูล ถ้าโหลดเป็นสคริปต์ธรรมดาเบราว์เซอร์จะฟ้อง syntax error
+       แล้วไม่นับอะไรเลย  โมดูลถูกเลื่อนไปรันหลังโหลดหน้าเสร็จอยู่แล้ว
+       จึงไม่ต้องใส่ defer ซ้ำ */
+    s.type = "module";
     s.src = "https://static.cloudflareinsights.com/beacon.min.js";
     s.setAttribute("data-cf-beacon", JSON.stringify({ token: ANALYTICS.cloudflare }));
     document.head.appendChild(s);
