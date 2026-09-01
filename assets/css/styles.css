@@ -157,8 +157,6 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .page-banner::before{ content:""; position:absolute; width:280px; height:280px; border-radius:50%; background:var(--red); opacity:.18; top:-120px; right:-60px; }
 .page-banner::after{ content:""; position:absolute; width:200px; height:200px; border-radius:50%; background:var(--red); opacity:.12; bottom:-110px; left:-40px; }
 .page-banner h1{ font-size:clamp(1.9rem,5vw,2.8rem); font-weight:700; position:relative; z-index:1; }
-.page-banner .crumb{ position:relative; z-index:1; margin-top:10px; opacity:.75; font-size:.92rem; }
-.page-banner .crumb a:hover{ color:var(--red); }
 
 /* ===== FEATURE BAR ===== */
 
