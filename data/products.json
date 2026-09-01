@@ -371,7 +371,7 @@
     },
     {
       "name": "Oxbow Essentials Adult Rabbit Food",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/oxbow-rabbit.jpg",
       "note": "เม็ดอัลฟัลฟาสูตรกระต่ายโต ใยอาหารสูง สัตวแพทย์แนะนำ",
@@ -382,7 +382,7 @@
     },
     {
       "name": "Oxbow หญ้าแห้ง (Alfalfa / Botanical Hay)",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/oxbow-hay.jpg",
       "note": "หญ้าแห้งคุณภาพสูงจากอเมริกา ช่วยเรื่องระบบย่อยและการสึกของฟัน",
@@ -393,7 +393,7 @@
     },
     {
       "name": "หญ้าแห้งแบ่งขาย (ทิโมธี / อัลฟัลฟา)",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/hay-bulk.jpg",
       "note": "แบ่งขายเป็นถุง ราคาประหยัด เหมาะให้กินประจำวัน",
@@ -404,7 +404,7 @@
     },
     {
       "name": "SmartHeart อาหารกระต่าย 1–3 กก.",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/smartheart-rabbit.jpg",
       "note": "มีกลิ่นราสเบอร์รี่ กลิ่นแอปเปิล และสูตรผักและธัญพืช",
@@ -418,7 +418,7 @@
     },
     {
       "name": "NatureBest Bunny Best เม็ดอัดพรีเมียม",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/naturebest-bunny.jpg",
       "note": "สูตรแอปเปิลแดง ส่วนผสมพรีเมียม เหมาะกับกระต่ายทุกสายพันธุ์",
@@ -429,7 +429,7 @@
     },
     {
       "name": "Versele-Laga Nature Cuni (กระต่าย)",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/vl-cuni.jpg",
       "note": "สูตรธรรมชาติ ใยอาหารสูง ไม่มีเม็ดสีสังเคราะห์",
@@ -439,7 +439,7 @@
     },
     {
       "name": "Versele-Laga Nature Chip (กระรอก / ชิพมังก์)",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/vl-chip.jpg",
       "note": "ธัญพืชและถั่วรวม สำหรับกระรอกและชิพมังก์",
@@ -449,7 +449,7 @@
     },
     {
       "name": "Versele-Laga Complete Crock ขนมหนู",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/vl-crock.jpg",
       "note": "ขนมสอดไส้เบอร์รี่ ไม่เติมน้ำตาล สำหรับหนูแฮมสเตอร์และหนูตะเภา",
@@ -459,7 +459,7 @@
     },
     {
       "name": "SmartHeart อาหารหนูแฮมสเตอร์ 300 ก.",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/smartheart-hamster.jpg",
       "note": "ธัญพืชรวมครบถ้วน เสริมวิตามินและแร่ธาตุ",
@@ -469,7 +469,7 @@
     },
     {
       "name": "Hamster & Gerbil Food",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/hamster-gerbil.jpg",
       "note": "ธัญพืชรวมสำหรับหนูแฮมสเตอร์และเจอร์บิล เสริมวิตามิน",
@@ -479,7 +479,7 @@
     },
     {
       "name": "Mazuri Insectivore Diet",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/mazuri-insect.jpg",
       "note": "อาหารสำหรับเม่นแคระ ชูการ์ไกลเดอร์ มังกรเครา และสัตว์กินแมลง",
@@ -490,7 +490,7 @@
     },
     {
       "name": "Versele-Laga NutriBird A21 (ลูกป้อนนก)",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/nutribird-a21.jpg",
       "note": "อาหารลูกป้อนสำหรับลูกนกแก้ว นกคอกคาทู และนกปากขอ",
@@ -500,7 +500,7 @@
     },
     {
       "name": "SmartHeart อาหารนกแก้ว & นกคอนัวร์",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/sh-parrot.jpg",
       "note": "มีทั้งสูตรมูสลี่ธัญพืชรวมและสูตร Optimum Nutrition ขนาด 1 กก.",
@@ -511,7 +511,7 @@
     },
     {
       "name": "SmartHeart อาหารนกหงส์หยก (Budgies)",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/sh-budgie.jpg",
       "note": "ธัญพืชรวม บำรุงขนและสีสัน ขนาด 1 กก. — มีสูตรรวมฟอพัส คอกาเทล เลิฟเบิร์ด 800 ก. ด้วย",
@@ -522,7 +522,7 @@
     },
     {
       "name": "SmartHeart อาหารนกคอกาเทล & เลิฟเบิร์ด",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/sh-cockatiel.jpg",
       "note": "สูตรบำรุงขน เสริมวิตามินและแร่ธาตุ ขนาด 1 กก.",
@@ -533,7 +533,7 @@
     },
     {
       "name": "SmartHeart อาหารนกขุนทอง & นกเอี้ยง",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/sh-mynah.jpg",
       "note": "เม็ดอัด เสริมภูมิคุ้มกันและบำรุงขนให้เงางาม",
@@ -543,7 +543,7 @@
     },
     {
       "name": "APro I.Q. Formula อาหารนกเขา",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/apro-dove.jpg",
       "note": "สำหรับนกเขาชวาและนกเขาใหญ่ เสริมโอเมก้า 3",
@@ -553,7 +553,7 @@
     },
     {
       "name": "Versele-Laga Prestige Loro Parque",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/vl-prestige.jpg",
       "note": "สูตร African Parakeet Mix เมล็ดธัญพืชคุณภาพสูงจากเบลเยียม",
@@ -563,7 +563,7 @@
     },
     {
       "name": "Deli Nature Birdelicious (Serengeti / Down Under)",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/birdelicious.jpg",
       "note": "ธัญพืชพรีเมียมสำหรับนกปากขอขนาดกลาง–ใหญ่",
@@ -574,7 +574,7 @@
     },
     {
       "name": "Higgins inTune Duets ขนมนก",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/intune-duets.jpg",
       "note": "ขนมสอดไส้ มีสูตรถั่วลูกไก่-แครนเบอร์รี่ และถั่วลูกไก่-แอปเปิล",
@@ -585,7 +585,7 @@
     },
     {
       "name": "กระดองปลาหมึก (Cuttlebone)",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/cuttlebone.jpg",
       "note": "แหล่งแคลเซียมธรรมชาติ ช่วยลับจะงอยปากนกและเสริมกระดูก",
@@ -595,7 +595,7 @@
     },
     {
       "name": "BOK DOK Koi Food 1 กก.",
-      "category": "อาหารสัตว์พิเศษ (Exotic)",
+      "category": "อาหาร Exotic",
       "price": "",
       "image": "assets/img/products/koi-food.jpg",
       "note": "อาหารปลาคาร์ปเม็ดลอยน้ำ สำหรับปลาทุกช่วงวัย",
@@ -605,7 +605,7 @@
     },
     {
       "name": "JerHigh 2IN1 สติ๊กเนื้อไก่",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/jerhigh-2in1.jpg",
       "note": "เนื้อไก่แท้ เสริมแคลเซียมและบำรุงสายตา มีหลายรสให้เลือก",
@@ -617,7 +617,7 @@
     },
     {
       "name": "JerHigh Chicken Milky Stick",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/jerhigh-milky.jpg",
       "note": "สติ๊กเนื้อไก่ผสมนม เพิ่มพลังงาน แบบซิปล็อก",
@@ -627,7 +627,7 @@
     },
     {
       "name": "JOMO Treats ขนมปลาแท้",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/jomo-treats.jpg",
       "note": "ทำจากปลา 100% เสริมโอเมก้า 3-6 ไม่ใส่ธัญพืช ให้ได้ทั้งหมาและแมว",
@@ -637,7 +637,7 @@
     },
     {
       "name": "BOK DOK ไก่อบกรอบ (Crispy Jerky)",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/bokdok-crispy.jpg",
       "note": "เนื้อไก่อบแห้ง กรอบ ไม่ใส่สี ให้เป็นรางวัลหรือใช้ฝึกคำสั่ง",
@@ -647,7 +647,7 @@
     },
     {
       "name": "BOK DOK สันในไก่เส้นนิ่ม",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/bokdok-soft.jpg",
       "note": "เนื้อสันในไก่แท้ เนื้อนุ่ม เคี้ยวง่าย เหมาะกับสุนัขทุกวัย",
@@ -657,7 +657,7 @@
     },
     {
       "name": "BOK DOK ไก่พันปลาเส้น 5.5 นิ้ว 26 ชิ้น",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/bokdok-calcium.jpg",
       "note": "เนื้อไก่พันปลาเส้น (CK87X) สำหรับสุนัขอายุ 2 เดือนขึ้นไป",
@@ -667,7 +667,7 @@
     },
     {
       "name": "BOK DOK ไก่บดหุ้มครันชี่เล็ก 45 ชิ้น",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/bokdok-stick.jpg",
       "note": "ไก่บดหุ้มแท่งกรอบ (CK97X) เคี้ยวเพลิน ช่วยขัดฟันไปในตัว",
@@ -677,7 +677,7 @@
     },
     {
       "name": "BOK DOK แท่งขนมสุนัข ผสมน้ำมันทูน่า",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/bokdok-dental.jpg",
       "note": "น้ำมันทูน่า 100% มี DHA EPA และวิตามินอี บำรุงขน ผิวหนัง ข้อต่อ และหัวใจ",
@@ -687,7 +687,7 @@
     },
     {
       "name": "Me-O ขนมแมวเลีย (Creamy Treats)",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/meo-creamy.jpg",
       "note": "รสไก่ ตับ ทูน่า และแซลมอน ให้เป็นรางวัลหรือใช้ป้อนยา",
@@ -697,7 +697,7 @@
     },
     {
       "name": "Purina Friskies Party Mix Crunch",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/party-mix.jpg",
       "note": "ขนมแมวกรอบ รสทูน่าและปลาโอ ให้เป็นรางวัลระหว่างวัน",
@@ -707,7 +707,7 @@
     },
     {
       "name": "นมแพะอัดเม็ด (Goat Milk Tablet)",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/goat-milk.jpg",
       "note": "บำรุงร่างกาย ย่อยง่าย ให้ได้ทั้งสุนัข แมว และสัตว์ฟันแทะ",
@@ -717,7 +717,7 @@
     },
     {
       "name": "Oxbow Natural Science Papaya Support",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/papaya-support.jpg",
       "note": "เอนไซม์จากมะละกอ ช่วยระบบย่อยของกระต่าย หนูตะเภา และชินชิล่า",
@@ -727,7 +727,7 @@
     },
     {
       "name": "วิตามินและอาหารเสริมบำรุง",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "",
       "note": "บำรุงขน ข้อต่อ และภูมิคุ้มกัน มีทั้งชนิดเม็ดและชนิดน้ำ ปรึกษาสัตวแพทย์ก่อนใช้",
@@ -1155,7 +1155,7 @@
     },
     {
       "name": "Antinol Plus อาหารเสริมบำรุงข้อ (แมว)",
-      "category": "ขนม วิตามิน & อาหารเสริม",
+      "category": "ขนม & อาหารเสริม",
       "price": "",
       "image": "assets/img/products/antinol-plus-cat.jpg",
       "note": "สูตร EAB-277 ชนิดแคปซูลบีบป้อนง่าย กล่องละ 60 แคปซูล — ผลิตภัณฑ์จากสัตว์ทะเล เลี่ยงในแมวที่แพ้อาหารทะเล",
