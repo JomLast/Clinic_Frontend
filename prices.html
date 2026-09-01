@@ -269,12 +269,27 @@ var PRICES = [
      ให้ค่าที่ใช้ไม่ได้ทั้งหมดเวลาถูกตรึง  ต้องเกาะหัวข้อหมวดในรายการ
      ที่ไม่ได้ปักหมุด และมี scroll-margin-top ตั้งเผื่อไว้ใน CSS แล้ว */
   function backToTopOfList(){
-    // เรียงตามราคาไม่มีหัวข้อหมวด ใช้ตัวรายการแทน
     var g = list && (list.querySelector('.pr-group') || list.querySelector('.pr-list'));
     if(!g || !bar) return;
-    if(g.getBoundingClientRect().top < bar.getBoundingClientRect().bottom){
-      g.scrollIntoView({ block:'start' });
+    // ยังอยู่เหนือหัวรายการก็ไม่ต้องลากลงไป
+    if(g.getBoundingClientRect().top >= bar.getBoundingClientRect().bottom) return;
+
+    /* วัดระยะเผื่อเองทุกครั้ง ไม่พึ่ง scroll-margin-top ใน CSS
+       เพราะแถบสูงไม่เท่าเดิม บรรทัด "แสดง n จาก N รายการ" โผล่ตอนกรอง
+       และหายตอนกดทั้งหมด ความสูงต่างกัน 26px  ถ้าเลื่อนรอบเดียวจะได้
+       ระยะจากความสูงที่กำลังจะเปลี่ยน แล้วหัวข้อมุดไปอยู่ใต้แถบ */
+    function go(){
+      var hdr = document.querySelector('header');
+      var pad = (hdr ? hdr.getBoundingClientRect().height : 0) +
+                bar.getBoundingClientRect().height + 14;
+      // ตำแหน่งในหน้า ไม่ใช่ตำแหน่งบนจอ — ค่านี้นิ่งแม้กำลังเลื่อนอยู่
+      var top = g.getBoundingClientRect().top + window.pageYOffset;
+      /* instant ไม่ใช่ smooth — ระยะกระโดดยาวเป็นหมื่นพิกเซลได้ ถ้าค่อย ๆ
+         ไถลไปจะนานจนคนนึกว่าปุ่มค้าง กรองแล้วควรเห็นผลทันที */
+      window.scrollTo({ top: Math.max(0, Math.round(top - pad)), behavior: 'instant' });
     }
+    go();
+    requestAnimationFrame(function(){ requestAnimationFrame(go); });   // วัดซ้ำเมื่อผังนิ่ง
   }
 
   function buildChips(){
