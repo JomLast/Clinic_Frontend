@@ -261,6 +261,22 @@ var PRICES = [
     measure();
   }
 
+  /* กดหมวดใหม่แล้วต้องได้เริ่มอ่านจากหัวรายการ ไม่ใช่ค้างกลางท้องเรื่อง
+     ของหมวดเดิม  ตัวเดียวกับที่หน้าเพ็ทช็อปใช้ ดูคำอธิบายเต็มที่ shop.html
+
+     ห้ามเกาะแถบเครื่องมือเป็นจุดอ้างอิง เพราะมันเป็น position:sticky
+     ซึ่งทั้ง getBoundingClientRect().top, scrollIntoView() และ offsetTop
+     ให้ค่าที่ใช้ไม่ได้ทั้งหมดเวลาถูกตรึง  ต้องเกาะหัวข้อหมวดในรายการ
+     ที่ไม่ได้ปักหมุด และมี scroll-margin-top ตั้งเผื่อไว้ใน CSS แล้ว */
+  function backToTopOfList(){
+    // เรียงตามราคาไม่มีหัวข้อหมวด ใช้ตัวรายการแทน
+    var g = list && (list.querySelector('.pr-group') || list.querySelector('.pr-list'));
+    if(!g || !bar) return;
+    if(g.getBoundingClientRect().top < bar.getBoundingClientRect().bottom){
+      g.scrollIntoView({ block:'start' });
+    }
+  }
+
   function buildChips(){
     var html = '<button type="button" class="chip is-on" data-c="all">ทั้งหมด <span>' + PRICES.length + '</span></button>';
     CATS.forEach(function(c){
@@ -273,6 +289,7 @@ var PRICES = [
       cat = b.getAttribute('data-c');
       chips.querySelectorAll('.chip').forEach(function(x){ x.classList.toggle('is-on', x === b); });
       render();
+      backToTopOfList();
     });
   }
 
@@ -296,6 +313,7 @@ var PRICES = [
       sort = b.getAttribute('data-sort');
       document.querySelectorAll('.pr-sort button').forEach(function(x){ x.classList.toggle('is-on', x === b); });
       render();
+      backToTopOfList();
     });
   });
 

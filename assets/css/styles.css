@@ -528,6 +528,9 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .pr-sort button.is-on{ background:var(--cream); color:var(--red); }
 
 .pr-group{ margin:0 0 28px; scroll-margin-top:calc(var(--hdr,84px) + var(--bar,150px) + 14px); }
+/* เรียงตามราคาไม่มีหัวข้อหมวดให้เกาะ ต้องเผื่อที่ให้ตัวรายการเท่ากัน
+   ไม่งั้นแถวแรกจะมุดอยู่ใต้แถบเครื่องมือตอนกดสลับการเรียง */
+.pr-list{ scroll-margin-top:calc(var(--hdr,84px) + var(--bar,150px) + 14px); }
 .pr-group-title{ display:flex; align-items:center; gap:9px; font-size:1.08rem; font-weight:700; margin:0 0 11px; }
 .pr-group-title svg.ico{ color:var(--red); width:21px; height:21px; }
 .pr-group-title .n{ font-size:.78rem; font-weight:600; color:var(--grey-text); }
