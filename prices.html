@@ -107,10 +107,6 @@
         <button type="button" id="prClear" aria-label="ล้างคำค้น" hidden>&times;</button>
       </div>
       <div class="prod-chips" id="prChips" role="group" aria-label="กรองตามหมวดบริการ"></div>
-      <div class="pr-sort" role="group" aria-label="เลือกวิธีเรียง">
-        <button type="button" data-sort="cat" class="is-on"><i data-lucide="layers" class="ico"></i> เรียงตามหมวด</button>
-        <button type="button" data-sort="price"><i data-lucide="arrow-down-narrow-wide" class="ico"></i> ถูก → แพง</button>
-      </div>
     </div>
 
     <!-- ตารางด้านล่างสร้างด้วย tools/make-prices.js จากตัวแปร PRICES ท้ายไฟล์
@@ -118,10 +114,7 @@
          สคริปต์จะเขียนทับทันทีที่กดกรองหรือสลับการเรียง
          แก้ราคาที่ PRICES แล้วรัน node tools/make-prices.js ซ้ำ -->
     <div id="prList"><!-- prices:begin -->
-<div class="pr-group"><h2 class="pr-group-title"><i data-lucide="search" class="ico"></i> ตรวจ &amp; วินิจฉัย <span class="n">7 รายการ</span></h2><div class="pr-list"><a class="pr-row" href="service-checkup.html"><span class="pr-name"><b>ตรวจสุขภาพ (ตรวจร่างกาย)</b><small>ตรวจร่างกาย ฟังหัวใจ-ปอด ดูฟัน ตา หู ผิวหนัง</small></span><span class="pr-val"><i>เริ่มต้น</i>100 ฿</span></a><a class="pr-row" href="service-lab.html"><span class="pr-name"><b>ตรวจเลือดเบื้องต้น</b></span><span class="pr-val"><i>เริ่มต้น</i>350 ฿</span></a><a class="pr-row" href="service-lab.html"><span class="pr-name"><b>เอกซเรย์ (X-ray)</b><small>ราคาเพิ่มตามจำนวนท่าที่ถ่าย</small></span><span class="pr-val"><i>เริ่มต้น</i>500 ฿</span></a><a class="pr-row" href="service-lab.html"><span class="pr-name"><b>อัลตราซาวด์</b></span><span class="pr-val">500 ฿</span></a><a class="pr-row" href="service-lab.html"><span class="pr-name"><b>กล้องส่องตรวจ (Endoscope)</b><small>ส่องทางเดินอาหารและทางเดินหายใจ ไม่ต้องผ่าตัดใหญ่</small></span><span class="pr-val">500 ฿</span></a><a class="pr-row" href="service-lab.html"><span class="pr-name"><b>ตรวจปัสสาวะ / อุจจาระ</b></span><span class="pr-val ask">สอบถามราคา</span></a><a class="pr-row" href="service-special.html"><span class="pr-name"><b>ตรวจโรคเฉพาะทาง</b><small>ตรวจตามรายการและอาการ</small></span><span class="pr-val ask">สอบถามราคา</span></a></div></div>
-<div class="pr-group"><h2 class="pr-group-title"><i data-lucide="heart-pulse" class="ico"></i> ป้องกัน &amp; รักษา <span class="n">6 รายการ</span></h2><div class="pr-list"><a class="pr-row" href="service-checkup.html"><span class="pr-name"><b>ถ่ายพยาธิ</b></span><span class="pr-val">60 ฿</span></a><a class="pr-row" href="vaccine.html"><span class="pr-name"><b>วัคซีนพิษสุนัขบ้า</b><small>ราคาเท่ากันทั้งสุนัขและแมว</small></span><span class="pr-val">100 ฿</span></a><a class="pr-row" href="vaccine.html"><span class="pr-name"><b>วัคซีนรวม</b><small>ราคาเท่ากันทั้งสุนัขและแมว</small></span><span class="pr-val">300 ฿</span></a><a class="pr-row" href="service-dental.html"><span class="pr-name"><b>ตัดฟันกระต่าย / สัตว์ฟันแทะ</b><small>ฟันหน้า ไม่ต้องวางยาสลบ</small></span><span class="pr-val">350 ฿</span></a><a class="pr-row" href="service-dental.html"><span class="pr-name"><b>ดมยาสลบ + ตัดฟัน (กรอฟันกราม)</b><small>ฟันกราม ต้องวางยาสลบ</small></span><span class="pr-val"><i>เริ่มต้น</i>1,000 ฿</span></a><a class="pr-row" href="service-dental.html"><span class="pr-name"><b>ขูดหินปูน</b><small>ต้องวางยาสลบ ประเมินก่อนทุกเคส</small></span><span class="pr-val ask">สอบถามราคา</span></a></div></div>
-<div class="pr-group"><h2 class="pr-group-title"><i data-lucide="scissors" class="ico"></i> ผ่าตัด &amp; ทำหมัน <span class="n">4 รายการ</span></h2><div class="pr-list"><a class="pr-row" href="service-surgery.html"><span class="pr-name"><b>ทำหมันกระต่ายเพศผู้</b><small>รวมยาสลบและยากลับบ้าน</small></span><span class="pr-val"><i>เริ่มต้น</i>1,800–4,500+ ฿</span></a><a class="pr-row" href="service-surgery.html"><span class="pr-name"><b>ทำหมันกระต่ายเพศเมีย</b><small>รวมยาสลบและยากลับบ้าน</small></span><span class="pr-val"><i>เริ่มต้น</i>2,500–5,000+ ฿</span></a><a class="pr-row" href="service-surgery.html"><span class="pr-name"><b>ทำหมันสุนัข / แมว</b><small>ขึ้นกับเพศและขนาดตัว</small></span><span class="pr-val ask">สอบถามราคา</span></a><a class="pr-row" href="service-surgery.html"><span class="pr-name"><b>ผ่าตัดอื่น ๆ</b><small>ประเมินรายเคส แจ้งราคาก่อนผ่าตัดเสมอ</small></span><span class="pr-val ask">สอบถามราคา</span></a></div></div>
-<div class="pr-group"><h2 class="pr-group-title"><i data-lucide="sparkles" class="ico"></i> ดูแล &amp; บริการเสริม <span class="n">4 รายการ</span></h2><div class="pr-list"><a class="pr-row" href="service-boarding.html"><span class="pr-name"><b>ฝากเลี้ยงกลางวัน (ไม่ค้างคืน)</b></span><span class="pr-val">100 ฿</span></a><a class="pr-row" href="service-grooming.html"><span class="pr-name"><b>อาบน้ำ</b><small>ตัดเล็บ เช็ดหู รวมอยู่แล้ว</small></span><span class="pr-val"><i>เริ่มต้น</i>200 ฿</span></a><a class="pr-row" href="service-boarding.html"><span class="pr-name"><b>ฝากเลี้ยงค้างคืน (ต่อคืน)</b></span><span class="pr-val">350 ฿</span></a><a class="pr-row" href="service-grooming.html"><span class="pr-name"><b>อาบน้ำ + ตัดแต่งขน</b><small>ขึ้นกับขนาดตัวและสภาพขน</small></span><span class="pr-val"><i>เริ่มต้น</i>400 ฿</span></a></div></div>
+<div class="pr-list"><a class="pr-row" href="service-checkup.html"><span class="pr-name"><b>ถ่ายพยาธิ</b><span class="pr-tag">ป้องกัน &amp; รักษา</span></span><span class="pr-val">60 ฿</span></a><a class="pr-row" href="service-checkup.html"><span class="pr-name"><b>ตรวจสุขภาพ (ตรวจร่างกาย)</b><small>ตรวจร่างกาย ฟังหัวใจ-ปอด ดูฟัน ตา หู ผิวหนัง</small><span class="pr-tag">ตรวจ &amp; วินิจฉัย</span></span><span class="pr-val"><i>เริ่มต้น</i>100 ฿</span></a><a class="pr-row" href="service-boarding.html"><span class="pr-name"><b>ฝากเลี้ยงกลางวัน (ไม่ค้างคืน)</b><span class="pr-tag">ดูแล &amp; บริการเสริม</span></span><span class="pr-val">100 ฿</span></a><a class="pr-row" href="vaccine.html"><span class="pr-name"><b>วัคซีนพิษสุนัขบ้า</b><small>ราคาเท่ากันทั้งสุนัขและแมว</small><span class="pr-tag">ป้องกัน &amp; รักษา</span></span><span class="pr-val">100 ฿</span></a><a class="pr-row" href="service-grooming.html"><span class="pr-name"><b>อาบน้ำ</b><small>ตัดเล็บ เช็ดหู รวมอยู่แล้ว</small><span class="pr-tag">ดูแล &amp; บริการเสริม</span></span><span class="pr-val"><i>เริ่มต้น</i>200 ฿</span></a><a class="pr-row" href="vaccine.html"><span class="pr-name"><b>วัคซีนรวม</b><small>ราคาเท่ากันทั้งสุนัขและแมว</small><span class="pr-tag">ป้องกัน &amp; รักษา</span></span><span class="pr-val">300 ฿</span></a><a class="pr-row" href="service-lab.html"><span class="pr-name"><b>ตรวจเลือดเบื้องต้น</b><span class="pr-tag">ตรวจ &amp; วินิจฉัย</span></span><span class="pr-val"><i>เริ่มต้น</i>350 ฿</span></a><a class="pr-row" href="service-boarding.html"><span class="pr-name"><b>ฝากเลี้ยงค้างคืน (ต่อคืน)</b><span class="pr-tag">ดูแล &amp; บริการเสริม</span></span><span class="pr-val">350 ฿</span></a><a class="pr-row" href="service-dental.html"><span class="pr-name"><b>ตัดฟันกระต่าย / สัตว์ฟันแทะ</b><small>ฟันหน้า ไม่ต้องวางยาสลบ</small><span class="pr-tag">ป้องกัน &amp; รักษา</span></span><span class="pr-val">350 ฿</span></a><a class="pr-row" href="service-grooming.html"><span class="pr-name"><b>อาบน้ำ + ตัดแต่งขน</b><small>ขึ้นกับขนาดตัวและสภาพขน</small><span class="pr-tag">ดูแล &amp; บริการเสริม</span></span><span class="pr-val"><i>เริ่มต้น</i>400 ฿</span></a><a class="pr-row" href="service-lab.html"><span class="pr-name"><b>เอกซเรย์ (X-ray)</b><small>ราคาเพิ่มตามจำนวนท่าที่ถ่าย</small><span class="pr-tag">ตรวจ &amp; วินิจฉัย</span></span><span class="pr-val"><i>เริ่มต้น</i>500 ฿</span></a><a class="pr-row" href="service-lab.html"><span class="pr-name"><b>อัลตราซาวด์</b><span class="pr-tag">ตรวจ &amp; วินิจฉัย</span></span><span class="pr-val">500 ฿</span></a><a class="pr-row" href="service-lab.html"><span class="pr-name"><b>กล้องส่องตรวจ (Endoscope)</b><small>ส่องทางเดินอาหารและทางเดินหายใจ ไม่ต้องผ่าตัดใหญ่</small><span class="pr-tag">ตรวจ &amp; วินิจฉัย</span></span><span class="pr-val">500 ฿</span></a><a class="pr-row" href="service-dental.html"><span class="pr-name"><b>ดมยาสลบ + ตัดฟัน (กรอฟันกราม)</b><small>ฟันกราม ต้องวางยาสลบ</small><span class="pr-tag">ป้องกัน &amp; รักษา</span></span><span class="pr-val"><i>เริ่มต้น</i>1,000 ฿</span></a><a class="pr-row" href="service-surgery.html"><span class="pr-name"><b>ทำหมันกระต่ายเพศผู้</b><small>รวมยาสลบและยากลับบ้าน</small><span class="pr-tag">ผ่าตัด &amp; ทำหมัน</span></span><span class="pr-val"><i>เริ่มต้น</i>1,800–4,500+ ฿</span></a><a class="pr-row" href="service-surgery.html"><span class="pr-name"><b>ทำหมันกระต่ายเพศเมีย</b><small>รวมยาสลบและยากลับบ้าน</small><span class="pr-tag">ผ่าตัด &amp; ทำหมัน</span></span><span class="pr-val"><i>เริ่มต้น</i>2,500–5,000+ ฿</span></a><a class="pr-row" href="service-dental.html"><span class="pr-name"><b>ขูดหินปูน</b><small>ต้องวางยาสลบ ประเมินก่อนทุกเคส</small><span class="pr-tag">ป้องกัน &amp; รักษา</span></span><span class="pr-val ask">สอบถามราคา</span></a><a class="pr-row" href="service-surgery.html"><span class="pr-name"><b>ทำหมันสุนัข / แมว</b><small>ขึ้นกับเพศและขนาดตัว</small><span class="pr-tag">ผ่าตัด &amp; ทำหมัน</span></span><span class="pr-val ask">สอบถามราคา</span></a><a class="pr-row" href="service-surgery.html"><span class="pr-name"><b>ผ่าตัดอื่น ๆ</b><small>ประเมินรายเคส แจ้งราคาก่อนผ่าตัดเสมอ</small><span class="pr-tag">ผ่าตัด &amp; ทำหมัน</span></span><span class="pr-val ask">สอบถามราคา</span></a><a class="pr-row" href="service-lab.html"><span class="pr-name"><b>ตรวจปัสสาวะ / อุจจาระ</b><span class="pr-tag">ตรวจ &amp; วินิจฉัย</span></span><span class="pr-val ask">สอบถามราคา</span></a><a class="pr-row" href="service-special.html"><span class="pr-name"><b>ตรวจโรคเฉพาะทาง</b><small>ตรวจตามรายการและอาการ</small><span class="pr-tag">ตรวจ &amp; วินิจฉัย</span></span><span class="pr-val ask">สอบถามราคา</span></a></div>
 <!-- prices:end --></div>
     <p id="prNone" style="display:none;text-align:center;color:var(--grey-text);padding:30px 0">ไม่พบบริการที่ตรงกับคำค้น — ทัก LINE ถามได้เลย เผื่อเป็นบริการที่ยังไม่ได้ลงในหน้านี้</p>
 
@@ -202,7 +195,6 @@ var PRICES = [
   var q     = document.getElementById('prQ');
   var clr   = document.getElementById('prClear');
   var cat   = 'all';
-  var sort  = 'cat';
 
   function catOf(id){ for(var i=0;i<CATS.length;i++){ if(CATS[i].id===id) return CATS[i]; } return null; }
   function baht(n){ return n.toLocaleString('en-US'); }
@@ -231,30 +223,26 @@ var PRICES = [
     return (p.n + ' ' + (p.note || '')).toLowerCase().indexOf(s) > -1;
   }
 
+  /* เรียงตามราคาเสมอ ถูกไปแพง
+     ------------------------------------------------------------------
+     เดิมมีปุ่มให้สลับระหว่างเรียงตามหมวดกับเรียงตามราคา ซึ่งเป็นทางเลือก
+     ที่ไม่มีใครต้องการจริง คนเปิดหน้าราคามาเพื่อดูว่าอะไรเท่าไหร่
+     แทบทุกคนอยากเห็นของถูกก่อน ส่วนใครหาหมวดใดหมวดหนึ่งก็มีปุ่มกรอง
+     หมวดอยู่แล้ว  ปุ่มสลับจึงกินที่บนแถบไปเปล่า ๆ หนึ่งบรรทัดเต็ม
+     ชื่อหมวดยังติดไปกับแต่ละแถวอยู่ จึงไม่ได้เสียข้อมูลอะไรไป */
   function render(){
     var rows = PRICES.filter(match);
     none.style.display = rows.length ? 'none' : 'block';
-    var html = '';
 
-    if(sort === 'price'){
-      /* สอบถามราคาไม่มีตัวเลข จึงไปต่อท้ายเสมอ */
-      var sorted = rows.slice().sort(function(a,b){
-        if(a.ask && b.ask) return 0;
-        if(a.ask) return 1;
-        if(b.ask) return -1;
-        return a.from - b.from;
-      });
-      html = '<div class="pr-list">' + sorted.map(function(p){ return rowHTML(p, true); }).join('') + '</div>';
-    } else {
-      CATS.forEach(function(c){
-        var inCat = rows.filter(function(p){ return p.cat === c.id; });
-        if(!inCat.length) return;
-        html += '<div class="pr-group"><h2 class="pr-group-title">' +
-                  '<i data-lucide="' + c.icon + '" class="ico"></i> ' + c.label +
-                  ' <span class="n">' + inCat.length + ' รายการ</span></h2>' +
-                '<div class="pr-list">' + inCat.map(function(p){ return rowHTML(p, false); }).join('') + '</div></div>';
-      });
-    }
+    /* สอบถามราคาไม่มีตัวเลข จึงไปต่อท้ายเสมอ */
+    var sorted = rows.slice().sort(function(a,b){
+      if(a.ask && b.ask) return 0;
+      if(a.ask) return 1;
+      if(b.ask) return -1;
+      return a.from - b.from;
+    });
+    var html = '<div class="pr-list">' +
+               sorted.map(function(p){ return rowHTML(p, true); }).join('') + '</div>';
 
     list.innerHTML = html;
     if(window.lucide) lucide.createIcons();
@@ -266,10 +254,9 @@ var PRICES = [
 
      ห้ามเกาะแถบเครื่องมือเป็นจุดอ้างอิง เพราะมันเป็น position:sticky
      ซึ่งทั้ง getBoundingClientRect().top, scrollIntoView() และ offsetTop
-     ให้ค่าที่ใช้ไม่ได้ทั้งหมดเวลาถูกตรึง  ต้องเกาะหัวข้อหมวดในรายการ
-     ที่ไม่ได้ปักหมุด และมี scroll-margin-top ตั้งเผื่อไว้ใน CSS แล้ว */
+     ให้ค่าที่ใช้ไม่ได้ทั้งหมดเวลาถูกตรึง  ต้องเกาะตัวรายการที่ไม่ได้ปักหมุด */
   function backToTopOfList(){
-    var g = list && (list.querySelector('.pr-group') || list.querySelector('.pr-list'));
+    var g = list && list.querySelector('.pr-list');
     if(!g || !bar) return;
     // ยังอยู่เหนือหัวรายการก็ไม่ต้องลากลงไป
     if(g.getBoundingClientRect().top >= bar.getBoundingClientRect().bottom) return;
@@ -322,15 +309,6 @@ var PRICES = [
     render();
   });
   clr.addEventListener('click', function(){ q.value = ''; clr.hidden = true; render(); q.focus(); });
-
-  document.querySelectorAll('.pr-sort button').forEach(function(b){
-    b.addEventListener('click', function(){
-      sort = b.getAttribute('data-sort');
-      document.querySelectorAll('.pr-sort button').forEach(function(x){ x.classList.toggle('is-on', x === b); });
-      render();
-      backToTopOfList();
-    });
-  });
 
   buildChips();
   render();

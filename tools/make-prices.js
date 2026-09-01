@@ -9,11 +9,17 @@
  * ซึ่งเป็นคำที่เราอยากให้คนค้นเจอที่สุดในหน้านี้
  *
  * สคริปต์นี้อ่านตัวแปร CATS/PRICES จากในหน้านั้นเอง (แหล่งข้อมูลเดียว
- * ไม่ต้องมาไล่แก้สองที่) แล้วเขียนตารางแบบเรียงตามหมวดลงไประหว่าง
+ * ไม่ต้องมาไล่แก้สองที่) แล้วเขียนตารางลงไประหว่าง
  * <!-- prices:begin --> กับ <!-- prices:end -->
  *
- * เวลาเปิดหน้าจริง JavaScript จะเขียนทับตารางนี้ทันทีที่ผู้ใช้กดกรอง
- * หรือสลับการเรียง — ของที่ฝังไว้จึงมีไว้ให้ Google และคนที่ปิด JS เห็น
+ * เรียงตามราคาถูกไปแพง ต้องตรงกับที่ render() ในหน้าวาดเป๊ะ ๆ ไม่งั้นพอ
+ * เปิดหน้ามา ตารางจะกระตุกเปลี่ยนรูปทันทีที่ JavaScript ทำงาน และ Google
+ * จะเห็นหน้าคนละแบบกับที่คนเห็น
+ *
+ * ชื่อหมวดติดไปกับแต่ละแถวแทนการทำเป็นหัวข้อ คำว่า "ผ่าตัด & ทำหมัน"
+ * จึงยังอยู่ในหน้าให้ค้นเจอเหมือนเดิม
+ *
+ * ของที่ฝังไว้มีไว้ให้ Google และคนที่ปิด JS เห็น
  *
  * แก้ราคาที่ตัวแปร PRICES ใน prices.html แล้วรันสคริปต์นี้ซ้ำทุกครั้ง
  */
@@ -48,30 +54,30 @@ function val(p) {
 }
 
 function row(p) {
+  // ไม่มีหัวข้อหมวดแล้ว ชื่อหมวดจึงต้องติดไปกับแถว ไม่งั้นอ่านไม่ออกว่าอะไรอยู่หมวดไหน
+  const c = CATS.find((x) => x.id === p.cat);
+  const tag = c ? '<span class="pr-tag">' + esc(c.label) + "</span>" : "";
   return (
     '<a class="pr-row" href="' + p.page + '">' +
     '<span class="pr-name"><b>' + esc(p.n) + "</b>" +
-    (p.note ? "<small>" + esc(p.note) + "</small>" : "") +
+    (p.note ? "<small>" + esc(p.note) + "</small>" : "") + tag +
     "</span>" + val(p) + "</a>"
   );
 }
 
-let out = "";
-let n = 0;
-for (const c of CATS) {
-  const inCat = PRICES.filter((p) => p.cat === c.id);
-  if (!inCat.length) continue;
-  n += inCat.length;
-  out +=
-    '\n<div class="pr-group"><h2 class="pr-group-title">' +
-    '<i data-lucide="' + c.icon + '" class="ico"></i> ' + esc(c.label) +
-    ' <span class="n">' + inCat.length + " รายการ</span></h2>" +
-    '<div class="pr-list">' + inCat.map(row).join("") + "</div></div>";
-}
+/* สอบถามราคาไม่มีตัวเลข จึงไปต่อท้ายเสมอ — ต้องตรงกับ render() ในหน้า */
+const sorted = PRICES.slice().sort((a, b) => {
+  if (a.ask && b.ask) return 0;
+  if (a.ask) return 1;
+  if (b.ask) return -1;
+  return a.from - b.from;
+});
+const n = sorted.length;
+const out = '\n<div class="pr-list">' + sorted.map(row).join("") + "</div>";
 
 const block = BEGIN + out + "\n" + END;
 const re = new RegExp(BEGIN.replace(/[-[\]{}()*+?.,\\^$|#]/g, "\\$&") + "[\\s\\S]*?" + END);
 if (!re.test(html)) throw new Error("ไม่เจอ marker prices:begin/end ใน prices.html");
 
 fs.writeFileSync(FILE, html.replace(re, block), "utf8");
-console.log("prices: " + n + " รายการ / " + CATS.length + " หมวด | " + block.length + " bytes");
+console.log("prices: " + n + " รายการ (เรียงตามราคา) | " + block.length + " bytes");

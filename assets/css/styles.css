@@ -520,17 +520,6 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 /* แถบเครื่องมือ — ใช้โครงเดียวกับหน้าเพ็ทช็อป ปักหมุดใต้หัวเว็บ */
 .pr-toolbar{ position:sticky; top:var(--hdr-now,var(--hdr,84px)); z-index:60; margin:0 0 26px; padding:12px 14px 9px;
   background:var(--surface); border:1px solid var(--grey-line); border-radius:18px; box-shadow:0 6px 16px rgba(26,26,26,.07); }
-.pr-sort{ display:flex; gap:6px; justify-content:center; margin-top:9px; }
-.pr-sort button{ display:inline-flex; align-items:center; gap:6px; font-family:inherit; font-size:.83rem; font-weight:600;
-  color:var(--grey-text); background:transparent; border:0; border-radius:999px; padding:6px 13px; cursor:pointer; transition:.16s; }
-.pr-sort button svg.ico{ width:16px; height:16px; }
-.pr-sort button:hover{ color:var(--red); }
-.pr-sort button.is-on{ background:var(--cream); color:var(--red); }
-
-.pr-group{ margin:0 0 28px; scroll-margin-top:calc(var(--hdr,84px) + var(--bar,150px) + 14px); }
-.pr-group-title{ display:flex; align-items:center; gap:9px; font-size:1.08rem; font-weight:700; margin:0 0 11px; }
-.pr-group-title svg.ico{ color:var(--red); width:21px; height:21px; }
-.pr-group-title .n{ font-size:.78rem; font-weight:600; color:var(--grey-text); }
 
 .pr-list{ background:var(--surface); border:1px solid var(--grey-line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
 .pr-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:15px 20px;
