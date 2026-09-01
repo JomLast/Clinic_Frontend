@@ -338,17 +338,20 @@
 
   function norm(s){ return String(s == null ? "" : s).toLowerCase(); }
 
-  /* ปุ่มหมวด — สร้างจากข้อมูลจริง เลขในปุ่มจะได้ตรงกับจำนวนสินค้าเสมอ */
+  /* ปุ่มหมวด — สร้างจากข้อมูลจริง หมวดที่ไม่มีของจะไม่โผล่มาให้กดแล้วเจอหน้าว่าง
+     ไม่ใส่จำนวนไว้ในปุ่ม เพราะไม่มีใครตัดสินใจกดจากตัวเลข แต่มันกินความกว้าง
+     ไปเกือบ 150 px ทำให้แถบปุ่มยาวจนต้องเลื่อน แล้วดูเป็นกำแพงเต็มบรรทัด
+     จำนวนของแต่ละหมวดเห็นได้จากตะแกรงข้างล่างอยู่แล้ว */
   function buildChips(){
     if(!chips) return;
     var order = [].map.call(document.querySelectorAll('.cat-card'), function(c){ return c.getAttribute('data-cat'); });
     ALL.forEach(function(p){ if(order.indexOf(p.category) === -1) order.push(p.category); });
 
-    var html = '<button type="button" class="chip is-on" data-cat="">ทั้งหมด <span>' + ALL.length + '</span></button>';
+    var html = '<button type="button" class="chip is-on" data-cat="">ทั้งหมด</button>';
     order.forEach(function(cat){
       var n = ALL.filter(function(p){ return p.category === cat; }).length;
       if(!n) return;
-      html += '<button type="button" class="chip" data-cat="' + esc(cat) + '">' + esc(cat) + ' <span>' + n + '</span></button>';
+      html += '<button type="button" class="chip" data-cat="' + esc(cat) + '">' + esc(cat) + '</button>';
     });
     chips.innerHTML = html;
 

@@ -364,10 +364,6 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .chip.is-on{ background:var(--red); border-color:var(--red); color:#fff; }
 .chip.is-on span{ color:rgba(255,255,255,.8); }
 
-/* แถวลิงก์ชนิดสัตว์ในหน้าแรก — ยืมหน้าตาของ .chip ที่มีอยู่แล้วมาใช้
-   ไม่ต้องปิดขีดเส้นใต้ซ้ำ เพราะ a{text-decoration:none} ข้างบนคุมไว้แล้ว */
-.animal-chips{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
-
 /* ช่องค้นหาสินค้าในหน้า — สินค้ามีเป็นร้อยรายการ พิมพ์หาเร็วกว่าเลื่อน */
 .prod-filter{ position:relative; display:flex; align-items:center; max-width:560px; margin:0 auto 10px; }
 .prod-filter svg.ico{ position:absolute; left:16px; width:19px; height:19px; color:var(--grey-text); pointer-events:none; }
