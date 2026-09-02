@@ -6,6 +6,15 @@
   /* แบรนด์: แดง / ดำอุ่น / ครีม (โทนอุ่นอิง Anthropic warm-cream) */
   --red:        #E8334B;
   --red-dark:   #c91f37;
+  /* แดงแบรนด์มีสามตัว ใช้คนละหน้าที่ ห้ามสลับกัน
+       --red         พื้นที่ใหญ่ ๆ หัวข้อตัวโต ของประดับ
+       --red-text    ตัวหนังสือเล็กบนพื้นสว่าง  (#E8334B บนครีมเหลือ 3.9
+                     ซึ่งต่ำกว่าเกณฑ์อ่านออก ตัวนี้ได้ 5.2)
+       --red-on-dark ตัวหนังสือบนพื้นเข้ม อย่างในฟุตเตอร์กับแถบบน
+                     (#E8334B บนดำเหลือ 4.1 ตัวนี้ได้ 7.0)
+     พื้นปุ่มที่มีตัวหนังสือขาวทับ ใช้ --red-dark  ขาวบน --red เหลือ 4.19 */
+  --red-text:   #C91F37;
+  --red-on-dark:#FF6B7D;
   --ink:        #1C1A17;   /* ดำอุ่น (ไม่ดำสนิท) */
   --ink-soft:   #3A352F;
   --black:      #1C1A17;   /* alias เดิม → map เป็นดำอุ่น ทั้งเว็บอุ่นขึ้นทันที */
@@ -31,21 +40,25 @@ img{ max-width:100%; display:block; }
 .container{ width:92%; max-width:var(--container); margin:0 auto; }
 section{ padding:84px 0; }
 
-.eyebrow{ display:inline-block; color:var(--red); font-weight:600; letter-spacing:2px; text-transform:uppercase; font-size:.85rem; margin-bottom:12px; }
+.eyebrow{ display:inline-block; color:var(--red-text); font-weight:600; letter-spacing:2px; text-transform:uppercase; font-size:.85rem; margin-bottom:12px; }
 h2.title{ font-size:clamp(1.8rem,4vw,2.5rem); font-weight:700; line-height:1.25; margin-bottom:16px; }
 .section-head{ text-align:center; max-width:660px; margin:0 auto 54px; }
 .section-head p{ color:var(--grey-text); }
 
 .btn{ display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:1rem; padding:14px 30px; border-radius:50px; cursor:pointer; border:2px solid transparent; transition:.25s ease; }
-.btn-red{ background:var(--red); color:var(--white); }
-.btn-red:hover{ background:var(--red-dark); transform:translateY(-2px); box-shadow:0 10px 24px rgba(232,51,75,.35); }
+.btn-red{ background:var(--red-dark); color:var(--white); }
+.btn-red:hover{ background:#AF1730; transform:translateY(-2px); box-shadow:0 10px 24px rgba(232,51,75,.35); }
 .btn-outline{ background:transparent; color:var(--black); border-color:var(--black); }
 .btn-outline:hover{ background:var(--black); color:var(--white); transform:translateY(-2px); }
-.btn-white{ background:#fff; color:var(--red); }
+.btn-white{ background:#fff; color:var(--red-text); }
 .btn-white:hover{ background:var(--black); color:#fff; transform:translateY(-2px); }
 
 /* ===== TOP BAR ===== */
 .topbar{ background:var(--black); color:#fff; font-size:.85rem; }
+/* พื้นเข้มต้องใช้แดงตัวสว่าง ไม่งั้นตัวหนังสือแดงบนดำจะจมจนอ่านไม่ออก
+   ครอบไว้ที่ตัวแม่ทีเดียว ของข้างในทุกชิ้นจึงถูกทั้งหมดโดยไม่ต้องไล่แก้ */
+.topbar [style*="--red"], .topbar .eyebrow, .topbar a[href^="tel"],
+footer .eyebrow, footer a:hover, .info .eyebrow, .info .time, .info span[style*="red"]{ color:var(--red-on-dark); }
 .topbar .container{ display:flex; justify-content:space-between; align-items:center; height:38px; }
 .topbar .left{ display:flex; gap:20px; opacity:.85; }
 .topbar .left a, .topbar .left span{ display:inline-flex; align-items:center; gap:6px; color:inherit; }
@@ -74,7 +87,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .nav-item > a{ display:flex; align-items:center; gap:5px; font-weight:500; font-size:.95rem; padding:12px 14px; border-radius:10px; transition:.2s; white-space:nowrap; }
 .nav-item > a:hover{ color:var(--red); background:var(--grey-bg); }
 .nav-item.has-drop > a::after{ content:"▾"; font-size:.75rem; opacity:.6; }
-.nav-item .active-link{ color:var(--red); }
+.nav-item .active-link{ color:var(--red-text); }
 .nav-item .active-link::before{ content:""; position:absolute; left:14px; right:14px; bottom:6px; height:2px; background:var(--red); }
 
 .dropdown{ position:absolute; top:calc(100% + 6px); left:0; min-width:230px; background:#fff; border:1px solid var(--grey-line); border-radius:14px; box-shadow:var(--shadow-lg); padding:8px; opacity:0; visibility:hidden; transform:translateY(8px); transition:.22s ease; }
@@ -96,7 +109,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .search-close:hover{ color:var(--red); }
 .search-results{ max-height:60vh; overflow-y:auto; }
 .search-hint{ padding:26px 20px; color:var(--grey-text); font-size:.95rem; text-align:center; }
-.search-hint a{ color:var(--red); font-weight:600; }
+.search-hint a{ color:var(--red-text); font-weight:600; }
 .search-hit{ display:block; padding:14px 18px; border-bottom:1px solid var(--grey-bg); color:inherit; transition:.15s; }
 .search-hit:last-child{ border-bottom:none; }
 .search-hit:hover{ background:var(--grey-bg); }
@@ -106,7 +119,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .search-hit mark{ background:rgba(232,51,75,.18); color:inherit; border-radius:3px; padding:0 1px; }
 @media(max-width:560px){ .search-overlay{ padding:64px 12px 16px; } .search-results{ max-height:66vh; } }
 
-.emergency{ background:var(--red); color:#fff; font-weight:600; font-size:.9rem; padding:12px 20px; border-radius:50px; display:inline-flex; align-items:center; gap:8px; transition:.2s; white-space:nowrap; }
+.emergency{ background:var(--red-dark); color:#fff; font-weight:600; font-size:.9rem; padding:12px 20px; border-radius:50px; display:inline-flex; align-items:center; gap:8px; transition:.2s; white-space:nowrap; }
 .emergency:hover{ background:var(--red-dark); transform:translateY(-2px); box-shadow:0 8px 20px rgba(232,51,75,.4); }
 .emergency span.full{ display:none; } /* ปุ่มฉุกเฉินเป็นไอคอนอย่างเดียว — ข้อความเต็มยาวเกินจนเมนูล้นจอ */
 /* พื้นที่กดอย่างน้อย 44x44 ตามมาตรฐาน — ไอคอนยังเท่าเดิม แค่ขยายพื้นที่นิ้วแตะ */
@@ -170,7 +183,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
   font-size:.9rem; line-height:1.6; color:var(--grey-text); background:#fff; }
 .clinic-photo figcaption svg.ico{ flex:none; width:17px; height:17px; margin-top:.25em; color:var(--red); }
 .clinic-photo .map-btn{ position:absolute; right:14px; top:14px; display:inline-flex; align-items:center; gap:7px;
-  background:var(--red); color:#fff; font-weight:600; font-size:.88rem; padding:10px 18px; border-radius:999px;
+  background:var(--red-dark); color:#fff; font-weight:600; font-size:.88rem; padding:10px 18px; border-radius:999px;
   text-decoration:none; box-shadow:var(--shadow); }
 .clinic-photo .map-btn:hover{ background:var(--red-dark); }
 .clinic-photo .map-btn svg.ico{ width:16px; height:16px; color:#fff; margin:0; }
@@ -181,9 +194,9 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .rv-score{ display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--grey-line);
   border-radius:999px; padding:10px 20px; box-shadow:var(--shadow); }
 .rv-score b{ font-size:1.35rem; line-height:1; }
-.rv-score .stars{ color:#F5A623; letter-spacing:1px; font-size:1rem; }
+.rv-score .stars{ color:#A66000; letter-spacing:1px; font-size:1rem; }
 .rv-score span{ color:var(--grey-text); font-size:.9rem; }
-.rv-score a{ color:var(--red); font-weight:600; font-size:.9rem; white-space:nowrap; }
+.rv-score a{ color:var(--red-text); font-weight:600; font-size:.9rem; white-space:nowrap; }
 
 .rv-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
 .rv-card{ background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius);
@@ -193,7 +206,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 /* เครื่องหมายคำพูดจาง ๆ เป็นพื้นหลัง */
 .rv-card::before{ content:"\201C"; position:absolute; top:2px; right:20px;
   font-family:Georgia,serif; font-size:5rem; line-height:1; color:var(--red); opacity:.10; }
-.rv-stars{ color:#F5A623; font-size:1.05rem; letter-spacing:2px; margin-bottom:14px; }
+.rv-stars{ color:#A66000; font-size:1.05rem; letter-spacing:2px; margin-bottom:14px; }
 .rv-text{ font-size:1rem; line-height:1.9; color:var(--ink-soft); flex:1; }
 .rv-by{ display:flex; align-items:center; gap:9px; margin-top:20px; padding-top:16px;
   border-top:1px solid var(--grey-bg); font-size:.88rem; color:var(--grey-text); }
@@ -224,7 +237,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .faq-a{ padding:2px 20px 20px; color:var(--grey-text); line-height:1.85; }
 .faq-a p + p{ margin-top:10px; }
 .faq-a ul{ margin:10px 0 0 20px; display:grid; gap:7px; }
-.faq-a a{ color:var(--red); font-weight:500; }
+.faq-a a{ color:var(--red-text); font-weight:500; }
 @media(prefers-reduced-motion:reduce){ .faq-item summary::after{ transition:none } }
 
 /* รูปคู่ในหน้าบริการ — รูปสูงเท่ากันเสมอ ไม่ว่าไฟล์จะเป็นแนวตั้งหรือแนวนอน */
@@ -245,13 +258,13 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .about-map{ position:relative; border-radius:var(--radius); overflow:hidden; aspect-ratio:4/3; box-shadow:var(--shadow); background:var(--grey-bg); }
 .about-map iframe{ width:100%; height:100%; border:0; display:block; }
 .about-map .map-btn{ position:absolute; right:14px; bottom:14px; display:inline-flex; align-items:center; gap:7px;
-  background:var(--red); color:#fff; font-weight:600; font-size:.88rem; padding:10px 18px; border-radius:999px;
+  background:var(--red-dark); color:#fff; font-weight:600; font-size:.88rem; padding:10px 18px; border-radius:999px;
   text-decoration:none; box-shadow:var(--shadow); }
 .about-map .map-btn:hover{ background:var(--red-dark); }
 .about-map .map-btn svg.ico{ width:16px; height:16px; }
 .check-list{ list-style:none; margin-top:22px; display:grid; gap:14px; }
 .check-list li{ display:flex; gap:12px; align-items:flex-start; }
-.check-list .tick{ flex:none; width:24px; height:24px; border-radius:50%; background:var(--red); color:#fff; display:grid; place-items:center; font-size:.8rem; margin-top:3px; }
+.check-list .tick{ flex:none; width:24px; height:24px; border-radius:50%; background:var(--red-dark); color:#fff; display:grid; place-items:center; font-size:.8rem; margin-top:3px; }
 
 /* ===== CARDS / SERVICES ===== */
 .bg-grey{ background:var(--grey-bg); }
@@ -277,7 +290,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .care-card .care-ic svg.ico{ width:32px; height:32px; stroke-width:1.7; }
 .care-card h3{ font-size:1.2rem; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
 .care-card p{ color:var(--grey-text); font-size:.96rem; line-height:1.7; }
-.care-tag{ font-size:.72rem; font-weight:600; letter-spacing:.4px; color:var(--red); background:rgba(232,51,75,.1); padding:3px 11px; border-radius:999px; white-space:nowrap; }
+.care-tag{ font-size:.72rem; font-weight:600; letter-spacing:.4px; color:var(--red-text); background:rgba(232,51,75,.1); padding:3px 11px; border-radius:999px; white-space:nowrap; }
 @media(max-width:560px){ .care-grid{ grid-template-columns:1fr; } .care-card{ padding:24px 22px; } }
 
 /* ===== BEFORE / AFTER GALLERY (ผลงานอาบน้ำ-ตัดขน) ===== */
@@ -289,7 +302,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .ba-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
 .ba-photo .tag{ position:absolute; top:10px; left:10px; font-size:.72rem; font-weight:600; letter-spacing:.5px; color:#fff; padding:3px 10px; border-radius:999px; }
 .ba-photo.before .tag{ background:rgba(28,26,23,.72); }
-.ba-photo.after  .tag{ background:var(--red); }
+.ba-photo.after  .tag{ background:var(--red-dark); }
 /* บังคับให้แถบรูปของทุกการ์ดสูงเท่ากัน ไม่ว่าจะเป็นรูปคู่หรือรูปเดี่ยว
    ไม่งั้นการ์ดรูปคู่ (รูปเล็กกว่าครึ่งหนึ่ง) จะเหลือช่องว่างท้ายการ์ดเยอะ */
 .ba-pair,
@@ -359,8 +372,10 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
   padding:7px 14px; cursor:pointer; white-space:nowrap; transition:.16s; }
 .chip span{ font-size:.75rem; color:var(--grey-text); font-weight:600; }
 .chip:hover{ border-color:var(--red); color:var(--red); }
-.chip.is-on{ background:var(--red); border-color:var(--red); color:#fff; }
-.chip.is-on span{ color:rgba(255,255,255,.8); }
+.chip.is-on{ background:var(--red-dark); border-color:var(--red-dark); color:#fff; }
+/* ตัวเลขในชิปที่ถูกเลือกต้องขาวเต็ม ไม่ใช่ขาวจาง
+   12px บนพื้นแดงเหลือคอนทราสต์ 4.0 ถ้าหรี่ลงอีกจะอ่านไม่ออกสำหรับหลายคน */
+.chip.is-on span{ color:#fff; }
 
 /* ช่องค้นหาสินค้าในหน้า — สินค้ามีเป็นร้อยรายการ พิมพ์หาเร็วกว่าเลื่อน */
 .prod-filter{ position:relative; display:flex; align-items:center; max-width:560px; margin:0 auto 10px; }
@@ -372,7 +387,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .prod-filter input::-webkit-search-cancel-button{ display:none; }
 .prod-filter button{ position:absolute; right:8px; width:30px; height:30px; border:0; border-radius:50%;
   background:var(--grey-bg); color:var(--grey-text); font-size:1.25rem; line-height:1; cursor:pointer; }
-.prod-filter button:hover{ background:var(--red); color:#fff; }
+.prod-filter button:hover{ background:var(--red-dark); color:#fff; }
 
 /* กลุ่มสินค้าแยกตามหมวด — เป้าหมายของลิงก์จากการ์ดหมวดด้านบน */
 /* กันหัวเว็บ + แถบกรอง (ทั้งคู่ sticky) บังหัวข้อหมวดตอนเลื่อนมา
@@ -509,7 +524,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .price-list li{ display:flex; justify-content:space-between; gap:16px; align-items:baseline; padding:12px 2px; border-top:1px dashed var(--grey-line); }
 .price-list li:first-child{ border-top:none; }
 .price-list .p-name{ color:var(--ink-soft); }
-.price-list .p-val{ font-weight:700; color:var(--red); white-space:nowrap; }
+.price-list .p-val{ font-weight:700; color:var(--red-text); white-space:nowrap; }
 .price-hint{ color:var(--grey-text); font-size:.86rem; margin-top:14px; line-height:1.6; }
 /* จอแคบ: ราคายาวจะบีบชื่อบริการจนตัดบรรทัด — เรียงลงล่างแทน */
 @media(max-width:480px){
@@ -534,7 +549,7 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .pr-name small{ font-size:.82rem; color:var(--grey-text); line-height:1.5; }
 .pr-tag{ align-self:flex-start; margin-top:5px; font-size:.72rem; font-weight:600; color:var(--grey-text);
   background:var(--grey-bg); border-radius:999px; padding:2px 9px; }
-.pr-val{ white-space:nowrap; font-weight:700; color:var(--red); font-size:1.02rem; }
+.pr-val{ white-space:nowrap; font-weight:700; color:var(--red-text); font-size:1.02rem; }
 .pr-val i{ display:block; font-style:normal; font-size:.72rem; font-weight:500; color:var(--grey-text); text-align:right; }
 .pr-val.ask{ color:var(--grey-text); font-weight:600; font-size:.88rem; }
 
@@ -585,7 +600,8 @@ nav{ display:flex; align-items:center; justify-content:space-between; height:84p
 .hours-row:last-child{ border-bottom:none; }
 .hours-row .day{ font-weight:500; }
 .hours-row .time{ opacity:.8; }
-.hours-row.alert .time{ color:var(--red); font-weight:600; }
+/* .info เป็นพื้นเข้ม ตัวหนังสือแดงตรงนี้ต้องใช้แดงตัวสว่าง */
+.hours-row.alert .time{ color:var(--red-on-dark); font-weight:600; }
 .contact-item{ display:flex; gap:14px; align-items:flex-start; padding:14px 0; }
 .contact-item .ic{ flex:none; width:42px; height:42px; border-radius:12px; background:var(--red); display:grid; place-items:center; font-size:1.1rem; }
 .contact-item b{ display:block; }
@@ -628,7 +644,7 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
 .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
 .field{ margin-bottom:16px; }
 .field label{ display:block; font-size:.9rem; font-weight:500; margin-bottom:7px; }
-.field label .req{ color:var(--red); }
+.field label .req{ color:var(--red-text); }
 .field input,.field select,.field textarea{ width:100%; font-family:'Kanit',sans-serif; font-size:.95rem; padding:13px 14px; border:1.5px solid var(--grey-line); border-radius:11px; background:#fff; transition:.2s; color:var(--black); }
 .field input:focus,.field select:focus,.field textarea:focus{ outline:none; border-color:var(--red); box-shadow:0 0 0 3px rgba(232,51,75,.12); }
 .field textarea{ resize:vertical; min-height:90px; }
@@ -662,7 +678,7 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
 .vet-ic svg.ico{ width:29px; height:29px; stroke-width:1.7; }
 .vet-body{ min-width:0; }
 .vet-card h3{ font-size:1.13rem; font-weight:700; line-height:1.4; }
-.vet-role{ color:var(--red); font-size:.86rem; font-weight:600; margin:2px 0 12px; }
+.vet-role{ color:var(--red-text); font-size:.86rem; font-weight:600; margin:2px 0 12px; }
 .vet-facts{ list-style:none; display:flex; flex-direction:column; gap:8px; }
 .vet-facts li{ display:flex; gap:9px; align-items:flex-start; color:var(--grey-text);
   font-size:.92rem; line-height:1.6; }
@@ -680,10 +696,10 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
 .roadmap{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:50px; text-align:left; }
 .step{ background:#fff; border:1px solid var(--grey-line); border-radius:var(--radius); padding:30px; }
 .step .num{ width:46px; height:46px; border-radius:50%; background:var(--black); color:#fff; font-weight:700; display:grid; place-items:center; margin-bottom:16px; }
-.step.active .num{ background:var(--red); }
+.step.active .num{ background:var(--red-dark); }
 .step h4{ font-size:1.1rem; margin-bottom:6px; }
 .step p{ color:var(--grey-text); font-size:.93rem; }
-.step .tag{ font-size:.78rem; font-weight:600; color:var(--red); }
+.step .tag{ font-size:.78rem; font-weight:600; color:var(--red-text); }
 
 /* ===== ARTICLES ===== */
 .article-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
@@ -695,10 +711,10 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
   display:grid; place-items:center; border-bottom:1px solid var(--grey-line); }
 .article-card .body{ padding:20px 22px 22px; display:flex; flex-direction:column; flex:1; }
 .article-card .cat{ font-size:.76rem; font-weight:600; color:var(--grey-text); letter-spacing:.3px; }
-.article-card .cat.urgent{ color:var(--red); }          /* ใช้สีแดงเฉพาะหมวดฉุกเฉิน ให้สีมีความหมาย */
+.article-card .cat.urgent{ color:var(--red-text); }          /* ใช้สีแดงเฉพาะหมวดฉุกเฉิน ให้สีมีความหมาย */
 .article-card h3{ font-size:1.1rem; margin:6px 0 8px; font-weight:600; line-height:1.5; }
 .article-card p{ color:var(--grey-text); font-size:.92rem; flex:1; }
-.article-card .read{ display:inline-block; margin-top:14px; font-weight:600; color:var(--red); font-size:.9rem; }
+.article-card .read{ display:inline-block; margin-top:14px; font-weight:600; color:var(--red-text); font-size:.9rem; }
 
 /* บทความเด่น — กินสองคอลัมน์ วางไอคอนซ้าย เนื้อหาขวา สร้างลำดับสายตา */
 /* ปกบทความ — ภาพออกแบบมาเป็น 3:2 มีพาดหัวอยู่ในรูป ต้องแสดงเต็มสัดส่วน
@@ -741,7 +757,7 @@ footer svg.ico{ width:16px; height:16px; vertical-align:-.2em; margin-right:7px;
 @media(max-width:560px){ .article-card.featured{ grid-column:span 1; } }
 
 /* ===== CTA ===== */
-.cta-band{ background:var(--red); color:#fff; border-radius:28px; padding:60px 40px; text-align:center; box-shadow:var(--shadow-lg); }
+.cta-band{ background:var(--red-dark); color:#fff; border-radius:28px; padding:60px 40px; text-align:center; box-shadow:var(--shadow-lg); }
 .cta-band h2{ font-size:clamp(1.6rem,4vw,2.3rem); font-weight:700; margin-bottom:14px; }
 .cta-band p{ opacity:.9; margin-bottom:28px; }
 
