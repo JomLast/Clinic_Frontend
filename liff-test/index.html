@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- หน้าทดสอบภายใน ไม่ให้กูเกิลเก็บ และไม่มีลิงก์จากที่ไหนชี้มา
+     ทดสอบการเชื่อม LIFF เสร็จเมื่อไหร่ ลบทั้งโฟลเดอร์นี้ทิ้งได้เลย -->
+<meta name="robots" content="noindex, nofollow" />
+<title>ตรวจการเชื่อมต่อไลน์ — เอเชียเพ็ท</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #f6f2ea; color: #1a1a1a; padding: 18px 14px 60px;
+    line-height: 1.6; max-width: 560px; margin: 0 auto;
+  }
+  h1 { font-size: 1.15rem; margin-bottom: 4px; }
+  .sub { font-size: .85rem; color: #777; margin-bottom: 18px; }
+  .row {
+    background: #fff; border: 1px solid #e5ded2; border-radius: 12px;
+    padding: 11px 14px; margin-bottom: 8px; display: flex; gap: 10px;
+  }
+  .row .ic { flex: none; width: 1.4em; text-align: center; }
+  .row b { font-size: .92rem; display: block; }
+  .row small { font-size: .8rem; color: #666; word-break: break-all; display: block; }
+  .row.ok   { border-color: #b7d8b7; }
+  .row.bad  { border-color: #e2b0b0; background: #fdf6f6; }
+  .row.wait { opacity: .55; }
+  .fix {
+    margin-top: 4px; font-size: .8rem; color: #a33;
+    background: #faeaea; border-radius: 8px; padding: 6px 10px;
+  }
+  input {
+    width: 100%; font: inherit; padding: 12px 14px; border: 1px solid #cbc2b2;
+    border-radius: 10px; margin: 6px 0 10px;
+  }
+  button {
+    font: inherit; font-weight: 600; width: 100%; padding: 13px;
+    border: 0; border-radius: 10px; background: #06c755; color: #fff; cursor: pointer;
+  }
+  button.grey { background: #555; margin-top: 8px; }
+  #setup, #login, #copy { display: none; }
+  .note { font-size: .8rem; color: #888; margin-top: 14px; }
+  pre {
+    background: #1e1e1e; color: #ddd; font-size: .72rem; border-radius: 10px;
+    padding: 12px; overflow-x: auto; margin-top: 14px; display: none;
+  }
+</style>
+</head>
+<body>
+<h1>ตรวจการเชื่อมต่อไลน์</h1>
+<p class="sub">หน้าทดสอบภายในของเอเชียเพ็ท — ไม่เก็บข้อมูลใด ๆ</p>
+
+<div id="setup">
+  <div class="row"><div class="ic">🔑</div><div>
+    <b>ใส่ LIFF ID ก่อน</b>
+    <small>เอามาจาก LINE Developers → LINE Login channel → แท็บ LIFF
+    หน้าตาแบบ 2001234567-AbCdEfGh — ใส่ครั้งเดียว เครื่องนี้จะจำไว้</small>
+  </div></div>
+  <input id="liffIn" placeholder="2001234567-AbCdEfGh" autocomplete="off" />
+  <button id="startBtn">เริ่มทดสอบ</button>
+</div>
+
+<div id="checks"></div>
+<button id="login">เข้าสู่ระบบด้วยไลน์เพื่อทดสอบต่อ</button>
+<button id="copy" class="grey">คัดลอกผลทั้งหมด (ส่งให้ Claude ได้)</button>
+<pre id="out"></pre>
+<p class="note" id="resetLine" style="display:none">
+  ใช้ LIFF ID อื่น: <a href="#" id="reset">ล้างค่าแล้วใส่ใหม่</a>
+</p>
+
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+        onerror="window.__sdkFail = true"></script>
+<script>
+(function () {
+  "use strict";
+  var $ = function (s) { return document.querySelector(s); };
+  var lines = [];   // เก็บผลเป็นข้อความ ไว้ให้ปุ่มคัดลอก
+
+  function row(state, title, detail, fix) {
+    var ic = state === "ok" ? "✅" : state === "bad" ? "❌" : "⏳";
+    var el = document.createElement("div");
+    el.className = "row " + state;
+    el.innerHTML = '<div class="ic">' + ic + '</div><div><b></b><small></small></div>';
+    el.querySelector("b").textContent = title;
+    el.querySelector("small").textContent = detail || "";
+    if (fix) {
+      var f = document.createElement("div");
+      f.className = "fix";
+      f.textContent = "วิธีแก้: " + fix;
+      el.querySelector("div:last-child").appendChild(f);
+    }
+    $("#checks").appendChild(el);
+    lines.push(ic + " " + title + (detail ? " — " + detail : "") + (fix ? " | แก้: " + fix : ""));
+    return el;
+  }
+
+  /* ---- หา LIFF ID: จาก URL ก่อน แล้วค่อยจากที่เคยจำไว้ ---- */
+  var qs = new URLSearchParams(location.search);
+  var liffId = qs.get("liff") || "";
+  try { if (!liffId) liffId = localStorage.getItem("asiapet-liff-test") || ""; } catch (e) {}
+  liffId = liffId.trim();
+
+  $("#startBtn").addEventListener("click", function () {
+    var v = $("#liffIn").value.trim();
+    if (!/^\d{10}-\w{8}$/.test(v)) { alert("หน้าตา LIFF ID ไม่ถูก ต้องเป็นแบบ 2001234567-AbCdEfGh"); return; }
+    try { localStorage.setItem("asiapet-liff-test", v); } catch (e) {}
+    location.search = "?liff=" + encodeURIComponent(v);
+  });
+  $("#reset").addEventListener("click", function (e) {
+    e.preventDefault();
+    try { localStorage.removeItem("asiapet-liff-test"); } catch (err) {}
+    location.href = location.pathname;
+  });
+  $("#copy").addEventListener("click", function () {
+    var txt = "ผลทดสอบ LIFF เอเชียเพ็ท " + new Date().toLocaleString("th-TH") + "\n" + lines.join("\n");
+    $("#out").textContent = txt;
+    $("#out").style.display = "block";
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () {
+      $("#copy").textContent = "คัดลอกแล้ว ✓";
+    });
+  });
+
+  if (!liffId) { $("#setup").style.display = "block"; return; }
+  $("#resetLine").style.display = "block";
+
+  /* ---- เริ่มไล่ตรวจ ---- */
+  if (window.__sdkFail || typeof liff === "undefined") {
+    row("bad", "โหลด SDK ของไลน์", "ดึงไฟล์จาก static.line-scdn.net ไม่ได้",
+        "เช็คอินเทอร์เน็ต หรือลองเครือข่ายอื่น");
+    $("#copy").style.display = "block";
+    return;
+  }
+  row("ok", "โหลด SDK ของไลน์", "เวอร์ชัน " + (liff.getVersion ? liff.getVersion() : "?"));
+
+  liff.init({ liffId: liffId })
+    .then(function () {
+      row("ok", "liff.init สำเร็จ", "LIFF ID: " + liffId);
+
+      var inClient = liff.isInClient();
+      row("ok", inClient ? "เปิดจากในแอปไลน์" : "เปิดจากเบราว์เซอร์ข้างนอก",
+          "OS: " + liff.getOS() + " · ภาษา: " + liff.getLanguage() +
+          (inClient ? "" : " — ของจริงลูกค้าจะเปิดจากริชเมนูในไลน์ ลองทั้งสองทางได้"));
+
+      if (!liff.isLoggedIn()) {
+        row("wait", "ยังไม่ได้ล็อกอิน", "กดปุ่มข้างล่างเพื่อล็อกอินไลน์แล้วเด้งกลับมาตรวจต่อ");
+        $("#login").style.display = "block";
+        $("#login").addEventListener("click", function () {
+          liff.login({ redirectUri: location.href });
+        });
+        $("#copy").style.display = "block";
+        return;
+      }
+      row("ok", "ล็อกอินแล้ว");
+
+      /* ---- หัวใจของการทดสอบ: ID token ----
+         ระบบสมาชิกยืนตัวตนบนตัวนี้ตัวเดียว ถ้าไม่ได้มา = ลืมติ๊ก openid */
+      var idToken = liff.getIDToken();
+      if (!idToken) {
+        row("bad", "ไม่ได้ ID token",
+            "ล็อกอินผ่านแต่ไลน์ไม่ยอมออกบัตรผ่านให้",
+            "ไปที่ LIFF app ใน LINE Developers ติ๊ก scope 'openid' แล้วล็อกอินใหม่ " +
+            "(กดล้างค่าด้านล่างแล้วเริ่มใหม่)");
+        $("#copy").style.display = "block";
+        return;
+      }
+      var payload = {};
+      try {
+        payload = JSON.parse(atob(idToken.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+      } catch (e) {}
+      row("ok", "ได้ ID token แล้ว (scope openid ถูกต้อง)",
+          "ยาว " + idToken.length + " ตัวอักษร · หมดอายุ " +
+          (payload.exp ? new Date(payload.exp * 1000).toLocaleString("th-TH") : "?"));
+
+      /* sub คือรหัสผู้ใช้ที่ระบบแต้มใช้ผูกทุกอย่าง
+         จดไว้ — ถ้าวันหลังทำ Messaging API แล้วรหัสไม่ตรงกับตัวนี้
+         แปลว่า channel อยู่คนละ Provider ซึ่งต้องรื้อ ห้ามปล่อยผ่าน */
+      var subOk = typeof payload.sub === "string" && payload.sub.charAt(0) === "U";
+      row(subOk ? "ok" : "bad", "รหัสผู้ใช้ (sub)", payload.sub || "ไม่มีใน token",
+          subOk ? null : "token ไม่มี sub — แจ้ง Claude พร้อมผลชุดนี้");
+      row("ok", "ออกให้ channel (aud)", String(payload.aud || "?") +
+          " — ต้องตรงกับ Channel ID ของ LINE Login channel");
+      if (payload.name) row("ok", "ชื่อโปรไฟล์", payload.name);
+
+      /* เทียบกับ getProfile อีกทาง ให้แน่ใจว่าเป็นรหัสเดียวกัน */
+      liff.getProfile().then(function (p) {
+        row(p.userId === payload.sub ? "ok" : "bad",
+            "getProfile ให้รหัสเดียวกับ token",
+            p.userId + (p.userId === payload.sub ? " (ตรงกัน)" : " ≠ " + payload.sub));
+      }).catch(function (e) {
+        row("bad", "getProfile ล้มเหลว", String(e && e.message || e),
+            "ติ๊ก scope 'profile' ใน LIFF app");
+      }).then(function () {
+        row("ok", "ทดสอบครบ 🎉",
+            "การเชื่อม LIFF ใช้ได้จริง — ขั้นต่อไปคือฝั่ง Supabase ตาม SETUP.md");
+        $("#copy").style.display = "block";
+      });
+    })
+    .catch(function (e) {
+      var msg = String(e && e.message || e);
+      var fix = /invalid.*liff|not found|4041/i.test(msg)
+        ? "LIFF ID ไม่ถูก หรือยังไม่ได้กด Publish — เช็คใน LINE Developers แล้วกดล้างค่าใส่ใหม่"
+        : /endpoint|url/i.test(msg)
+          ? "Endpoint URL ใน LIFF app ต้องเป็น https://asiapethospital.com/liff-test/ เป๊ะ ๆ"
+          : "ถ่ายหน้าจอนี้ส่งให้ Claude";
+      row("bad", "liff.init ล้มเหลว", msg, fix);
+      $("#copy").style.display = "block";
+    });
+})();
+</script>
+</body>
+</html>
