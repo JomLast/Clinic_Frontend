@@ -182,6 +182,13 @@
    คีย์นี้เปิดเผยในโค้ดได้ ปลอดภัย ใครเห็นก็ทำได้แค่ส่งข้อความหาคลินิก */
 const WEB3FORMS_KEY = "d3b04c4b-a4fb-4cc1-a1b1-6433e157358e";
 
+/* ===== แจ้งเตือนเข้าไลน์ (ปิดอยู่จนกว่าจะใส่ URL) =====
+   ใส่ URL ของ Cloudflare Worker แล้วใบจองจะเด้งเข้าไลน์กลุ่มพนักงานทันที
+   ที่ทำเป็นสวิตช์เปิดปิดแบบนี้เพราะอีเมลยังต้องทำงานได้เหมือนเดิมทุกกรณี
+   เว้นว่าง = ไม่ยิงอะไรเลย ไม่มีคำขอออกไปหาที่ไหนทั้งนั้น
+   วิธีติดตั้งอยู่ใน line-notify/README.md */
+const LINE_NOTIFY_URL = "";
+
 const form = document.getElementById("bookingForm");
 const successBox = document.getElementById("formSuccess");
 
@@ -231,6 +238,26 @@ if (form) {
       showError();
       if (btn) { btn.disabled = false; btn.textContent = oldText; }
       return;
+    }
+
+    /* ยิงเข้าไลน์แบบไม่รอผล และไม่ผูกกับข้อความที่ลูกค้าเห็น
+       เพราะถ้าฝั่งไลน์ล่ม ใบจองต้องยังเข้าอีเมลได้ตามปกติ ลูกค้าไม่ควร
+       เห็นว่าส่งไม่สำเร็จทั้งที่คลินิกได้รับเรียบร้อยแล้วทางอีเมล */
+    if (LINE_NOTIFY_URL) {
+      fetch(LINE_NOTIFY_URL.replace(/\/+$/, "") + "/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          owner: payload["ชื่อเจ้าของ"],
+          phone: payload["เบอร์โทร"],
+          pet:   payload["ชื่อสัตว์เลี้ยง"],
+          type:  payload["ชนิดสัตว์"],
+          date:  payload["วันที่ต้องการ"],
+          time:  payload["ช่วงเวลา"],
+          note:  payload["อาการ/บริการ"],
+          botcheck: f.botcheck.checked,
+        }),
+      }).catch(() => { /* เงียบไว้ ไม่รบกวนลูกค้า */ });
     }
 
     try {
